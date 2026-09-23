@@ -2,51 +2,103 @@ import React, { useState } from 'react';
 import { CyberHeader } from './CyberHeader';
 import { CyberMatrixRain } from './CyberMatrixRain';
 import { CyberJourney } from './CyberJourney';
-import { CyberTerminalModal } from './CyberTerminalModal';
+import { CyberOperatorPanel } from './CyberOperatorPanel';
+import { type OperatorPersona } from '../data/operatorPersonas';
+import { Bot, Layers } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const [viewMode, setViewMode] = useState<'journey' | 'expedition'>('journey');
-  const [isTerminalOpen, setIsTerminalOpen] = useState<boolean>(false);
+  const [currentPersona, setCurrentPersona] = useState<OperatorPersona>('PROJECT_2501');
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [externalDimension, setExternalDimension] = useState<string | null>(null);
+  const [mobileTab, setMobileTab] = useState<'operator' | 'viewport'>('viewport');
 
-  const toggleViewMode = () => {
-    setViewMode((prev) => (prev === 'journey' ? 'expedition' : 'journey'));
+  const handleNodeSelectFromViewport = (nodeId: string) => {
+    setSelectedNodeId(nodeId);
+  };
+
+  const handleTriggerDimensionFromCLI = (dimId: string) => {
+    setExternalDimension(dimId);
+    setMobileTab('viewport'); // Switch to viewport on mobile if dimension triggered
   };
 
   return (
-    <div className="relative min-h-screen bg-cyber-void text-cyber-textBright overflow-hidden flex flex-col justify-between">
+    <div className="relative min-h-screen bg-cyber-void text-cyber-textBright overflow-x-hidden flex flex-col justify-between">
       
-      {/* Background Matrix/GitS Rain */}
-      <CyberMatrixRain opacity={0.18} />
+      {/* Background Matrix/GitS Rain Canvas */}
+      <CyberMatrixRain opacity={0.16} />
 
       {/* Top HUD Telemetry Navigation */}
       <CyberHeader
-        onOpenTerminal={() => setIsTerminalOpen(true)}
-        viewMode={viewMode}
-        onToggleViewMode={toggleViewMode}
+        currentPersona={currentPersona}
+        onPersonaChange={setCurrentPersona}
       />
 
-      {/* Main Interactive Journey Area */}
-      <main className="flex-1 pb-16">
-        <CyberJourney 
-          viewMode={viewMode} 
-          onSetViewMode={(mode) => setViewMode(mode === 'expedition' ? 'expedition' : 'journey')} 
-        />
+      {/* Mobile Tab Switcher */}
+      <div className="lg:hidden sticky top-14 z-30 bg-cyber-void/90 backdrop-blur-md px-4 py-2 border-b border-cyber-border font-mono text-xs flex gap-2">
+        <button
+          onClick={() => setMobileTab('viewport')}
+          className={`flex-1 py-1.5 rounded border flex items-center justify-center gap-1.5 transition-all ${
+            mobileTab === 'viewport'
+              ? 'bg-gits-cyan/20 border-gits-cyan text-gits-cyan font-bold shadow-sm'
+              : 'border-cyber-border text-cyber-textMuted'
+          }`}
+        >
+          <Layers className="w-3.5 h-3.5" />
+          <span>VIEWPORT (CONSTRUCTO)</span>
+        </button>
+
+        <button
+          onClick={() => setMobileTab('operator')}
+          className={`flex-1 py-1.5 rounded border flex items-center justify-center gap-1.5 transition-all ${
+            mobileTab === 'operator'
+              ? 'bg-matrix-green/20 border-matrix-green text-matrix-green font-bold shadow-sm'
+              : 'border-cyber-border text-cyber-textMuted'
+          }`}
+        >
+          <Bot className="w-3.5 h-3.5" />
+          <span>OPERADOR IA ({currentPersona === 'PROJECT_2501' ? '2501' : 'HLM'})</span>
+        </button>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* CYBER-DECK SPLIT-SCREEN MAIN STAGE                                        */}
+      {/* ========================================================================= */}
+      <main className="relative z-10 flex-1 max-w-[1600px] w-full mx-auto p-3 sm:p-5 lg:p-6">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          {/* Left Panel: AI Operator Console (4.5 of 12 cols in Desktop) */}
+          <div className={`lg:col-span-5 xl:col-span-4 ${mobileTab === 'operator' ? 'block' : 'hidden lg:block'} sticky lg:top-20`}>
+            <CyberOperatorPanel
+              currentPersona={currentPersona}
+              onPersonaChange={setCurrentPersona}
+              selectedNodeId={selectedNodeId}
+              onTriggerDimensionSelect={handleTriggerDimensionFromCLI}
+            />
+          </div>
+
+          {/* Right Panel: Holographic Viewport & Journey (7.5 of 12 cols in Desktop) */}
+          <div className={`lg:col-span-7 xl:col-span-8 ${mobileTab === 'viewport' ? 'block' : 'hidden lg:block'}`}>
+            <CyberJourney
+              currentPersona={currentPersona}
+              onNodeSelectForOperator={handleNodeSelectFromViewport}
+              externalDimension={externalDimension}
+            />
+          </div>
+
+        </div>
+
       </main>
 
-      {/* Terminal Modal for AI & Hacker Interaction */}
-      <CyberTerminalModal
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
-      />
-
       {/* Cyber Footer */}
-      <footer className="relative z-10 border-t border-cyber-border/80 bg-cyber-void/90 py-6 px-4 font-mono text-xs text-cyber-textMuted">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
+      <footer className="relative z-10 border-t border-cyber-border/80 bg-cyber-void/90 py-5 px-4 font-mono text-xs text-cyber-textMuted">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-2">
             <span className="text-matrix-green">■</span>
-            <span>hugolemoy.ninja // CONSTRUCTO MULTIDIMENSIONAL</span>
+            <span>HUGOSYSTEM // CYBER-DECK v2026.09</span>
           </div>
-          <div className="flex items-center gap-4 text-[11px]">
+
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px]">
             <a href="https://github.com/HugoLeMoy47" target="_blank" rel="noopener noreferrer" className="hover:text-gits-cyan">
               GitHub
             </a>
@@ -57,11 +109,12 @@ export const App: React.FC = () => {
               Freejolitos
             </a>
             <a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="text-matrix-green hover:underline">
-              /llms.txt
+              /llms.txt (UTF-8)
             </a>
           </div>
+
           <div className="text-[10px] text-cyber-textMuted/60">
-            Hosted on Cloudflare Pages · AI & Human Friendly
+            Awwwards-grade Vanity Project · AI Operator & Holographic Viewport
           </div>
         </div>
       </footer>
