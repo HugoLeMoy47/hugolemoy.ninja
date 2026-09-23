@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hugolemoy.ninja/sitemap-index.xml
+Disallow:
+
+# AI Discovery & Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /

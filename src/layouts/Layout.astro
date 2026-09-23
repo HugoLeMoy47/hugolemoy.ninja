@@ -1,0 +1,102 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Hugo Legorreta Moysén (HLM) — Cyber-Hub & Portafolio Multidimensional",
+  description = "Portafolio interactivo de Hugo Legorreta Moysén: Product Owner, consultor en Freejolitos, activista en La Comuna 42 (#Capital420), anfitrión de CNNN y creador de videojuegos.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://hugolemoy.ninja");
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Hugo Legorreta Moysén",
+  "alternateName": ["Hugo LeMoy", "HLM", "HugoLeMoy47"],
+  "url": "https://hugolemoy.ninja",
+  "jobTitle": "Product Owner & IT Project Manager",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Freejolitos Consultores",
+    "url": "https://freejolitos.consulting"
+  },
+  "description": description,
+  "sameAs": [
+    "https://github.com/HugoLeMoy47",
+    "https://linkedin.com/in/hugolegorretamoysen",
+    "https://freejolitos.consulting",
+    "https://globalgamejam.org/users/hugolemoy",
+    "https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7"
+  ],
+  "knowsAbout": [
+    "Product Management",
+    "Agile Scrum",
+    "Serious Games",
+    "Cannabis Public Policy",
+    "Freejolitos",
+    "Data Governance",
+    "TypeScript",
+    "Python",
+    "Godot Engine"
+  ]
+};
+---
+
+<!doctype html>
+<html lang="es" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#05080c" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="hugolemoy.ninja" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <!-- LLMs / AI Agents Discovery Link -->
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Agent Manifest" />
+
+    <!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Space+Grotesk:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Structured Data Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  </head>
+  <body class="bg-cyber-void text-cyber-textBright min-h-screen selection:bg-matrix-green selection:text-black relative">
+    
+    <!-- CRT Scanline Overlay -->
+    <div class="fixed inset-0 scanlines-overlay z-30 pointer-events-none"></div>
+
+    <slot />
+
+  </body>
+</html>
