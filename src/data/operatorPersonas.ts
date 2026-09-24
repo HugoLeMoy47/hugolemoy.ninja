@@ -36,7 +36,7 @@ export const PERSONAS_META: Record<OperatorPersona, PersonaMeta> = {
 
 export const NODE_COMMENTARY: Record<OperatorPersona, Record<string, string>> = {
   PROJECT_2501: {
-    'freejolitos-core': 'Sector 01 indexado: Protocolo Freejolitos. Transferencia tecnológica hacia el tejido social vulnerable. La privacidad de los marginados permanece sellada; la IA se utiliza como herramienta de análisis sin retención de datos biográficos.',
+    'freejolitos-core': 'Sector 01 indexado: Protocolo Freejolitos. Transferencia tecnológica hacia quienes sostienen causas humanitarias: consultoría, ciberseguridad y desarrollo a la medida. La privacidad de las personas atendidas permanece sellada.',
     'legalizala-tycoon': 'Simulador legislativo 2501: Las leyes son líneas de código social con bugs sistémicos. Este artefacto modela la resistencia comunitaria contra la inercia burocrática del Estado.',
     'bit2fit-ggj': 'Protocolo de supervivencia 48 horas: Sincronización rítmica en Godot Engine. La creatividad bajo constricciones extremas genera estructuras de datos resilientes.',
     'canna-gochi': 'Entidad biológico-digital: El ciclo de vida vegetal traducido a estados reactivos de TypeScript. Vigilancia de estrés y nutrición cuántica.',
@@ -47,7 +47,7 @@ export const NODE_COMMENTARY: Record<OperatorPersona, Record<string, string>> = 
     'planton-420-memoria': 'Memoria histórica: Resistencia espacial prolongada frente al Senado. Espacio liberado para el aprendizaje botánico y constitucional.',
     'weedtown-social': 'Red social autónoma: Infraestructura libre y soberana en weedtown.social. Cero algoritmos opacos, cero vigilancia corporativa y soberanía de datos para la comunidad.',
     'cnnn-noticias': 'Frecuencia abierta CNNN: Transmisión audiovisual ciudadana neutralizando la propaganda prohibicionista hegemónica con rigor periodístico.',
-    'cafemin-tracker': 'Herramienta humanitaria: Base de datos ligera para gestión de flujo de personas en tránsito forzado. Arquitectura de compasión.',
+    'osc-task-tracker': 'Herramienta humanitaria: gestor ligero de tareas para organizaciones de la sociedad civil. Primer despliegue: casa de acogida para personas en tránsito forzado. Arquitectura de compasión.',
     'calculadora-regresion': 'Algoritmo estadístico: Regresiones de mínimos cuadrados en TypeScript para proyección de embudos sin intermediarios.',
     'descargador-facturas-sat': 'Automatización fiscal: Python ejecutando extracción por lotes contra la opacidad de los portales gubernamentales.',
     'cedula-checker': 'Verificador de folios C#: Sanitización de credenciales académicas en fracciones de segundo.',
@@ -57,7 +57,7 @@ export const NODE_COMMENTARY: Record<OperatorPersona, Record<string, string>> = 
     'idea-auditor-ia-fiscal': 'Incubadora: Agente guardián de asociaciones civiles para evitar la revocación de donatarias por el SAT.',
   },
   HLM_ALTEREGO: {
-    'freejolitos-core': 'Freejolitos es mi proyecto consentido. ¿Sabías que a las OSCs chicas les cobran como si fueran bancos? Yo les pongo orden, seguridad e IA ética a precios justos y sin rodeos.',
+    'freejolitos-core': 'Freejolitos es mi proyecto consentido. ¿Sabías que a las OSCs chicas les cobran como si fueran bancos? Yo les pongo orden, ciberseguridad y desarrollo a la medida, a la escala real de cada organización. Si te interesa, agenda un diagnóstico por correo.',
     'legalizala-tycoon': '¿Has intentado pasar una iniciativa ciudadana en México? Es un infierno de cabildeos, operativos y burocracia. Por eso convertí toda esa experiencia en un juego de simulación.',
     'bit2fit-ggj': 'La Global Game Jam 2020: 48 horas sin dormir comiendo pizza y programando en Godot. Ese juego me demostró lo que se puede armar con pura pasión.',
     'canna-gochi': 'Mi intento de crear un Tamagotchi pero con una plantita que te pide agua, luz y cariño botánico. Hecho en TypeScript para pasar un buen rato.',
@@ -68,7 +68,7 @@ export const NODE_COMMENTARY: Record<OperatorPersona, Record<string, string>> = 
     'planton-420-memoria': 'El Plantón 420 frente al Senado fue histórico. Sembrar plantas frente a los legisladores para que entendieran que una planta no hace delincuente a nadie.',
     'weedtown-social': 'En weedtown.social me aventé a construir mi propia red social con vibe-coding para zafarnos de la censura de Facebook e Instagram. Un espacio libre donde la banda puede cotorrear y compartir autocultivo sin que te tiren la cuenta.',
     'cnnn-noticias': 'En CNNN me puse el traje y me senté frente a las cámaras en Jotvox a desmenuzar las sentencias de la Suprema Corte. Chécate el video que dejé en la tarjeta.',
-    'cafemin-tracker': 'CAFEMIN recibe a cientos de migrantes diario. Hice este task-tracker para que el equipo operativo no se volviera loco con papelitos perdidos.',
+    'osc-task-tracker': 'Lo hice pensando en CAFEMIN, que atiende a muchísimas personas migrantes, para que el equipo operativo no se volviera loco con papelitos perdidos. Sirve para cualquier OSC con operación diaria.',
     'calculadora-regresion': 'Hice esta calculadora en TypeScript porque me daba flojera abrir software pesado cada vez que quería modelar tendencias de conversión en mi trabajo de PO.',
     'descargador-facturas-sat': 'El portal del SAT es una pesadilla de clics. Este script de Python me ahorra semanas de descargar PDFs y XMLs a mano.',
     'cedula-checker': 'Una utilería rápida en C# para checar cédulas profesionales al vuelo en procesos de reclutamiento técnico.',

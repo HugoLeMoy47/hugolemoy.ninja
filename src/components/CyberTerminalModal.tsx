@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Terminal as TerminalIcon, X, CornerDownLeft, Sparkles, Copy, Check } from 'lucide-react';
+import { FREEJOLITOS_CONTACT } from '../data/portfolioData';
 
 interface TerminalProps {
   isOpen: boolean;
@@ -62,7 +63,7 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
             <p className="text-matrix-green font-bold">Comandos disponibles en HUGOSYSTEM:</p>
             <p><span className="text-gits-cyan font-semibold">bio</span> — Resumen ejecutivo de Hugo Legorreta</p>
             <p><span className="text-gits-cyan font-semibold">weedtown</span> — Plataforma autónoma y soberana weedtown.social</p>
-            <p><span className="text-gits-cyan font-semibold">freejolitos</span> — Detalle de servicios y tarifas para OSCs</p>
+            <p><span className="text-gits-cyan font-semibold">freejolitos</span> — Servicios y contacto para OSCs</p>
             <p><span className="text-gits-cyan font-semibold">gamedev</span> — Trayectoria en videojuegos y Game Jams</p>
             <p><span className="text-gits-cyan font-semibold">cnnn</span> — Cannabis Network News Now y acervo audiovisual</p>
             <p><span className="text-gits-cyan font-semibold">github</span> — Lista de proyectos y repositorios de código</p>
@@ -98,14 +99,14 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
         response = (
           <div className="space-y-2 text-cyber-textBright">
             <p className="text-amberGold font-bold">Freejolitos Consultores (freejolitos.consulting):</p>
-            <p>Tecnología, auditoría e IA ética para organizaciones de la sociedad civil (OSC) en México.</p>
+            <p>Consultoría tecnológica, ciberseguridad y desarrollo a la medida para organizaciones de la sociedad civil (OSC) en México.</p>
             <ul className="list-disc list-inside text-xs space-y-1 text-cyber-textMuted">
-              <li><strong className="text-cyber-textBright">Diagnóstico y ruta crítica:</strong> $16,704 MXN (tarifa institucional).</li>
-              <li><strong className="text-cyber-textBright">Acompañamiento mensual:</strong> desde $8,120 MXN al mes.</li>
-              <li><strong className="text-cyber-textBright">Desarrollo a la medida:</strong> bajo cotización por proyecto.</li>
-              <li><strong className="text-amberGold">Política de IA:</strong> "Uso inteligencia artificial, y lo digo. Nunca con datos de beneficiarios."</li>
+              {FREEJOLITOS_CONTACT.services.map((service) => (
+                <li key={service}><strong className="text-cyber-textBright">{service}</strong></li>
+              ))}
             </ul>
-            <p className="text-xs">Web: <a href="https://freejolitos.consulting" target="_blank" className="underline text-gits-cyan">freejolitos.consulting</a> · WhatsApp: +52 55 3344 4852</p>
+            <p className="text-xs italic text-amberGold">“{FREEJOLITOS_CONTACT.quote}”</p>
+            <p className="text-xs">Web: <a href="https://freejolitos.consulting" target="_blank" className="underline text-gits-cyan">freejolitos.consulting</a> · Agenda tu diagnóstico: <a href={FREEJOLITOS_CONTACT.diagnosticMailto} className="underline text-gits-cyan">{FREEJOLITOS_CONTACT.email}</a></p>
           </div>
         );
         break;
@@ -140,7 +141,7 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
             <p>2. <span className="text-matrix-green">LegalizalaTycoon</span> — Simulador legislativo en TypeScript.</p>
             <p>3. <span className="text-matrix-green">canna-gochi</span> — Experimento de mascota virtual.</p>
             <p>4. <span className="text-matrix-green">freejolitosConsultingWeb</span> — Sitio web institucional.</p>
-            <p>5. <span className="text-matrix-green">cafemin-task-tracker</span> — Gestor para albergue migrante CAFEMIN.</p>
+            <p>5. <span className="text-matrix-green">cafemin-task-tracker</span> — Task tracker para OSC (caso de uso: CAFEMIN).</p>
             <p>6. <span className="text-matrix-green">CalculadoraWebRegresLineal</span> — Calculadora estadística web.</p>
             <p>7. <span className="text-matrix-green">descargador_facturas</span> — Script Python de facturación SAT.</p>
           </div>

@@ -73,8 +73,13 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
     if (!ctx) return;
 
     let animId: number;
-    canvas.width = size;
-    canvas.height = size;
+    // Backing store a la densidad de la pantalla (nítido en retina); se dibuja en unidades CSS
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = `${size}px`;
+    canvas.style.height = `${size}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     // =========================================================================
     // 3D WIREFRAME SHURIKEN (4-POINT BEVELED NINJA STAR)
@@ -310,7 +315,14 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
         <span>{isRedrawing ? 'REDIBUJANDO...' : `SYNC: ${syncPercent}%`}</span>
       </div>
 
-      <canvas ref={canvasRef} className="cursor-grab active:cursor-grabbing drop-shadow-[0_0_25px_rgba(255,0,85,0.25)]" />
+      {/* Halo detrás del canvas: un filtro CSS directo sobre un <canvas> animado deja de pintarse en Safari iOS */}
+      <div className="relative">
+        <div
+          aria-hidden="true"
+          className="absolute inset-8 rounded-full bg-[radial-gradient(circle,rgba(255,0,85,0.18)_0%,transparent_70%)] pointer-events-none"
+        />
+        <canvas ref={canvasRef} className="relative block cursor-grab active:cursor-grabbing" />
+      </div>
 
       {/* Bottom Telemetry Footer */}
       <div className="absolute bottom-2 text-center font-mono">

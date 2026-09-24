@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   DIMENSIONS, 
-  PORTFOLIO_NODES, 
-  type PortfolioNode, 
+  PORTFOLIO_NODES,
+  FREEJOLITOS_CONTACT,
+  type PortfolioNode,
   type DimensionMeta 
 } from '../data/portfolioData';
 import { type OperatorPersona } from '../data/operatorPersonas';
@@ -29,7 +30,9 @@ import {
   Radio,
   Zap,
   RefreshCw,
-  Users
+  Users,
+  Mail,
+  MonitorPlay
 } from 'lucide-react';
 import gsap from 'gsap';
 
@@ -67,6 +70,15 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
   const scanlineRef = useRef<HTMLDivElement | null>(null);
   const stageContentRef = useRef<HTMLDivElement | null>(null);
   const matrixGridRef = useRef<HTMLDivElement | null>(null);
+  const stageContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // Lleva la vista al borde superior de la tarjeta que se está redibujando
+  // (scroll-margin en el contenedor compensa el HUD y las pestañas sticky)
+  const scrollToStage = () => {
+    requestAnimationFrame(() => {
+      stageContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
 
   // Sync external dimension if triggered from Operator CLI
   useEffect(() => {
@@ -78,6 +90,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
         setVisitedNodes((prev) => new Set(prev).add(match.id));
       }
       triggerHolographicRepaint();
+      scrollToStage();
     }
   }, [externalDimension]);
 
@@ -172,6 +185,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       }
     }
     triggerHolographicRepaint();
+    scrollToStage();
   };
 
   const handleFocusNode = (node: PortfolioNode) => {
@@ -181,6 +195,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
     onNodeSelectForOperator(node.id);
     setViewMode('hologram');
     triggerHolographicRepaint();
+    scrollToStage();
   };
 
   const startExpedition = () => {
@@ -476,7 +491,9 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
               >
                 <div className="flex items-center justify-between mb-1">
                   {getDimensionIcon(dim.id)}
-                  <span className="text-[10px] font-bold text-slate-400 dark:text-cyber-textMuted">{dim.nodeCount}</span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-cyber-textMuted">
+                    {PORTFOLIO_NODES.filter((n) => n.dimension === dim.id).length}
+                  </span>
                 </div>
                 <div>
                   <div className="font-bold text-slate-800 dark:text-white truncate text-[11px]">{dim.name}</div>
@@ -491,7 +508,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       {/* ========================================================================= */}
       {/* HOLOGRAPHIC STAGE CONTAINER (WITH LASER SCANLINE REPAINT)                  */}
       {/* ========================================================================= */}
-      <div className="relative overflow-hidden rounded-xl border border-cyber-border/80">
+      <div ref={stageContainerRef} className="relative overflow-hidden rounded-xl border border-cyber-border/80 scroll-mt-28 lg:scroll-mt-20">
         
         {/* Underlying Blueprint Wireframe Matrix Grid */}
         <div 
@@ -626,7 +643,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
 
                     <div className="p-3 rounded bg-slate-50 dark:bg-cyber-void/80 border border-slate-200 dark:border-cyber-border space-y-1">
                       <span className="text-emerald-700 dark:text-matrix-green font-bold text-[11px] uppercase tracking-wider block">
-                        03 // Impacto y Resultado:
+                        03 // {focusedNode.impactIsProjected ? 'Impacto Proyectado:' : 'Impacto y Resultado:'}
                       </span>
                       <p className="text-slate-700 dark:text-cyber-textBright text-xs leading-relaxed">
                         {focusedNode.details.impactOrOutcome}
@@ -730,26 +747,32 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                         </a>
                       </div>
                       
-                      <div className="space-y-1.5 text-[11px]">
-                        <div className="flex justify-between p-1.5 rounded bg-white dark:bg-cyber-void/60 border border-slate-200 dark:border-cyber-border">
-                          <span>Diagnóstico y Ruta Crítica:</span>
-                          <strong className="text-amber-700 dark:text-amberGold">$16,704 MXN</strong>
-                        </div>
-                        <div className="flex justify-between p-1.5 rounded bg-white dark:bg-cyber-void/60 border border-slate-200 dark:border-cyber-border">
-                          <span>Acompañamiento Mensual:</span>
-                          <strong className="text-amber-700 dark:text-amberGold">Desde $8,120 MXN/mes</strong>
-                        </div>
-                      </div>
+                      <blockquote className="border-l-2 border-amber-500 dark:border-amberGold pl-3 text-xs italic text-slate-700 dark:text-cyber-textBright leading-relaxed">
+                        “{FREEJOLITOS_CONTACT.quote}”
+                      </blockquote>
+
+                      <ul className="space-y-1.5 text-[11px]">
+                        {FREEJOLITOS_CONTACT.services.map((service) => (
+                          <li
+                            key={service}
+                            className="flex items-center gap-2 p-1.5 rounded bg-white dark:bg-cyber-void/60 border border-slate-200 dark:border-cyber-border text-slate-800 dark:text-cyber-textBright"
+                          >
+                            <span className="text-amber-700 dark:text-amberGold font-bold">✓</span>
+                            <span>{service}</span>
+                          </li>
+                        ))}
+                      </ul>
 
                       <a
-                        href="https://wa.me/525533444852"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full py-2 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-md"
+                        href={FREEJOLITOS_CONTACT.diagnosticMailto}
+                        className="w-full py-2 rounded bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-md"
                       >
-                        <span>Escribir por WhatsApp</span>
-                        <ExternalLink className="w-3 h-3" />
+                        <Mail className="w-3.5 h-3.5" />
+                        <span>Agenda tu diagnóstico</span>
                       </a>
+                      <p className="text-[10px] text-center text-slate-500 dark:text-cyber-textMuted">
+                        {FREEJOLITOS_CONTACT.email}
+                      </p>
                     </div>
                   )}
 
@@ -761,13 +784,13 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                         <a
                           key={idx}
                           href={ev.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          {...(ev.url.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                           className="flex items-center justify-between p-2.5 rounded bg-white dark:bg-cyber-void border border-slate-200 dark:border-cyber-border hover:border-red-500 dark:hover:border-ninja-crimson hover:text-red-600 dark:hover:text-white transition-colors group shadow-sm"
                         >
                           <div className="flex items-center gap-2 truncate">
                             {ev.type === 'github' && <Github className="w-3.5 h-3.5 text-sky-600 dark:text-gits-cyan" />}
                             {ev.type === 'video' && <Play className="w-3.5 h-3.5 text-red-500" />}
+                            {ev.type === 'demo' && <MonitorPlay className="w-3.5 h-3.5 text-ninja-crimson" />}
                             {ev.type === 'link' && <ExternalLink className="w-3.5 h-3.5 text-emerald-600 dark:text-matrix-green" />}
                             {ev.type === 'doc' && <FileText className="w-3.5 h-3.5 text-amber-600 dark:text-amberGold" />}
                             <span className="truncate font-semibold text-xs text-slate-800 dark:text-cyber-textBright">{ev.title}</span>
@@ -945,7 +968,9 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                 <p className="text-cyber-textBright text-xs leading-relaxed">{activeModalNode.details.solutionOrRole}</p>
               </div>
               <div className="bg-cyber-void/70 p-3.5 rounded-lg border border-cyber-border space-y-1">
-                <span className="text-ninja-crimson font-bold text-xs uppercase tracking-wider block">03 // Impacto</span>
+                <span className="text-ninja-crimson font-bold text-xs uppercase tracking-wider block">
+                  03 // {activeModalNode.impactIsProjected ? 'Impacto Proyectado' : 'Impacto'}
+                </span>
                 <p className="text-cyber-textBright text-xs leading-relaxed">{activeModalNode.details.impactOrOutcome}</p>
               </div>
             </div>

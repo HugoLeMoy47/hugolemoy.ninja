@@ -154,8 +154,8 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
       case 'freejolitos':
         onTriggerDimensionSelect('freejolitos');
         reply = currentPersona === 'PROJECT_2501'
-          ? 'Sector Freejolitos proyectado en viewport. Tarifa de diagnóstico $16.7k e inversión mensual $8.1k para OSCs sin departamento informático.'
-          : '¡Te abrí el showcase de Freejolitos a la derecha! Ahí puedes ver los tres servicios y mandarme un WhatsApp directo.';
+          ? 'Sector Freejolitos proyectado en viewport. Consultoría, ciberseguridad y desarrollo a la medida para OSCs sin departamento informático. Canal de enlace: hola@freejolitos.consulting.'
+          : '¡Te abrí el showcase de Freejolitos a la derecha! Ahí están los servicios y el botón para agendar tu diagnóstico por correo.';
         break;
 
       case 'gamedev':
@@ -190,7 +190,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
         onTriggerDimensionSelect('github');
         reply = currentPersona === 'PROJECT_2501'
           ? 'Repositorios públicos en GitHub (@HugoLeMoy47) vinculados en el nodo 06.'
-          : 'Ahí te desplegué el tracker de CAFEMIN, mis calculadoras estadísticas y scripts de facturación.';
+          : 'Ahí te desplegué el task tracker para OSC, mis calculadoras estadísticas y scripts de facturación.';
         break;
 
       case 'redes':

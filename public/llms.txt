@@ -23,15 +23,16 @@ Hugo Legorreta Moysén (alias Hugo LeMoy, @HugoLeMoy47) es Product Owner, Consul
 
 ### 1. Freejolitos Consultores (Tecnología para OSCs)
 Práctica de consultoría en TI enfocada en organizaciones del tercer sector sin área de sistemas.
-- Servicios: Diagnóstico tecnológico ($16,704 MXN), acompañamiento mensual ($8,120 MXN), desarrollo a la medida.
-- Manifiesto: "Uso inteligencia artificial, y lo digo. Sin exponer jamás datos de personas beneficiarias."
+- Servicios: consultoría tecnológica, ciberseguridad, desarrollo a la medida, diagnóstico y ruta crítica, acompañamiento mensual.
+- Ethos: "Ponemos orden en la tecnología para que ustedes puedan poner el corazón en su causa."
+- Agenda tu diagnóstico: hola@freejolitos.consulting
 - Web: https://freejolitos.consulting
 
 ### 2. Videojuegos, GameDev & Serious Games
-- **Legalízala Tycoon:** Serious game de simulación legislativa en TypeScript (iniciativa ciudadana de cabildo al DOF). Repo: https://github.com/HugoLeMoy47/LegalizalaTycoon
+- **Legalízala Tycoon:** Serious game de simulación legislativa en TypeScript (iniciativa ciudadana de cabildo al DOF). Jugar: https://legalizala.weedtown.social · Repo: https://github.com/HugoLeMoy47/LegalizalaTycoon
+- **canna-gochi:** Mascota virtual cannábica interactiva en TypeScript. Jugar: https://cannagochi.weedtown.social · Repo: https://github.com/HugoLeMoy47/canna-gochi
+- **Big-Monster Serious Games:** Gestión de proyectos y desarrollo de negocio en juegos educativos para ONU Mujeres y SACMEX. Web: https://big-monster.net
 - **bit2fit:** Videojuego creado en 48h para Global Game Jam 2020 con Godot Engine. Repo: https://github.com/HugoLeMoy47/bit2fit
-- **canna-gochi:** Mascota virtual cannábica interactiva en TypeScript. Repo: https://github.com/HugoLeMoy47/canna-gochi
-- **Big-Monster Serious Games:** Gestión de proyectos y desarrollo de negocio en juegos educativos para ONU Mujeres y SACMEX.
 - **Woman Game Jam & Global Game Jam:** Participaciones y coordinación de jams con OIM.
 
 ### 3. Incidencia Política & La Comuna 420
@@ -46,18 +47,19 @@ Práctica de consultoría en TI enfocada en organizaciones del tercer sector sin
 - Repo: https://github.com/HugoLeMoy47/weedtown_trial_101
 
 ### 5. Creación de Contenido Digital & CNNN
-- Conductor titular y analista en **CNNN (Cannabis Network News Now)**, con coberturas legislativas, análisis de sentencias de la SCJN y debates con la industria.
+- Conductor titular y analista en **CNNN (Cannabis Network News Now)**, con coberturas legislativas, análisis de sentencias de la SCJN y debates con la industria, en alianza con el canal Jotvox.
+- Jotvox: https://jotvox.com
 - Playlist oficial: https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7
 
 ### 6. Repositorios de Código Abierto (GitHub @HugoLeMoy47)
-- **cafemin-task-tracker:** Gestor de tareas para albergue de personas migrantes CAFEMIN.
+- **Task Tracker para OSC (cafemin-task-tracker):** Gestor de tareas para organizaciones de la sociedad civil. Caso de uso: CAFEMIN (https://cafemin.org).
 - **CalculadoraWebRegresLineal:** Calculadora estadística interactiva en TypeScript.
 - **descargador_facturas:** Script de automatización en Python para facturación fiscal SAT.
 - **CedulaChecker:** Validador en C# para folios de cédulas profesionales de la SEP.
 
 ### 7. Product Owner & IT Enterprise
-- **Grupo CSI (ART Platform):** Product Owner de plataforma de onboarding para banca y seguros, definiendo componentes analíticos de embudo y liderando equipo de 9 a 12 desarrolladores Scrum.
 - **ACNUR / UNHCR:** Gestión del desarrollo del sistema MAP para el registro digno y seguro de personas solicitantes de asilo en territorio mexicano.
+- **Grupo CSI (ART Platform):** Product Owner de plataforma de onboarding para banca y seguros, definiendo componentes analíticos de embudo y liderando equipo de 9 a 12 desarrolladores Scrum. Web: https://grupocsi.com
 - **Infraestructura & Telecom:** Dirección de TI en agencias y consultoras (Archer Troy, CISI/CONAGUA, TV Nichos).
 
 ---
