@@ -3,6 +3,7 @@ import { CyberHeader } from './CyberHeader';
 import { CyberMatrixRain } from './CyberMatrixRain';
 import { CyberJourney } from './CyberJourney';
 import { CyberOperatorPanel } from './CyberOperatorPanel';
+import { CyberBootLoader } from './CyberBootLoader';
 import { type OperatorPersona } from '../data/operatorPersonas';
 import { Bot, Layers } from 'lucide-react';
 
@@ -11,6 +12,7 @@ export const App: React.FC = () => {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [externalDimension, setExternalDimension] = useState<string | null>(null);
   const [mobileTab, setMobileTab] = useState<'operator' | 'viewport'>('viewport');
+  const [isBooting, setIsBooting] = useState<boolean>(true);
 
   const handleNodeSelectFromViewport = (nodeId: string) => {
     setSelectedNodeId(nodeId);
@@ -24,13 +26,19 @@ export const App: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-cyber-void text-cyber-textBright overflow-x-hidden flex flex-col justify-between">
       
-      {/* Background Matrix/GitS Rain Canvas */}
+      {/* Cinematic Ghost Dive Boot Loader */}
+      {isBooting && (
+        <CyberBootLoader onBootComplete={() => setIsBooting(false)} />
+      )}
+
+      {/* Background Neo-Tokyo Cyber-Ninja Rain Canvas */}
       <CyberMatrixRain opacity={0.16} />
 
       {/* Top HUD Telemetry Navigation */}
       <CyberHeader
         currentPersona={currentPersona}
         onPersonaChange={setCurrentPersona}
+        onReplayBoot={() => setIsBooting(true)}
       />
 
       {/* Mobile Tab Switcher */}
@@ -39,7 +47,7 @@ export const App: React.FC = () => {
           onClick={() => setMobileTab('viewport')}
           className={`flex-1 py-1.5 rounded border flex items-center justify-center gap-1.5 transition-all ${
             mobileTab === 'viewport'
-              ? 'bg-gits-cyan/20 border-gits-cyan text-gits-cyan font-bold shadow-sm'
+              ? 'bg-ninja-crimson/20 border-ninja-crimson text-white font-bold shadow-sm'
               : 'border-cyber-border text-cyber-textMuted'
           }`}
         >
@@ -51,7 +59,7 @@ export const App: React.FC = () => {
           onClick={() => setMobileTab('operator')}
           className={`flex-1 py-1.5 rounded border flex items-center justify-center gap-1.5 transition-all ${
             mobileTab === 'operator'
-              ? 'bg-matrix-green/20 border-matrix-green text-matrix-green font-bold shadow-sm'
+              ? 'bg-gits-cyan/20 border-gits-cyan text-gits-cyan font-bold shadow-sm'
               : 'border-cyber-border text-cyber-textMuted'
           }`}
         >
@@ -77,12 +85,13 @@ export const App: React.FC = () => {
             />
           </div>
 
-          {/* Right Panel: Holographic Viewport & Journey (7.5 of 12 cols in Desktop) */}
+          {/* Right Panel: Holographic Viewport & Projection Stage (7.5 of 12 cols in Desktop) */}
           <div className={`lg:col-span-7 xl:col-span-8 ${mobileTab === 'viewport' ? 'block' : 'hidden lg:block'}`}>
             <CyberJourney
               currentPersona={currentPersona}
               onNodeSelectForOperator={handleNodeSelectFromViewport}
               externalDimension={externalDimension}
+              activeNodeId={selectedNodeId}
             />
           </div>
 
@@ -94,8 +103,8 @@ export const App: React.FC = () => {
       <footer className="relative z-10 border-t border-cyber-border/80 bg-cyber-void/90 py-5 px-4 font-mono text-xs text-cyber-textMuted">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-2">
-            <span className="text-matrix-green">■</span>
-            <span>HUGOSYSTEM // CYBER-DECK v2026.09</span>
+            <span className="text-ninja-crimson">忍</span>
+            <span>hugolemoy.ninja // CYBER-DECK v2026.09</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-[11px]">
@@ -108,13 +117,13 @@ export const App: React.FC = () => {
             <a href="https://freejolitos.consulting" target="_blank" rel="noopener noreferrer" className="text-amberGold hover:underline">
               Freejolitos
             </a>
-            <a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="text-matrix-green hover:underline">
+            <a href="/llms.txt" target="_blank" rel="noopener noreferrer" className="text-gits-cyan hover:underline">
               /llms.txt (UTF-8)
             </a>
           </div>
 
           <div className="text-[10px] text-cyber-textMuted/60">
-            Awwwards-grade Vanity Project · AI Operator & Holographic Viewport
+            Awwwards-grade Vanity Project · AI Operator & Holographic Projection Stage
           </div>
         </div>
       </footer>

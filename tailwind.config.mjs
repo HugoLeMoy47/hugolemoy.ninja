@@ -6,25 +6,25 @@ export default {
     extend: {
       colors: {
         cyber: {
-          void: '#05080c',
-          card: '#0a0f18',
-          cardHover: '#0e1724',
-          border: '#1a273a',
+          void: '#06090e',
+          card: '#0b1017',
+          cardHover: '#111824',
+          border: '#182436',
           borderGlow: '#00f0ff',
           textMuted: '#64748b',
           textBright: '#e2e8f0',
         },
-        matrix: {
-          green: '#00ff66',
-          dim: '#00aa44',
-          dark: '#003314',
-          glow: 'rgba(0, 255, 102, 0.4)',
+        ninja: {
+          crimson: '#ff0055',
+          vermilion: '#ff2a5f',
+          dark: '#3d0014',
+          glow: 'rgba(255, 0, 85, 0.45)',
         },
         gits: {
           cyan: '#00f0ff',
           dim: '#0099b8',
           dark: '#002533',
-          glow: 'rgba(0, 240, 255, 0.4)',
+          glow: 'rgba(0, 240, 255, 0.45)',
         },
         amberGold: {
           DEFAULT: '#f59e0b',
@@ -32,13 +32,14 @@ export default {
         }
       },
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+        mono: ['"JetBrains Mono"', 'Menlo', 'Monaco', 'Consolas', '"Courier New"', 'monospace'],
         display: ['"Space Grotesk"', 'sans-serif'],
       },
       animation: {
         'scanline': 'scanline 8s linear infinite',
         'radar-sweep': 'radarSweep 4s linear infinite',
         'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+        'ninja-spin': 'ninjaSpin 12s linear infinite',
       },
       keyframes: {
         scanline: {
@@ -52,6 +53,10 @@ export default {
         pulseGlow: {
           '0%, 100%': { opacity: '0.4' },
           '50%': { opacity: '0.9' },
+        },
+        ninjaSpin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
         }
       }
     },

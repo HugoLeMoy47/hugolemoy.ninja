@@ -17,8 +17,8 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22 }) =
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Characters: Katakana, Cyrillic, Greek, Numbers, and Hugo Keywords
-    const chars = '0123456789ABCDEF01λΩΨ420HLMNINJAFREEJOLITOSアイウエオカキクケコサシスセソタチツテトナニヌネノ';
+    // Characters: Katakana, Kanji (Shinobi, Jutsu, Ghost, Net, Cyber), Numbers, and Hex
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン忍術魂電影道網鬼0123456789ABCDEFλΨ420';
     const fontSize = 14;
     let columns = Math.floor(width / fontSize);
     let drops: number[] = [];
@@ -43,23 +43,30 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22 }) =
 
     const render = () => {
       // Clear with dark cyber fade
-      ctx.fillStyle = 'rgba(5, 8, 12, 0.08)';
+      ctx.fillStyle = 'rgba(6, 9, 14, 0.09)';
       ctx.fillRect(0, 0, width, height);
 
-      ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
+      ctx.font = `${fontSize}px "JetBrains Mono", "Courier New", monospace`;
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Leading char is bright cyan/white, tail is matrix green
-        if (Math.random() > 0.85) {
+        // Neo-Tokyo Chromatic Distribution:
+        // - 10%: Ninja Crimson / Vermilion (#ff0055)
+        // - 40%: GitS Cyan (#00f0ff)
+        // - 15%: Ghost White phosphor (#ffffff)
+        // - 35%: Deep cyber slate cyan (#006680)
+        const rand = Math.random();
+        if (rand > 0.90) {
+          ctx.fillStyle = '#ff0055'; // Ninja Crimson
+        } else if (rand > 0.50) {
           ctx.fillStyle = '#00f0ff'; // GitS Cyan
-        } else if (Math.random() > 0.7) {
-          ctx.fillStyle = '#ffffff'; // White phosphor
+        } else if (rand > 0.35) {
+          ctx.fillStyle = '#ffffff'; // Ghost White
         } else {
-          ctx.fillStyle = '#00ff66'; // Matrix Green
+          ctx.fillStyle = 'rgba(0, 160, 200, 0.45)'; // Dim Cyber Cyan tail
         }
 
         ctx.fillText(text, x, y);
