@@ -1,16 +1,20 @@
 # Hugo Legorreta Moysén (HLM) — hugolemoy.ninja
 
-> Portafolio profesional multidimensional, currículum vitae expandido y acervo vivo de Hugo Legorreta Moysén.
+> Portafolio profesional multidimensional, currículum vitae expandido y tarjeta de presentación total de Hugo Legorreta Moysén.
 
 ## Resumen de Identidad
-Hugo Legorreta Moysén (alias Hugo LeMoy, @HugoLeMoy47) es un Product Owner y consultor en tecnología de la información con más de 10 años de experiencia técnica y de negocio en México. Su perfil destaca por su versatilidad e impacto en áreas como fintech, derechos humanos, tecnología para la sociedad civil, activismo en políticas públicas cannábicas y desarrollo de videojuegos.
+Hugo Legorreta Moysén (alias Hugo LeMoy, @HugoLeMoy47) es Product Owner, Consultor Tecnológico, Creador de Contenido Digital y Desarrollador de Videojuegos, con más de 10 años de experiencia técnica, política y de negocio en México. Su perfil destaca por su versatilidad e impacto en áreas como fintech, derechos humanos, tecnología para la sociedad civil (Freejolitos), activismo e incidencia legislativa en políticas públicas cannábicas (La Comuna 420 / Senado) y soberanía digital (weedtown.social).
 
 - **Ubicación:** Ciudad de México (CDMX), México
 - **Idiomas:** Español (nativo), Inglés (B2 profesional)
 - **Web personal:** https://hugolemoy.ninja
+- **Red social comunitaria:** https://weedtown.social
 - **Consultoría:** https://freejolitos.consulting
 - **GitHub:** https://github.com/HugoLeMoy47
-- **LinkedIn:** https://linkedin.com/in/hugolegorretamoysen
+- **LinkedIn:** https://www.linkedin.com/in/hugolegorretamoysen/
+- **Facebook:** https://www.facebook.com/HugoLeMoy
+- **X (Twitter):** https://x.com/HugoLeMoy
+- **Instagram:** https://www.instagram.com/hugolemoy
 - **Canal audiovisual (CNNN):** https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7
 
 ---
@@ -30,29 +34,40 @@ Práctica de consultoría en TI enfocada en organizaciones del tercer sector sin
 - **Big-Monster Serious Games:** Gestión de proyectos y desarrollo de negocio en juegos educativos para ONU Mujeres y SACMEX.
 - **Woman Game Jam & Global Game Jam:** Participaciones y coordinación de jams con OIM.
 
-### 3. Incidencia Política & La Comuna 42
+### 3. Incidencia Política & La Comuna 420
+- **La Comuna 420 (Voluntariado Cívico 24/7):** Coordinación autónoma ininterrumpida de cientos de personas voluntarias en espacio público durante más de 3 años continuos sin presupuestos burocráticos ni contratos estatales, además de la logística integral de la Marcha 420.
+- **Técnica Legislativa en el Senado:** Trabajo directo desde las entrañas del Congreso de la Unión con el equipo del Senador César Cravioto para formular propuestas de ley federal viables que salvaguarden los derechos de personas usuarias y el autocultivo no comercial.
 - **Iniciativa #Capital420:** Redacción de propuesta técnica integral de regulación local y reducción de daños para el Congreso de la CDMX en colaboración con MUCD.
-- **La Comuna 42:** Organización de asambleas ciudadanas, vocería mediática y mediación comunitaria para la defensa de los derechos de personas consumidoras.
+- **Política Pública Transversal:** Visión que articula salud, derechos humanos, justicia agraria campesina y fin de la criminalización.
 
-### 4. Periodismo & Acervo Audiovisual (CNNN)
+### 4. weedtown.social (Red Autónoma y Soberana)
+- Plataforma comunitaria creada mediante vibe-coding para zafarse de la censura algorítmica y el baneo corporativo de las redes hegemónicas. Soberanía digital y libertad de expresión para la cultura cannábica.
+- Web: https://weedtown.social
+- Repo: https://github.com/HugoLeMoy47/weedtown_trial_101
+
+### 5. Creación de Contenido Digital & CNNN
 - Conductor titular y analista en **CNNN (Cannabis Network News Now)**, con coberturas legislativas, análisis de sentencias de la SCJN y debates con la industria.
 - Playlist oficial: https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7
 
-### 5. Repositorios de Código Abierto (GitHub @HugoLeMoy47)
-- **weedtown_trial_101:** Red social para la comunidad cannábica en México creada con vibe-coding.
-- **cafemin-task-tracker:** Gestor de tareas para albergue de personas migrantes.
+### 6. Repositorios de Código Abierto (GitHub @HugoLeMoy47)
+- **cafemin-task-tracker:** Gestor de tareas para albergue de personas migrantes CAFEMIN.
 - **CalculadoraWebRegresLineal:** Calculadora estadística interactiva en TypeScript.
 - **descargador_facturas:** Script de automatización en Python para facturación fiscal SAT.
-- **salarios-minimos:** Visualizador interactivo de salarios mínimos históricos en México.
+- **CedulaChecker:** Validador en C# para folios de cédulas profesionales de la SEP.
 
-### 6. Product Owner & IT Enterprise
+### 7. Product Owner & IT Enterprise
 - **Grupo CSI (ART Platform):** Product Owner de plataforma de onboarding para banca y seguros, definiendo componentes analíticos de embudo y liderando equipo de 9 a 12 desarrolladores Scrum.
 - **ACNUR / UNHCR:** Gestión del desarrollo del sistema MAP para el registro digno y seguro de personas solicitantes de asilo en territorio mexicano.
 - **Infraestructura & Telecom:** Dirección de TI en agencias y consultoras (Archer Troy, CISI/CONAGUA, TV Nichos).
 
 ---
 
-## Contacto Institucional & Profesional
+## Contacto & Canales Directos
 - Correo: hugo.legorreta@gmail.com / hola@freejolitos.consulting
 - WhatsApp: +52 55 3344 4852
-- LinkedIn: https://linkedin.com/in/hugolegorretamoysen
+- LinkedIn: https://www.linkedin.com/in/hugolegorretamoysen/
+- Facebook: https://www.facebook.com/HugoLeMoy
+- X (Twitter): https://x.com/HugoLeMoy
+- Instagram: https://www.instagram.com/hugolemoy
+- GitHub: https://github.com/HugoLeMoy47
+- weedtown: https://weedtown.social

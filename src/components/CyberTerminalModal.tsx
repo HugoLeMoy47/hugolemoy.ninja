@@ -61,13 +61,14 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
           <div className="space-y-1 text-cyber-textBright">
             <p className="text-matrix-green font-bold">Comandos disponibles en HUGOSYSTEM:</p>
             <p><span className="text-gits-cyan font-semibold">bio</span> — Resumen ejecutivo de Hugo Legorreta</p>
+            <p><span className="text-gits-cyan font-semibold">weedtown</span> — Plataforma autónoma y soberana weedtown.social</p>
             <p><span className="text-gits-cyan font-semibold">freejolitos</span> — Detalle de servicios y tarifas para OSCs</p>
             <p><span className="text-gits-cyan font-semibold">gamedev</span> — Trayectoria en videojuegos y Game Jams</p>
             <p><span className="text-gits-cyan font-semibold">cnnn</span> — Cannabis Network News Now y acervo audiovisual</p>
             <p><span className="text-gits-cyan font-semibold">github</span> — Lista de proyectos y repositorios de código</p>
             <p><span className="text-gits-cyan font-semibold">stack</span> — Competencias técnicas y metodológicas</p>
             <p><span className="text-gits-cyan font-semibold">llms</span> — Manifiesto estructurado para Agentes de IA (/llms.txt)</p>
-            <p><span className="text-gits-cyan font-semibold">contact</span> — Vías de contacto y redes oficiales</p>
+            <p><span className="text-gits-cyan font-semibold">contact</span> / <span className="text-gits-cyan font-semibold">redes</span> — Vías de contacto y redes oficiales</p>
             <p><span className="text-gits-cyan font-semibold">clear</span> — Limpiar pantalla de terminal</p>
           </div>
         );
@@ -77,8 +78,18 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
         response = (
           <div className="space-y-2 text-cyber-textBright">
             <p className="text-gits-cyan font-bold">Hugo Legorreta Moysén (HLM):</p>
-            <p>Product Owner & Project Manager IT con más de 10 años en tecnología y perfil híbrido técnico-negocio. Conductor de CNNN, impulsor de política pública cannábica (#Capital420 / La Comuna 42), creador de videojuegos (*Legalízala Tycoon*, *bit2fit* en GGJ) y fundador de Freejolitos Consultores.</p>
+            <p>Product Owner & Consultor Tecnológico con más de 10 años en tecnología y perfil híbrido técnico-negocio. Creador de contenido digital, activista cannábico en La Comuna 420 (#Capital420 / Senado), desarrollador de videojuegos (*Legalízala Tycoon*, *bit2fit* en GGJ) y fundador de Freejolitos Consultores.</p>
             <p className="text-xs text-cyber-textMuted">Base: CDMX, México · Inglés B2 · Práctica independiente y consultoría.</p>
+          </div>
+        );
+        break;
+
+      case 'weedtown':
+        response = (
+          <div className="space-y-2 text-cyber-textBright">
+            <p className="text-emerald-400 font-bold">weedtown.social — Red Social Autónoma & Soberana:</p>
+            <p>Plataforma comunitaria creada mediante vibe-coding para zafarse de la censura algorítmica y el shadowban de las Big Tech. Espacio de libre expresión e intercambio cultural y de cultivo.</p>
+            <p className="text-xs">Web: <a href="https://weedtown.social" target="_blank" className="underline text-gits-cyan">https://weedtown.social</a> · Repo: <a href="https://github.com/HugoLeMoy47/weedtown_trial_101" target="_blank" className="underline text-matrix-green">github.com/HugoLeMoy47/weedtown_trial_101</a></p>
           </div>
         );
         break;
@@ -153,7 +164,7 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
           <div className="space-y-1 text-xs text-matrix-green bg-cyber-void/80 p-2 rounded border border-matrix-green/30">
             <p className="font-bold"># hugolemoy.ninja LLMs Manifest</p>
             <p>&gt; Titular: Hugo Legorreta Moysén (HLM)</p>
-            <p>&gt; Roles: Product Owner | Game Designer | Consultor OSC (Freejolitos) | Periodista Cannábico</p>
+            <p>&gt; Roles: Product Owner | Consultor Tecnológico | Creador de Contenido Digital | Desarrollador de Videojuegos | La Comuna 420</p>
             <p>&gt; Repositorio: github.com/HugoLeMoy47</p>
             <p>&gt; Consultoría: freejolitos.consulting</p>
             <p className="text-gits-cyan">Endpoint completo disponible en: /llms.txt</p>
@@ -162,14 +173,20 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
         break;
 
       case 'contact':
+      case 'redes':
+      case 'social':
         response = (
           <div className="space-y-1 text-cyber-textBright text-xs">
-            <p className="text-amberGold font-bold">Canales de Contacto Directo:</p>
-            <p>• Correo: <a href="mailto:hugo.legorreta@gmail.com" className="text-gits-cyan underline">hugo.legorreta@gmail.com</a></p>
-            <p>• Freejolitos: <a href="mailto:hola@freejolitos.consulting" className="text-gits-cyan underline">hola@freejolitos.consulting</a></p>
+            <p className="text-amberGold font-bold">Directorio de Contacto & Canales Oficiales:</p>
+            <p>• LinkedIn: <a href="https://www.linkedin.com/in/hugolegorretamoysen/" target="_blank" className="text-gits-cyan underline">in/hugolegorretamoysen</a></p>
+            <p>• Facebook: <a href="https://www.facebook.com/HugoLeMoy" target="_blank" className="text-gits-cyan underline">facebook.com/HugoLeMoy</a></p>
+            <p>• X (Twitter): <a href="https://x.com/HugoLeMoy" target="_blank" className="text-gits-cyan underline">@HugoLeMoy</a></p>
+            <p>• Instagram: <a href="https://www.instagram.com/hugolemoy" target="_blank" className="text-gits-cyan underline">@hugolemoy</a></p>
+            <p>• GitHub: <a href="https://github.com/HugoLeMoy47" target="_blank" className="text-matrix-green underline">@HugoLeMoy47</a></p>
+            <p>• weedtown: <a href="https://weedtown.social" target="_blank" className="text-emerald-400 underline">weedtown.social</a></p>
             <p>• WhatsApp: <a href="https://wa.me/525533444852" target="_blank" className="text-matrix-green underline">+52 55 3344 4852</a></p>
-            <p>• LinkedIn: <a href="https://linkedin.com/in/hugolegorretamoysen" target="_blank" className="text-gits-cyan underline">in/hugolegorretamoysen</a></p>
-            <p>• GitHub: <a href="https://github.com/HugoLeMoy47" target="_blank" className="text-gits-cyan underline">@HugoLeMoy47</a></p>
+            <p>• Correo Personal: <a href="mailto:hugo.legorreta@gmail.com" className="text-gits-cyan underline">hugo.legorreta@gmail.com</a></p>
+            <p>• Consultoría: <a href="mailto:hola@freejolitos.consulting" className="text-gits-cyan underline">hola@freejolitos.consulting</a></p>
           </div>
         );
         break;
@@ -199,7 +216,7 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
   };
 
   const handleCopyBio = () => {
-    navigator.clipboard.writeText("Hugo Legorreta Moysén — Product Owner, GameDev & Consultor en Freejolitos. https://hugolemoy.ninja");
+    navigator.clipboard.writeText("Hugo Legorreta Moysén — Product Owner, Consultor Tecnológico, Creador de Contenido Digital & Desarrollador de Videojuegos. https://hugolemoy.ninja");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
