@@ -9,6 +9,7 @@ interface WireframeCoreProps {
   size?: number;
   label?: string;
   isSpinningFast?: boolean;
+  theme?: 'light' | 'dark';
 }
 
 interface Point3D {
@@ -24,6 +25,7 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
   size = 260,
   label = 'SHINOBI // GHOST KERNEL',
   isSpinningFast = false,
+  theme = 'dark',
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawProgressRef = useRef<{ value: number }>({ value: 1 });
@@ -198,18 +200,19 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
       });
 
       // Palette
-      let mainStroke = 'rgba(0, 240, 255, 0.45)';
-      let apexStroke = 'rgba(255, 0, 85, 0.7)';
-      let dotColor = '#00f0ff';
+      const isDark = theme === 'dark';
+      let mainStroke = isDark ? 'rgba(0, 240, 255, 0.45)' : 'rgba(15, 23, 42, 0.65)';
+      let apexStroke = isDark ? 'rgba(255, 0, 85, 0.7)' : 'rgba(220, 38, 38, 0.85)';
+      let dotColor = isDark ? '#00f0ff' : '#0284c7';
 
       if (accentColor === 'crimson') {
-        mainStroke = 'rgba(255, 0, 85, 0.45)';
-        apexStroke = 'rgba(0, 240, 255, 0.75)';
-        dotColor = '#ff0055';
+        mainStroke = isDark ? 'rgba(255, 0, 85, 0.45)' : 'rgba(220, 38, 38, 0.65)';
+        apexStroke = isDark ? 'rgba(0, 240, 255, 0.75)' : 'rgba(15, 23, 42, 0.85)';
+        dotColor = isDark ? '#ff0055' : '#dc2626';
       } else if (accentColor === 'amber') {
-        mainStroke = 'rgba(245, 158, 11, 0.45)';
-        apexStroke = 'rgba(255, 0, 85, 0.75)';
-        dotColor = '#fbbf24';
+        mainStroke = isDark ? 'rgba(245, 158, 11, 0.45)' : 'rgba(217, 119, 6, 0.65)';
+        apexStroke = isDark ? 'rgba(255, 0, 85, 0.75)' : 'rgba(220, 38, 38, 0.85)';
+        dotColor = isDark ? '#fbbf24' : '#d97706';
       }
 
       const drawFactor = Math.min(1, Math.max(0, drawProgressRef.current.value));
@@ -249,7 +252,7 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
           const isApex = idx === 8 || idx === 9;
           const isTip = idx === 0 || idx === 2 || idx === 4 || idx === 6;
           
-          ctx.fillStyle = isApex ? '#ffffff' : isTip ? '#ff0055' : dotColor;
+          ctx.fillStyle = isApex ? (isDark ? '#ffffff' : '#0f172a') : isTip ? (isDark ? '#ff0055' : '#dc2626') : dotColor;
           ctx.globalAlpha = nodeAlpha;
           const nodeSize = Math.max(1.5, p.scale * (isTip ? 2.5 : isApex ? 2.2 : 1.8));
 
@@ -261,7 +264,7 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
       }
 
       // Subtle Outer Telemetry Reticle
-      ctx.strokeStyle = 'rgba(255, 0, 85, 0.2)';
+      ctx.strokeStyle = isDark ? 'rgba(255, 0, 85, 0.2)' : 'rgba(220, 38, 38, 0.25)';
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 6]);
       ctx.beginPath();
@@ -278,7 +281,7 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animId);
     };
-  }, [accentColor, size, isSpinningFast]);
+  }, [accentColor, size, isSpinningFast, theme]);
 
   const handleClick = () => {
     startWireframeTrace();
@@ -290,7 +293,11 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
   return (
     <div 
       onClick={handleClick}
-      className="relative flex flex-col items-center justify-center p-3 rounded-xl bg-cyber-void/85 border border-ninja-crimson/40 hover:border-ninja-crimson hover:box-glow-crimson transition-all cursor-pointer group select-none"
+      className={`relative flex flex-col items-center justify-center p-3 rounded-xl transition-all cursor-pointer group select-none ${
+        theme === 'light'
+          ? 'bg-white/95 border border-slate-300 hover:border-red-600 shadow-md hover:shadow-lg'
+          : 'bg-cyber-void/85 border border-ninja-crimson/40 hover:border-ninja-crimson hover:box-glow-crimson'
+      }`}
       title="3D Cyber-Shuriken // Haz clic para ver cómo se redibujan los vectores"
     >
       {/* Top Telemetry Header */}
@@ -299,7 +306,7 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
         <span>忍 [SHINOBI_3D]</span>
       </div>
 
-      <div className="absolute top-2 right-2 text-[9px] font-mono text-gits-cyan">
+      <div className={`absolute top-2 right-2 text-[9px] font-mono ${theme === 'light' ? 'text-sky-700' : 'text-gits-cyan'}`}>
         <span>{isRedrawing ? 'REDIBUJANDO...' : `SYNC: ${syncPercent}%`}</span>
       </div>
 
@@ -307,10 +314,10 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
 
       {/* Bottom Telemetry Footer */}
       <div className="absolute bottom-2 text-center font-mono">
-        <span className="text-xs font-bold text-white tracking-widest block group-hover:text-ninja-crimson transition-colors">
+        <span className={`text-xs font-bold tracking-widest block transition-colors ${theme === 'light' ? 'text-slate-900 group-hover:text-red-600' : 'text-white group-hover:text-ninja-crimson'}`}>
           {label}
         </span>
-        <span className="text-[10px] text-cyber-textMuted group-hover:text-gits-cyan transition-colors">
+        <span className={`text-[10px] transition-colors ${theme === 'light' ? 'text-slate-500 group-hover:text-slate-800' : 'text-cyber-textMuted group-hover:text-gits-cyan'}`}>
           [Clic: Redibujar Vectores 3D]
         </span>
       </div>

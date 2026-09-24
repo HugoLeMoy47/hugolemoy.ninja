@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from 'react';
 
 interface MatrixRainProps {
   opacity?: number;
+  theme?: 'light' | 'dark';
 }
 
-export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22 }) => {
+export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22, theme = 'dark' }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -41,9 +42,11 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22 }) =
 
     window.addEventListener('resize', handleResize);
 
+    const isDark = theme === 'dark';
+
     const render = () => {
-      // Clear with dark cyber fade
-      ctx.fillStyle = 'rgba(6, 9, 14, 0.09)';
+      // Clear with background fade: obsidian in dark mode, washi paper in light mode
+      ctx.fillStyle = isDark ? 'rgba(6, 9, 14, 0.09)' : 'rgba(250, 250, 250, 0.12)';
       ctx.fillRect(0, 0, width, height);
 
       ctx.font = `${fontSize}px "JetBrains Mono", "Courier New", monospace`;
@@ -53,20 +56,38 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22 }) =
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Neo-Tokyo Chromatic Distribution:
-        // - 10%: Ninja Crimson / Vermilion (#ff0055)
-        // - 40%: GitS Cyan (#00f0ff)
-        // - 15%: Ghost White phosphor (#ffffff)
-        // - 35%: Deep cyber slate cyan (#006680)
         const rand = Math.random();
-        if (rand > 0.90) {
-          ctx.fillStyle = '#ff0055'; // Ninja Crimson
-        } else if (rand > 0.50) {
-          ctx.fillStyle = '#00f0ff'; // GitS Cyan
-        } else if (rand > 0.35) {
-          ctx.fillStyle = '#ffffff'; // Ghost White
+
+        if (isDark) {
+          // Neo-Tokyo Chromatic Distribution (Dark mode):
+          // - 10%: Ninja Crimson / Vermilion (#ff0055)
+          // - 40%: GitS Cyan (#00f0ff)
+          // - 15%: Ghost White phosphor (#ffffff)
+          // - 35%: Deep cyber slate cyan (#006680)
+          if (rand > 0.90) {
+            ctx.fillStyle = '#ff0055'; // Ninja Crimson
+          } else if (rand > 0.50) {
+            ctx.fillStyle = '#00f0ff'; // GitS Cyan
+          } else if (rand > 0.35) {
+            ctx.fillStyle = '#ffffff'; // Ghost White
+          } else {
+            ctx.fillStyle = 'rgba(0, 160, 200, 0.45)'; // Dim Cyber Cyan tail
+          }
         } else {
-          ctx.fillStyle = 'rgba(0, 160, 200, 0.45)'; // Dim Cyber Cyan tail
+          // Sumi-e Japanese Ink on Washi Paper Distribution (Light mode):
+          // - 10%: Vermilion Hanko Seal (#dc2626)
+          // - 45%: Deep Charcoal Calligraphy Ink (rgba(15, 23, 42, 0.45))
+          // - 15%: Indigo Cyber Ink (#0284c7)
+          // - 30%: Faint graphite tail (rgba(100, 116, 139, 0.22))
+          if (rand > 0.90) {
+            ctx.fillStyle = '#dc2626'; // Vermilion red seal
+          } else if (rand > 0.45) {
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.45)'; // Sumi ink
+          } else if (rand > 0.30) {
+            ctx.fillStyle = '#0284c7'; // Indigo
+          } else {
+            ctx.fillStyle = 'rgba(100, 116, 139, 0.22)'; // Graphite tail
+          }
         }
 
         ctx.fillText(text, x, y);
@@ -87,7 +108,7 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22 }) =
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas

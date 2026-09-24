@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title = "Hugo Legorreta Moysén (HLM) — Cyber-Hub & Portafolio Multidimensional",
-  description = "Portafolio interactivo de Hugo Legorreta Moysén: Product Owner, consultor en Freejolitos, activista en La Comuna 42 (#Capital420), anfitrión de CNNN y creador de videojuegos.",
+  description = "Tarjeta de presentación multidimensional de Hugo Legorreta Moysén: Product Owner, Consultor Tecnológico en Freejolitos, activista en La Comuna 420 (#Capital420 / Senado), creador de weedtown.social, creador de contenido digital y desarrollador de videojuegos.",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://hugolemoy.ninja");
@@ -19,7 +19,7 @@ const personSchema = {
   "name": "Hugo Legorreta Moysén",
   "alternateName": ["Hugo LeMoy", "HLM", "HugoLeMoy47"],
   "url": "https://hugolemoy.ninja",
-  "jobTitle": "Product Owner & IT Project Manager",
+  "jobTitle": "Product Owner · Consultor Tecnológico · Creador de Contenido Digital & Desarrollador de Videojuegos",
   "worksFor": {
     "@type": "Organization",
     "name": "Freejolitos Consultores",
@@ -29,6 +29,10 @@ const personSchema = {
   "sameAs": [
     "https://github.com/HugoLeMoy47",
     "https://linkedin.com/in/hugolegorretamoysen",
+    "https://facebook.com/HugoLeMoy",
+    "https://x.com/HugoLeMoy",
+    "https://instagram.com/hugolemoy",
+    "https://weedtown.social",
     "https://freejolitos.consulting",
     "https://globalgamejam.org/users/hugolemoy",
     "https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7"
@@ -39,6 +43,8 @@ const personSchema = {
     "Serious Games",
     "Cannabis Public Policy",
     "Freejolitos",
+    "weedtown.social",
+    "La Comuna 420",
     "Data Governance",
     "TypeScript",
     "Python",
@@ -54,6 +60,16 @@ const personSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Theme Initialization Script (Avoid Flash) -->
+    <script is:inline>
+      const savedTheme = localStorage.getItem('hlm_theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />

@@ -28,7 +28,8 @@ import {
   Grid,
   Radio,
   Zap,
-  RefreshCw
+  RefreshCw,
+  Users
 } from 'lucide-react';
 import gsap from 'gsap';
 
@@ -37,6 +38,7 @@ interface CyberJourneyProps {
   onNodeSelectForOperator: (nodeId: string) => void;
   externalDimension?: string | null;
   activeNodeId?: string | null;
+  theme?: 'light' | 'dark';
 }
 
 const KANJI_NUMERALS = ['壱', '弐', '参', '四', '伍', '六', '七', '八', '九', '拾', '十一', '十二'];
@@ -46,6 +48,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
   onNodeSelectForOperator,
   externalDimension,
   activeNodeId,
+  theme = 'dark',
 }) => {
   const [selectedDimension, setSelectedDimension] = useState<string>('all');
   const [focusedNode, setFocusedNode] = useState<PortfolioNode>(PORTFOLIO_NODES[0]);
@@ -235,6 +238,8 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
         return <Gamepad2 className="w-4 h-4 text-gits-cyan" />;
       case 'advocacy':
         return <Scale className="w-4 h-4 text-ninja-crimson" />;
+      case 'weedtown':
+        return <Users className="w-4 h-4 text-emerald-500" />;
       case 'cnnn':
         return <Tv className="w-4 h-4 text-matrix-green" />;
       case 'github':
@@ -253,6 +258,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       case 'freejolitos': return '社'; // Society/Consulting
       case 'gamedev': return '術';     // Art/Technique
       case 'advocacy': return '義';    // Justice/Rights
+      case 'weedtown': return '網';    // Net/Web/Sovereign Network
       case 'cnnn': return '聞';        // News/Listen
       case 'github': return '構';      // Construct/Architecture
       case 'product_owner': return '統'; // Lead/Kernel
@@ -270,10 +276,10 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       {/* ========================================================================= */}
       {/* HERO CONSTRUCT WITH 3D SHURIKEN WIREFRAME CORE                            */}
       {/* ========================================================================= */}
-      <section className="relative overflow-hidden rounded-xl bg-cyber-card/90 border border-cyber-border p-5 sm:p-6 shadow-2xl backdrop-blur-md">
+      <section className="relative overflow-hidden rounded-xl bg-white/95 dark:bg-cyber-card/90 border border-slate-200 dark:border-cyber-border p-5 sm:p-6 shadow-xl backdrop-blur-md transition-colors duration-250">
         
-        {/* Subtle Neo-Tokyo Corner Crests */}
-        <div className="absolute top-2 right-3 text-[10px] font-mono text-ninja-crimson/50 select-none">
+        {/* Subtle Corner Crest */}
+        <div className="absolute top-2 right-3 text-[10px] font-mono text-ninja-crimson/70 dark:text-ninja-crimson/50 select-none">
           忍 [SHINOBI_NET // .NINJA]
         </div>
 
@@ -283,21 +289,21 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
           <div className="flex-1 space-y-3 text-center sm:text-left">
             <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-ninja-crimson/10 border border-ninja-crimson/30 text-ninja-crimson text-[11px] font-mono">
               <span className="inline-block w-2 h-2 rounded-full bg-ninja-crimson animate-pulse"></span>
-              <span>CONSTRUCTO MULTIDIMENSIONAL // hugolemoy.ninja</span>
+              <span>TARJETA MULTIDIMENSIONAL // hugolemoy.ninja</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black font-display tracking-tight text-white">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black font-display tracking-tight text-slate-900 dark:text-white">
               Hugo Legorreta <span className="text-ninja-crimson glow-crimson">Moysén</span>
             </h1>
 
-            <p className="text-xs sm:text-sm text-cyber-textBright font-mono leading-relaxed">
-              <strong className="text-gits-cyan">Product Owner</strong> & Consultor Tecnológico. Fundador de <strong className="text-amberGold">Freejolitos</strong>, activista cannábico en <strong className="text-ninja-crimson">La Comuna 42</strong> (#Capital420 / Senado), anfitrión de <strong className="text-matrix-green">CNNN</strong> y desarrollador de videojuegos.
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-cyber-textBright font-mono leading-relaxed">
+              <strong className="text-sky-700 dark:text-gits-cyan">Product Owner</strong> · Consultor Tecnológico · Creador de Contenido Digital & Desarrollador de Videojuegos. Fundador de <strong className="text-amber-700 dark:text-amberGold">Freejolitos</strong>, activista cannábico en <strong className="text-ninja-crimson">La Comuna 420</strong> (#Capital420 / Senado) y creador de <strong className="text-emerald-600 dark:text-matrix-green">weedtown.social</strong>.
             </p>
 
             <div className="pt-2 flex flex-wrap gap-2 justify-center sm:justify-start">
               <button
                 onClick={startExpedition}
-                className="py-1.5 px-3 rounded-lg bg-ninja-crimson/15 hover:bg-ninja-crimson/25 border border-ninja-crimson/60 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-md group"
+                className="py-1.5 px-3 rounded-lg bg-ninja-crimson/15 hover:bg-ninja-crimson/25 border border-ninja-crimson/60 text-slate-900 dark:text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-md group"
               >
                 <Compass className="w-3.5 h-3.5 text-ninja-crimson group-hover:rotate-45 transition-transform" />
                 <span>{isExpeditionActive ? 'MODO EXPEDICIÓN ACTIVO' : 'EXPEDICIÓN GUIADA'}</span>
@@ -310,13 +316,13 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                 }}
                 className={`py-1.5 px-3 rounded-lg border text-xs font-bold font-mono flex items-center gap-1.5 transition-all ${
                   viewMode === 'hologram'
-                    ? 'bg-gits-cyan/15 border-gits-cyan text-gits-cyan'
-                    : 'bg-cyber-void border-cyber-border text-cyber-textBright hover:border-gits-cyan'
+                    ? 'bg-sky-500/15 border-sky-500 dark:border-gits-cyan text-sky-800 dark:text-gits-cyan'
+                    : 'bg-slate-100 dark:bg-cyber-void border-slate-300 dark:border-cyber-border text-slate-800 dark:text-cyber-textBright hover:border-red-500 dark:hover:border-gits-cyan'
                 }`}
               >
                 {viewMode === 'hologram' ? (
                   <>
-                    <Radio className="w-3.5 h-3.5 text-gits-cyan animate-pulse" />
+                    <Radio className="w-3.5 h-3.5 text-sky-600 dark:text-gits-cyan animate-pulse" />
                     <span>VER MATRIZ (2x2)</span>
                   </>
                 ) : (
@@ -335,6 +341,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
               accentColor={currentPersona === 'PROJECT_2501' ? 'crimson' : 'amber'}
               syncPercent={syncPercentage}
               label="3D CYBER-SHURIKEN"
+              theme={theme}
               onCoreClick={() => {
                 triggerHolographicRepaint();
               }}
@@ -424,10 +431,10 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       {/* DIMENSIONS SELECTOR BUTTONS                                               */}
       {/* ========================================================================= */}
       <section className="space-y-3">
-        <div className="flex items-center justify-between font-mono text-xs text-cyber-textMuted">
+        <div className="flex items-center justify-between font-mono text-xs text-slate-500 dark:text-cyber-textMuted">
           <div className="flex items-center gap-1.5">
             <Compass className="w-3.5 h-3.5 text-ninja-crimson" />
-            <span className="text-cyber-textBright font-bold">DIMENSIONES DEL CONSTRUCTO:</span>
+            <span className="text-slate-800 dark:text-cyber-textBright font-bold">DIMENSIONES DEL CONSTRUCTO:</span>
           </div>
           <span>({filteredNodes.length} NODOS ACTIVOS)</span>
         </div>
@@ -437,8 +444,8 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
             onClick={() => handleSelectDimension('all')}
             className={`p-2.5 rounded-lg border text-left transition-all flex flex-col justify-between ${
               selectedDimension === 'all'
-                ? 'bg-ninja-crimson/15 border-ninja-crimson text-white shadow-lg box-glow-crimson'
-                : 'bg-cyber-card border-cyber-border text-cyber-textMuted hover:border-cyber-borderGlow/40 hover:text-cyber-textBright'
+                ? 'bg-red-500/15 border-red-500 text-slate-900 dark:text-white shadow-md box-glow-crimson font-bold'
+                : 'bg-white dark:bg-cyber-card border-slate-200 dark:border-cyber-border text-slate-600 dark:text-cyber-textMuted hover:border-red-400 hover:text-slate-900 dark:hover:text-cyber-textBright'
             }`}
           >
             <div className="flex items-center justify-between mb-1">
@@ -446,8 +453,8 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
               <span className="text-[10px] font-bold text-ninja-crimson">{PORTFOLIO_NODES.length}</span>
             </div>
             <div>
-              <div className="font-bold text-white text-[11px]">TODAS</div>
-              <div className="text-[9px] text-cyber-textMuted">Ecosistema</div>
+              <div className="font-bold text-slate-800 dark:text-white text-[11px]">TODAS</div>
+              <div className="text-[9px] text-slate-500 dark:text-cyber-textMuted">Ecosistema</div>
             </div>
           </button>
 
@@ -460,20 +467,20 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                 className={`p-2.5 rounded-lg border text-left transition-all flex flex-col justify-between ${
                   isSelected
                     ? dim.color === 'amber'
-                      ? 'bg-amberGold/15 border-amberGold text-white box-glow-amber'
+                      ? 'bg-amber-500/15 border-amber-500 text-amber-900 dark:text-white box-glow-amber font-bold'
                       : dim.color === 'green'
-                      ? 'bg-matrix-green/15 border-matrix-green text-white box-glow-matrix'
-                      : 'bg-gits-cyan/15 border-gits-cyan text-white box-glow-cyan'
-                    : 'bg-cyber-card border-cyber-border text-cyber-textMuted hover:border-cyber-borderGlow/40 hover:text-cyber-textBright'
+                      ? 'bg-emerald-500/15 border-emerald-500 text-emerald-900 dark:text-white box-glow-matrix font-bold'
+                      : 'bg-sky-500/15 border-sky-500 text-sky-900 dark:text-white box-glow-cyan font-bold'
+                    : 'bg-white dark:bg-cyber-card border-slate-200 dark:border-cyber-border text-slate-600 dark:text-cyber-textMuted hover:border-red-400 hover:text-slate-900 dark:hover:text-cyber-textBright'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
                   {getDimensionIcon(dim.id)}
-                  <span className="text-[10px] font-bold text-cyber-textMuted">{dim.nodeCount}</span>
+                  <span className="text-[10px] font-bold text-slate-400 dark:text-cyber-textMuted">{dim.nodeCount}</span>
                 </div>
                 <div>
-                  <div className="font-bold text-white truncate text-[11px]">{dim.name}</div>
-                  <div className="text-[9px] text-cyber-textMuted truncate">{dim.code}</div>
+                  <div className="font-bold text-slate-800 dark:text-white truncate text-[11px]">{dim.name}</div>
+                  <div className="text-[9px] text-slate-500 dark:text-cyber-textMuted truncate">{dim.code}</div>
                 </div>
               </button>
             );
@@ -514,15 +521,15 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
           {/* MODE A: EXPANSIVE HOLOGRAPHIC PROJECTION FOCUS                        */}
           {/* ===================================================================== */}
           {viewMode === 'hologram' && focusedNode && (
-            <section className="relative rounded-xl bg-cyber-card/95 border border-ninja-crimson/50 p-5 sm:p-7 space-y-6 shadow-2xl backdrop-blur-md font-mono text-xs overflow-hidden">
+            <section className="relative rounded-xl bg-white/95 dark:bg-cyber-card/95 border border-slate-300 dark:border-ninja-crimson/50 p-5 sm:p-7 space-y-6 shadow-xl backdrop-blur-md font-mono text-xs overflow-hidden transition-colors duration-250">
               
               {/* Giant Japanese Kanji Holographic Watermark */}
-              <div className="absolute right-4 top-2 text-8xl sm:text-9xl font-serif text-white/[0.03] select-none pointer-events-none">
+              <div className="absolute right-4 top-2 text-8xl sm:text-9xl font-serif text-slate-900/[0.04] dark:text-white/[0.03] select-none pointer-events-none">
                 {getDimensionKanji(focusedNode.dimension)}
               </div>
 
               {/* Holographic Header Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-cyber-border pb-4 relative z-10">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-cyber-border pb-4 relative z-10">
                 <div className="flex items-center gap-3">
                   <span className="w-2.5 h-2.5 rounded-full bg-ninja-crimson animate-ping" />
                   <div>
@@ -530,11 +537,11 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                       <span className="text-ninja-crimson font-bold text-xs tracking-wider">
                         PROYECCIÓN HOLOGRÁFICA // [{focusedNode.code}]
                       </span>
-                      <span className="text-[10px] text-cyber-textMuted">
+                      <span className="text-[10px] text-slate-500 dark:text-cyber-textMuted">
                         KANJI: {getDimensionKanji(focusedNode.dimension)}
                       </span>
                     </div>
-                    <span className="text-[10px] text-cyber-textMuted">
+                    <span className="text-[10px] text-slate-500 dark:text-cyber-textMuted">
                       DIMENSIÓN: {focusedNode.dimension.toUpperCase()} · SINCRONIZADO
                     </span>
                   </div>
@@ -546,7 +553,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                   <button
                     onClick={() => triggerHolographicRepaint()}
                     disabled={isScanning}
-                    className="px-3 py-1.5 rounded bg-ninja-crimson/15 border border-ninja-crimson/60 hover:bg-ninja-crimson/25 text-white text-xs flex items-center gap-1.5 transition-all shadow-sm group"
+                    className="px-3 py-1.5 rounded bg-ninja-crimson/15 border border-ninja-crimson/60 hover:bg-ninja-crimson/25 text-slate-900 dark:text-white text-xs flex items-center gap-1.5 transition-all shadow-sm group"
                     title="Redibujar proyección holográfica con barrido láser visible"
                   >
                     <RefreshCw className={`w-3.5 h-3.5 text-ninja-crimson group-hover:rotate-180 transition-transform ${isScanning ? 'animate-spin' : ''}`} />
@@ -559,9 +566,9 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                       setViewMode('matrix');
                       triggerHolographicRepaint();
                     }}
-                    className="px-3 py-1.5 rounded bg-cyber-void border border-cyber-border hover:border-gits-cyan text-cyber-textBright text-xs flex items-center gap-1.5 transition-colors"
+                    className="px-3 py-1.5 rounded bg-slate-100 dark:bg-cyber-void border border-slate-300 dark:border-cyber-border hover:border-sky-500 dark:hover:border-gits-cyan text-slate-800 dark:text-cyber-textBright text-xs flex items-center gap-1.5 transition-colors"
                   >
-                    <Grid className="w-3.5 h-3.5 text-gits-cyan" />
+                    <Grid className="w-3.5 h-3.5 text-sky-600 dark:text-gits-cyan" />
                     <span>VER MATRIZ (2x2)</span>
                   </button>
                 </div>
@@ -576,52 +583,52 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                     <span className="px-2.5 py-0.5 rounded text-[11px] font-bold bg-ninja-crimson/15 text-ninja-crimson border border-ninja-crimson/40 inline-block mb-2">
                       {focusedNode.badge}
                     </span>
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-display text-white">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-display text-slate-900 dark:text-white">
                       {focusedNode.title}
                     </h2>
-                    <p className="text-xs text-gits-cyan font-mono mt-1">
+                    <p className="text-xs text-sky-700 dark:text-gits-cyan font-mono mt-1">
                       {focusedNode.subtitle}
                     </p>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-cyber-textBright leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-700 dark:text-cyber-textBright leading-relaxed">
                     {focusedNode.summary}
                   </p>
 
                   {/* Highlight Metric Pill */}
-                  <div className="p-3 rounded-lg bg-cyber-void border border-ninja-crimson/30 flex items-center gap-3">
+                  <div className="p-3 rounded-lg bg-slate-50 dark:bg-cyber-void border border-ninja-crimson/30 flex items-center gap-3">
                     <Zap className="w-4 h-4 text-ninja-crimson shrink-0" />
                     <div>
-                      <span className="text-[10px] text-cyber-textMuted font-bold block">MÉTRICA / IMPACTO CLAVE:</span>
-                      <span className="text-xs text-white font-bold">{focusedNode.highlightStat}</span>
+                      <span className="text-[10px] text-slate-500 dark:text-cyber-textMuted font-bold block">MÉTRICA / IMPACTO CLAVE:</span>
+                      <span className="text-xs text-slate-900 dark:text-white font-bold">{focusedNode.highlightStat}</span>
                     </div>
                   </div>
 
                   {/* Context, Solution & Impact Tabs/Blocks */}
                   <div className="space-y-2 pt-1">
-                    <div className="p-3 rounded bg-cyber-void/80 border border-cyber-border space-y-1">
-                      <span className="text-amberGold font-bold text-[11px] uppercase tracking-wider block">
+                    <div className="p-3 rounded bg-slate-50 dark:bg-cyber-void/80 border border-slate-200 dark:border-cyber-border space-y-1">
+                      <span className="text-amber-700 dark:text-amberGold font-bold text-[11px] uppercase tracking-wider block">
                         01 // Contexto y Problema:
                       </span>
-                      <p className="text-cyber-textBright text-xs leading-relaxed">
+                      <p className="text-slate-700 dark:text-cyber-textBright text-xs leading-relaxed">
                         {focusedNode.details.problemOrContext}
                       </p>
                     </div>
 
-                    <div className="p-3 rounded bg-cyber-void/80 border border-cyber-border space-y-1">
-                      <span className="text-gits-cyan font-bold text-[11px] uppercase tracking-wider block">
+                    <div className="p-3 rounded bg-slate-50 dark:bg-cyber-void/80 border border-slate-200 dark:border-cyber-border space-y-1">
+                      <span className="text-sky-700 dark:text-gits-cyan font-bold text-[11px] uppercase tracking-wider block">
                         02 // Rol y Ejecución de Hugo:
                       </span>
-                      <p className="text-cyber-textBright text-xs leading-relaxed">
+                      <p className="text-slate-700 dark:text-cyber-textBright text-xs leading-relaxed">
                         {focusedNode.details.solutionOrRole}
                       </p>
                     </div>
 
-                    <div className="p-3 rounded bg-cyber-void/80 border border-cyber-border space-y-1">
-                      <span className="text-matrix-green font-bold text-[11px] uppercase tracking-wider block">
+                    <div className="p-3 rounded bg-slate-50 dark:bg-cyber-void/80 border border-slate-200 dark:border-cyber-border space-y-1">
+                      <span className="text-emerald-700 dark:text-matrix-green font-bold text-[11px] uppercase tracking-wider block">
                         03 // Impacto y Resultado:
                       </span>
-                      <p className="text-cyber-textBright text-xs leading-relaxed">
+                      <p className="text-slate-700 dark:text-cyber-textBright text-xs leading-relaxed">
                         {focusedNode.details.impactOrOutcome}
                       </p>
                     </div>
@@ -631,11 +638,71 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                 {/* Right Column: Interactive Cockpit & Evidence Links (5 Cols) */}
                 <div className="lg:col-span-5 space-y-4">
                   
+                  {/* Specialized Interactive Cockpit for weedtown.social */}
+                  {focusedNode.dimension === 'weedtown' && (
+                    <div className="p-4 sm:p-5 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-500/40 space-y-3 font-mono shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                          <span className="font-bold text-emerald-800 dark:text-emerald-400 text-xs">
+                            weedtown.social // RED SOBERANA
+                          </span>
+                        </div>
+                        <a
+                          href="https://weedtown.social"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1 font-bold"
+                        >
+                          <span>Entrar a la red</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+
+                      <p className="text-xs text-slate-700 dark:text-emerald-100/90 leading-relaxed">
+                        Red comunitaria soberana creada con <strong>vibe-coding</strong>. Espacio libre de censura comercial ni algoritmos de extracción para compartir cultura cannábica y debate abierto.
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-2 text-[10px]">
+                        <div className="p-2 rounded bg-white/90 dark:bg-cyber-void/80 border border-emerald-500/20">
+                          <span className="text-emerald-700 dark:text-emerald-400 font-bold block">✓ CERO CENSURA</span>
+                          <span className="text-slate-600 dark:text-cyber-textMuted">Comunidad autónoma</span>
+                        </div>
+                        <div className="p-2 rounded bg-white/90 dark:bg-cyber-void/80 border border-emerald-500/20">
+                          <span className="text-emerald-700 dark:text-emerald-400 font-bold block">✓ SOBERANÍA</span>
+                          <span className="text-slate-600 dark:text-cyber-textMuted">Control de datos</span>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 pt-1">
+                        <a
+                          href="https://weedtown.social"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 py-2 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-md"
+                        >
+                          <span>Abrir weedtown.social</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                        <a
+                          href="https://github.com/HugoLeMoy47/weedtown_trial_101"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-2 px-3 rounded bg-white hover:bg-slate-100 dark:bg-cyber-void dark:hover:border-gits-cyan border border-slate-300 dark:border-cyber-border text-slate-700 dark:text-cyber-textBright text-xs font-bold flex items-center justify-center gap-1 transition-colors"
+                          title="Ver repositorio en GitHub"
+                        >
+                          <Github className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">Repo</span>
+                        </a>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Specialized Interactive Cockpit for CNNN */}
                   {focusedNode.dimension === 'cnnn' && (
                     <div className="space-y-3">
-                      <span className="text-matrix-green font-bold text-xs block">// TRANSMISIÓN EN VIVO PREVIEW:</span>
-                      <div className="aspect-video w-full rounded-xl overflow-hidden border border-matrix-green/50 shadow-xl bg-black">
+                      <span className="text-emerald-700 dark:text-matrix-green font-bold text-xs block">// TRANSMISIÓN EN VIVO PREVIEW:</span>
+                      <div className="aspect-video w-full rounded-xl overflow-hidden border border-emerald-500/40 dark:border-matrix-green/50 shadow-xl bg-black">
                         <iframe
                           className="w-full h-full"
                           src="https://www.youtube-nocookie.com/embed/S9Y0MEct5pE"
@@ -649,14 +716,14 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
 
                   {/* Specialized Interactive Cockpit for Freejolitos */}
                   {focusedNode.dimension === 'freejolitos' && (
-                    <div className="p-4 rounded-xl bg-amberGold/10 border border-amberGold/40 space-y-3">
+                    <div className="p-4 rounded-xl bg-amber-50/80 dark:bg-amberGold/10 border border-amber-300 dark:border-amberGold/40 space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-amberGold text-xs">🫘 FREEJOLITOS CONSULTORES</span>
+                        <span className="font-bold text-amber-800 dark:text-amberGold text-xs">🫘 FREEJOLITOS CONSULTORES</span>
                         <a
                           href="https://freejolitos.consulting"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] text-amberGold hover:underline flex items-center gap-1"
+                          className="text-[11px] text-amber-700 dark:text-amberGold hover:underline flex items-center gap-1"
                         >
                           <span>freejolitos.consulting</span>
                           <ExternalLink className="w-3 h-3" />
@@ -664,13 +731,13 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                       </div>
                       
                       <div className="space-y-1.5 text-[11px]">
-                        <div className="flex justify-between p-1.5 rounded bg-cyber-void/60 border border-cyber-border">
+                        <div className="flex justify-between p-1.5 rounded bg-white dark:bg-cyber-void/60 border border-slate-200 dark:border-cyber-border">
                           <span>Diagnóstico y Ruta Crítica:</span>
-                          <strong className="text-amberGold">$16,704 MXN</strong>
+                          <strong className="text-amber-700 dark:text-amberGold">$16,704 MXN</strong>
                         </div>
-                        <div className="flex justify-between p-1.5 rounded bg-cyber-void/60 border border-cyber-border">
+                        <div className="flex justify-between p-1.5 rounded bg-white dark:bg-cyber-void/60 border border-slate-200 dark:border-cyber-border">
                           <span>Acompañamiento Mensual:</span>
-                          <strong className="text-amberGold">Desde $8,120 MXN/mes</strong>
+                          <strong className="text-amber-700 dark:text-amberGold">Desde $8,120 MXN/mes</strong>
                         </div>
                       </div>
 
@@ -678,7 +745,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                         href="https://wa.me/525533444852"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full py-2 rounded bg-matrix-green/20 hover:bg-matrix-green/30 border border-matrix-green text-matrix-green font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                        className="w-full py-2 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-md"
                       >
                         <span>Escribir por WhatsApp</span>
                         <ExternalLink className="w-3 h-3" />
@@ -688,7 +755,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
 
                   {/* Specialized Evidence List */}
                   <div className="space-y-2">
-                    <span className="text-gits-cyan font-bold text-xs block">// ENLACES Y EVIDENCIA DIRECTA:</span>
+                    <span className="text-sky-700 dark:text-gits-cyan font-bold text-xs block">// ENLACES Y EVIDENCIA DIRECTA:</span>
                     <div className="space-y-1.5">
                       {focusedNode.evidence.map((ev, idx) => (
                         <a
@@ -696,16 +763,16 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                           href={ev.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center justify-between p-2.5 rounded bg-cyber-void border border-cyber-border hover:border-ninja-crimson hover:text-white transition-colors group"
+                          className="flex items-center justify-between p-2.5 rounded bg-white dark:bg-cyber-void border border-slate-200 dark:border-cyber-border hover:border-red-500 dark:hover:border-ninja-crimson hover:text-red-600 dark:hover:text-white transition-colors group shadow-sm"
                         >
                           <div className="flex items-center gap-2 truncate">
-                            {ev.type === 'github' && <Github className="w-3.5 h-3.5 text-gits-cyan" />}
-                            {ev.type === 'video' && <Play className="w-3.5 h-3.5 text-red-400" />}
-                            {ev.type === 'link' && <ExternalLink className="w-3.5 h-3.5 text-matrix-green" />}
-                            {ev.type === 'doc' && <FileText className="w-3.5 h-3.5 text-amberGold" />}
-                            <span className="truncate font-semibold text-xs">{ev.title}</span>
+                            {ev.type === 'github' && <Github className="w-3.5 h-3.5 text-sky-600 dark:text-gits-cyan" />}
+                            {ev.type === 'video' && <Play className="w-3.5 h-3.5 text-red-500" />}
+                            {ev.type === 'link' && <ExternalLink className="w-3.5 h-3.5 text-emerald-600 dark:text-matrix-green" />}
+                            {ev.type === 'doc' && <FileText className="w-3.5 h-3.5 text-amber-600 dark:text-amberGold" />}
+                            <span className="truncate font-semibold text-xs text-slate-800 dark:text-cyber-textBright">{ev.title}</span>
                           </div>
-                          <ChevronRight className="w-3.5 h-3.5 text-cyber-textMuted group-hover:translate-x-1 group-hover:text-ninja-crimson transition-all" />
+                          <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-cyber-textMuted group-hover:translate-x-1 group-hover:text-ninja-crimson transition-all" />
                         </a>
                       ))}
                     </div>
@@ -714,7 +781,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                   {/* Tags */}
                   <div className="pt-2 flex flex-wrap gap-1.5">
                     {focusedNode.tags.map((tag, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-cyber-void border border-cyber-border text-cyber-textMuted text-[10px]">
+                      <span key={i} className="px-2 py-0.5 rounded bg-slate-100 dark:bg-cyber-void border border-slate-200 dark:border-cyber-border text-slate-600 dark:text-cyber-textMuted text-[10px]">
                         #{tag}
                       </span>
                     ))}
@@ -725,8 +792,8 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
               </div>
 
               {/* Related Nodes Quick Navigator inside Dimension */}
-              <div className="pt-4 border-t border-cyber-border flex flex-wrap items-center justify-between gap-3 text-[11px]">
-                <div className="text-cyber-textMuted">
+              <div className="pt-4 border-t border-slate-200 dark:border-cyber-border flex flex-wrap items-center justify-between gap-3 text-[11px]">
+                <div className="text-slate-500 dark:text-cyber-textMuted">
                   EXPLORAR MÁS EN ESTA CATEGORÍA ({filteredNodes.length} NODOS):
                 </div>
 
@@ -737,8 +804,8 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                       onClick={() => handleFocusNode(n)}
                       className={`px-2.5 py-1 rounded border text-[10px] font-mono transition-all ${
                         n.id === focusedNode.id
-                          ? 'bg-ninja-crimson text-white border-ninja-crimson font-bold'
-                          : 'bg-cyber-void border-cyber-border text-cyber-textMuted hover:border-gits-cyan hover:text-white'
+                          ? 'bg-ninja-crimson text-white border-ninja-crimson font-bold shadow-sm'
+                          : 'bg-slate-100 dark:bg-cyber-void border-slate-200 dark:border-cyber-border text-slate-600 dark:text-cyber-textMuted hover:border-sky-500 dark:hover:border-gits-cyan hover:text-slate-900 dark:hover:text-white'
                       }`}
                     >
                       {n.code}
@@ -755,24 +822,24 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
           {/* ===================================================================== */}
           {viewMode === 'matrix' && (
             <section className="space-y-4">
-              <div className="flex items-center justify-between border-b border-cyber-border pb-2.5 font-mono text-xs">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-cyber-border pb-2.5 font-mono text-xs">
                 <div className="flex items-center gap-2">
                   <span className="text-ninja-crimson font-bold">// MATRIZ TÁCTICA (ARREGLO 2x2):</span>
-                  <span className="text-cyber-textMuted">[{filteredNodes.length} NODOS ACTIVOS]</span>
+                  <span className="text-slate-500 dark:text-cyber-textMuted">[{filteredNodes.length} NODOS ACTIVOS]</span>
                 </div>
                 <button
                   onClick={() => {
                     setViewMode('hologram');
                     triggerHolographicRepaint();
                   }}
-                  className="text-gits-cyan hover:underline flex items-center gap-1"
+                  className="text-sky-700 dark:text-gits-cyan hover:underline flex items-center gap-1 font-semibold"
                 >
                   <Maximize2 className="w-3.5 h-3.5" />
                   <span>Volver a Holograma</span>
                 </button>
               </div>
 
-              {/* 2x2 Grid requested by Hugo */}
+              {/* 2x2 Grid */}
               <div ref={matrixGridRef} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {filteredNodes.map((node, index) => {
                   const isVisited = visitedNodes.has(node.id);
@@ -783,17 +850,17 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                     <div
                       key={node.id}
                       onClick={() => handleFocusNode(node)}
-                      className={`group relative bg-cyber-card/90 rounded-xl border p-4 sm:p-5 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl backdrop-blur-sm ${
+                      className={`group relative bg-white/95 dark:bg-cyber-card/90 rounded-xl border p-4 sm:p-5 flex flex-col justify-between cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl backdrop-blur-sm ${
                         isCurrent
-                          ? 'border-ninja-crimson box-glow-crimson'
-                          : 'border-cyber-border hover:border-gits-cyan'
+                          ? 'border-ninja-crimson shadow-md dark:box-glow-crimson'
+                          : 'border-slate-200 dark:border-cyber-border hover:border-red-400 dark:hover:border-gits-cyan'
                       }`}
                     >
                       {/* Top Card HUD */}
                       <div className="flex items-center justify-between mb-2 font-mono text-xs">
                         <div className="flex items-center gap-1.5">
-                          <span className={`w-2 h-2 rounded-full ${isCurrent ? 'bg-ninja-crimson animate-ping' : isVisited ? 'bg-gits-cyan' : 'bg-cyber-textMuted group-hover:bg-ninja-crimson'}`}></span>
-                          <span className="text-cyber-textMuted font-bold">{node.code}</span>
+                          <span className={`w-2 h-2 rounded-full ${isCurrent ? 'bg-ninja-crimson animate-ping' : isVisited ? 'bg-sky-500 dark:bg-gits-cyan' : 'bg-slate-300 dark:bg-cyber-textMuted group-hover:bg-ninja-crimson'}`}></span>
+                          <span className="text-slate-500 dark:text-cyber-textMuted font-bold">{node.code}</span>
                           <span className="text-[10px] font-serif text-ninja-crimson/80 ml-1">[{kanjiNumeral}]</span>
                         </div>
                         <span className="px-2 py-0.5 rounded text-[10px] font-semibold border bg-ninja-crimson/10 text-ninja-crimson border-ninja-crimson/30">
@@ -803,31 +870,31 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
 
                       {/* Title & Summary */}
                       <div className="space-y-1.5 mb-3">
-                        <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-gits-cyan transition-colors font-display">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-gits-cyan transition-colors font-display">
                           {node.title}
                         </h3>
-                        <p className="text-xs text-cyber-textMuted font-mono">
+                        <p className="text-xs text-slate-500 dark:text-cyber-textMuted font-mono">
                           {node.subtitle}
                         </p>
-                        <p className="text-xs text-cyber-textBright leading-relaxed line-clamp-3">
+                        <p className="text-xs text-slate-700 dark:text-cyber-textBright leading-relaxed line-clamp-3">
                           {node.summary}
                         </p>
                       </div>
 
                       {/* Stat */}
-                      <div className="p-2 mb-3 rounded bg-cyber-void/80 border border-cyber-border font-mono text-[10px] text-cyber-textBright">
+                      <div className="p-2 mb-3 rounded bg-slate-50 dark:bg-cyber-void/80 border border-slate-200 dark:border-cyber-border font-mono text-[10px] text-slate-800 dark:text-cyber-textBright">
                         <span className="text-ninja-crimson font-bold">⚡ </span>
                         {node.highlightStat}
                       </div>
 
                       {/* Bottom Footer Action */}
-                      <div className="pt-2.5 border-t border-cyber-border/60 flex items-center justify-between font-mono text-[10px]">
+                      <div className="pt-2.5 border-t border-slate-200 dark:border-cyber-border/60 flex items-center justify-between font-mono text-[10px]">
                         <div className="flex flex-wrap gap-1 max-w-[65%]">
                           {node.tags.slice(0, 2).map((t, idx) => (
-                            <span key={idx} className="text-cyber-textMuted">#{t}</span>
+                            <span key={idx} className="text-slate-500 dark:text-cyber-textMuted">#{t}</span>
                           ))}
                         </div>
-                        <div className="flex items-center gap-1 text-gits-cyan font-bold group-hover:translate-x-1 transition-transform">
+                        <div className="flex items-center gap-1 text-sky-700 dark:text-gits-cyan font-bold group-hover:translate-x-1 transition-transform">
                           <span>PROYECTAR</span>
                           <ChevronRight className="w-3 h-3" />
                         </div>

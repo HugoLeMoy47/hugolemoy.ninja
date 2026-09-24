@@ -3,7 +3,7 @@ export interface PortfolioNode {
   code: string;
   title: string;
   subtitle: string;
-  dimension: 'freejolitos' | 'gamedev' | 'advocacy' | 'cnnn' | 'github' | 'product_owner' | 'ideas';
+  dimension: 'freejolitos' | 'gamedev' | 'advocacy' | 'weedtown' | 'cnnn' | 'github' | 'product_owner' | 'ideas';
   accentColor: 'cyan' | 'green' | 'amber';
   badge: string;
   summary: string;
@@ -21,6 +21,82 @@ export interface PortfolioNode {
     impactOrOutcome: string;
   };
 }
+
+export interface SocialProfile {
+  id: string;
+  name: string;
+  handle: string;
+  url: string;
+  context: string;
+  icon: string;
+  accent: 'blue' | 'crimson' | 'amber' | 'slate' | 'green';
+}
+
+export const SOCIAL_PROFILES: SocialProfile[] = [
+  {
+    id: 'linkedin',
+    name: 'LinkedIn',
+    handle: 'Hugo Legorreta Moysén',
+    url: 'https://www.linkedin.com/in/hugolegorretamoysen/',
+    context: 'Expediente formal, trayectoria corporativa y credenciales de producto',
+    icon: 'Linkedin',
+    accent: 'blue',
+  },
+  {
+    id: 'facebook',
+    name: 'Facebook',
+    handle: '@HugoLeMoy',
+    url: 'https://www.facebook.com/HugoLeMoy',
+    context: 'Cotorreo social, vida diaria, anécdotas y comunidad abierta',
+    icon: 'Facebook',
+    accent: 'blue',
+  },
+  {
+    id: 'x',
+    name: 'X (Twitter)',
+    handle: '@HugoLeMoy',
+    url: 'https://x.com/HugoLeMoy',
+    context: 'Debate público, política, tecnología y reflexiones sin filtro',
+    icon: 'Twitter',
+    accent: 'slate',
+  },
+  {
+    id: 'instagram',
+    name: 'Instagram',
+    handle: '@hugolemoy',
+    url: 'https://www.instagram.com/hugolemoy',
+    context: 'Perspectiva visual, viajes, eventos y backstage',
+    icon: 'Instagram',
+    accent: 'crimson',
+  },
+  {
+    id: 'github',
+    name: 'GitHub',
+    handle: '@HugoLeMoy47',
+    url: 'https://github.com/HugoLeMoy47',
+    context: 'Auditoría de código, experimentos, motores de juegos y repositorios',
+    icon: 'Github',
+    accent: 'slate',
+  },
+  {
+    id: 'weedtown',
+    name: 'Weedtown',
+    handle: 'weedtown.social',
+    url: 'https://weedtown.social',
+    context: 'Red social autónoma, cultura cannábica y soberanía digital sin algoritmos',
+    icon: 'Users',
+    accent: 'green',
+  },
+  {
+    id: 'freejolitos',
+    name: 'Freejolitos',
+    handle: 'freejolitos.consulting',
+    url: 'https://freejolitos.consulting',
+    context: 'Consultoría técnica e inteligencia artificial ética para el Tercer Sector',
+    icon: 'Bean',
+    accent: 'amber',
+  },
+];
 
 export interface DimensionMeta {
   id: string;
@@ -53,30 +129,39 @@ export const DIMENSIONS: DimensionMeta[] = [
   },
   {
     id: 'advocacy',
-    name: 'Incidencia & Comuna 42',
+    name: 'Incidencia & La Comuna 420',
     code: '03_POLICY_NET',
     color: 'green',
     icon: 'Scale',
-    description: 'Política pública cannábica, regulación con enfoque de derechos humanos, iniciativa #Capital420, Senado y articulación comunitaria.',
+    description: 'Incidencia política, redacción legislativa en el Senado, iniciativa #Capital420 y 3+ años de voluntariado cívico pacífico ininterrumpido.',
     nodeCount: 4,
   },
   {
+    id: 'weedtown',
+    name: 'weedtown.social (Red Autónoma)',
+    code: '04_AUTONOMOUS_NET',
+    color: 'green',
+    icon: 'Users',
+    description: 'Red social independiente y soberana: vibe-coding, libertad de expresión comunitaria y espacio seguro sin censura algorítmica.',
+    nodeCount: 1,
+  },
+  {
     id: 'cnnn',
-    name: 'CNNN & Acervo Audiovisual',
-    code: '04_MEDIA_STREAM',
+    name: 'Contenido Digital & CNNN',
+    code: '05_MEDIA_STREAM',
     color: 'green',
     icon: 'Tv',
-    description: 'Cannabis Network News Now: conducción titular, análisis legislativo, entrevistas a profundidad y coberturas.',
+    description: 'Creación de contenido digital, periodismo cannábico riguroso, análisis técnico legislativo en video y coberturas.',
     nodeCount: 1,
   },
   {
     id: 'github',
     name: 'Laboratorio de Código & GitHub',
-    code: '05_SOURCE_FORGE',
+    code: '06_SOURCE_FORGE',
     color: 'cyan',
     icon: 'GitBranch',
-    description: 'Repositorios públicos en GitHub (@HugoLeMoy47): redes sociales sin estigma, trackers humanitarios y scripts.',
-    nodeCount: 5,
+    description: 'Repositorios públicos en GitHub (@HugoLeMoy47): herramientas de impacto humanitario, data utilities y scripts de automatización.',
+    nodeCount: 4,
   },
   {
     id: 'product_owner',
@@ -252,7 +337,7 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     }
   },
 
-  // 03 // ADVOCACY & COMUNA 42
+  // 03 // ADVOCACY & LA COMUNA 420
   {
     id: 'capital-420-iniciativa',
     code: 'ADV-01',
@@ -279,16 +364,16 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     }
   },
   {
-    id: 'la-comuna-42-asambleas',
+    id: 'la-comuna-420-asambleas',
     code: 'ADV-02',
-    title: 'La Comuna 42: Asambleas y Coexistencia',
-    subtitle: 'Organización de base, pacificación comunitaria y mediación',
+    title: 'La Comuna 420: Asambleas, Convivencia & Voluntariado Cívico',
+    subtitle: 'Gestión masiva de voluntariado autónomo 24/7 y marchas pacíficas (3+ años)',
     dimension: 'advocacy',
     accentColor: 'green',
-    badge: 'COMUNIDAD ACTIVA',
-    summary: 'Facilitación de asambleas ciudadanas, vocería frente a autoridades locales y defensa del derecho a la ciudad para personas consumidoras responsables mediante autorregulación.',
-    highlightStat: 'Asambleas periódicas · Protocolos de convivencia pacífica',
-    tags: ['Asambleas', 'Paz Urbana', 'Mediación', 'Comuna 42', 'Autocultivo'],
+    badge: 'VOLUNTARIADO CÍVICO',
+    summary: 'Coordinación masiva de voluntariado cívico sin nóminas ni contratos burocráticos. Mantenimiento ininterrumpido de espacios públicos vivos, pacíficos y pedagógicos durante más de tres años, además de la logística de la Marcha 420.',
+    highlightStat: '3+ años continuos · Voluntariado cívico 100% autónomo · Convivencia pacífica',
+    tags: ['La Comuna 420', 'Voluntariado Cívico', 'Paz Urbana', 'Mediación', 'Autogestión'],
     evidence: [
       {
         type: 'video',
@@ -298,22 +383,22 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
       }
     ],
     details: {
-      problemOrContext: 'Conflictos vecinales y desinformación en torno a los puntos de encuentro y tolerancia para usuarios en la vía pública.',
-      solutionOrRole: 'Vocero y facilitador comunitario. Implementación de reglas de convivencia interna, limpieza comunitaria y diálogo con autoridades de la alcaldía.',
-      impactOrOutcome: 'Reducción de incidentes de violencia y consolidación de un espacio con autorregulación comunitaria.',
+      problemOrContext: 'Demostrar que la comunidad usuaria es capaz de auto-organizarse pacíficamente en el espacio público sin requerir tutela policíaca ni estructuras burocráticas.',
+      solutionOrRole: 'Coordinador y facilitador. Gestión humana y logística de cientos de voluntarios sin remuneración contractual, organizando comisiones de limpieza, seguridad comunitaria, diálogo con vecinos y la logística de la Marcha 420.',
+      impactOrOutcome: 'Consolidación de un territorio de convivencia pacífica autogestionada activo diariamente durante más de 3 años ininterrumpidos.',
     }
   },
   {
     id: 'senado-cravioto-iniciativa',
     code: 'ADV-03',
-    title: 'Iniciativa en el Senado (César Cravioto)',
-    subtitle: 'Articulación federal para la ley general de regulación cannábica',
+    title: 'Iniciativa en el Senado: Redacción Legislativa & Política Transversal',
+    subtitle: 'Formulación técnica de ley con la bancada del Senador César Cravioto',
     dimension: 'advocacy',
     accentColor: 'green',
-    badge: 'EN BITÁCORA / SEGUIMIENTO',
-    summary: 'Trabajo de interlocución e impulso de iniciativas con la bancada senatorial encabezada por César Cravioto para destrabar el marco regulatorio del cannabis a nivel nacional.',
-    highlightStat: 'Interlocución directa en el Senado de la República',
-    tags: ['Senado de la República', 'César Cravioto', 'Regulación Federal', 'Incidencia'],
+    badge: 'TÉCNICA LEGISLATIVA',
+    summary: 'Participación directa en las entrañas del proceso legislativo federal: redacción técnica de propuestas de ley y estructuración de un marco transversal que vincula derechos humanos, justicia social agraria y fin de la criminalización.',
+    highlightStat: 'Técnica legislativa parlamentaria · Senado de la República',
+    tags: ['Senado de la República', 'César Cravioto', 'Técnica Legislativa', 'Política Pública Transversal'],
     evidence: [
       {
         type: 'link',
@@ -323,9 +408,9 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
       }
     ],
     details: {
-      problemOrContext: 'El congelamiento legislativo federal en el Congreso de la Unión tras las sentencias de inconstitucionalidad de la Suprema Corte.',
-      solutionOrRole: 'Interlocutor y ponente ciudadano. Presentación de argumentos técnicos sobre justicia social, derechos de los campesinos y autocultivo no comercial.',
-      impactOrOutcome: 'Construcción de puentes con senadores para la defensa del articulado enfocado en derechos de usuarios.',
+      problemOrContext: 'El vacío legal federal y la complejidad de articular una ley que cruza simultáneamente salud, derechos humanos, economía campesina, comercio y fiscalidad.',
+      solutionOrRole: 'Asesor e interlocutor técnico ciudadano. Redacción de articulados, fundamentación jurídica y cabildeo con senadores para salvaguardar el autocultivo no comercial y las licencias sociales.',
+      impactOrOutcome: 'Comprensión profunda desde adentro de la técnica parlamentaria mexicana y la construcción de acuerdos en el Congreso de la Unión.',
     }
   },
   {
@@ -351,6 +436,39 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
       problemOrContext: 'La necesidad de visibilizar que el consumo y el autocultivo pacífico en el espacio público no representan una amenaza de seguridad.',
       solutionOrRole: 'Activista participante. Acompañamiento, pedagogía comunitaria sobre derechos constitucionales y cultivo in situ.',
       impactOrOutcome: 'El plantón cannábico más longevo de Latinoamérica y epicentro de debate legislativo.',
+    }
+  },
+
+  // 04 // WEEDTOWN.SOCIAL (RED AUTÓNOMA)
+  {
+    id: 'weedtown-social',
+    code: 'WTS-01',
+    title: 'weedtown.social',
+    subtitle: 'Red social autónoma, soberana y libre de censura algorítmica',
+    dimension: 'weedtown',
+    accentColor: 'green',
+    badge: 'RED SOCIAL EN VIVO',
+    summary: 'Red social comunitaria y descentralizada creada mediante vibe-coding. Un espacio seguro, sin algoritmos de explotación ni estigmatización comercial para compartir conocimiento botánico, debate y cultura cannábica.',
+    highlightStat: 'En vivo en weedtown.social · Soberanía digital comunitaria',
+    tags: ['weedtown.social', 'Vibe-Coding', 'Red Autónoma', 'Soberanía Digital', 'Comunidad Libre'],
+    evidence: [
+      {
+        type: 'link',
+        title: 'Plataforma en Vivo (weedtown.social)',
+        url: 'https://weedtown.social',
+        description: 'Acceso directo a la red social comunitaria',
+      },
+      {
+        type: 'github',
+        title: 'Repositorio en GitHub',
+        url: 'https://github.com/HugoLeMoy47/weedtown_trial_101',
+        description: 'Código abierto y prototipo interactivo',
+      }
+    ],
+    details: {
+      problemOrContext: 'Las plataformas hegemónicas (Instagram, Facebook) banean cuentas, censuran publicaciones de autocultivo y estigmatizan a las personas usuarias mediante algoritmos opacos.',
+      solutionOrRole: 'Creador y arquitecto de software. Diseño de una red social soberana, accesible desde web, enfocada en privacidad, intercambio botánico y deliberación comunitaria sin algoritmos de vigilancia.',
+      impactOrOutcome: 'Plataforma comunitaria activa en weedtown.social con soberanía de datos y libertad de expresión para la cultura cannábica.',
     }
   },
 
@@ -387,35 +505,10 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     }
   },
 
-  // 05 // GITHUB LAB
-  {
-    id: 'weedtown-app',
-    code: 'GIT-01',
-    title: 'WeedTown Social Network',
-    subtitle: 'Red social comunitaria cannábica creada con vibe-coding',
-    dimension: 'github',
-    accentColor: 'cyan',
-    badge: 'VIBE CODING',
-    summary: 'Espacio digital seguro y de respeto donde la comunidad puede compartir conocimientos de cultivo, conectar y debatir sin las restricciones y censura algorítmica de redes convencionales.',
-    highlightStat: 'Stack JavaScript moderno · Temática sin estigma',
-    tags: ['JavaScript', 'Social Network', 'Vibe-Coding', 'Cannabis App', 'Community'],
-    evidence: [
-      {
-        type: 'github',
-        title: 'Repositorio en GitHub',
-        url: 'https://github.com/HugoLeMoy47/weedtown_trial_101',
-        description: 'Código abierto y prototipo interactivo',
-      }
-    ],
-    details: {
-      problemOrContext: 'Las plataformas hegemónicas (Instagram, Facebook) banean cuentas, censuran publicaciones de autocultivo y estigmatizan a las personas usuarias.',
-      solutionOrRole: 'Desarrollador y diseñador de experiencia. Creación de una red orientada a privacidad, intercambio de conocimiento botánico y respeto mutuo.',
-      impactOrOutcome: 'Prototipo funcional activo con tracción comunitaria.',
-    }
-  },
+  // 06 // GITHUB LAB
   {
     id: 'cafemin-tracker',
-    code: 'GIT-02',
+    code: 'GIT-01',
     title: 'CAFEMIN Task Tracker',
     subtitle: 'POC de seguimiento de tareas para albergue de personas migrantes',
     dimension: 'github',
