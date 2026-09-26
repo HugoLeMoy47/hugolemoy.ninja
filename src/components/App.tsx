@@ -90,7 +90,7 @@ export const App: React.FC = () => {
       )}
 
       {/* Background Neo-Tokyo Cyber-Ninja / Sumi-e Rain Canvas */}
-      <CyberMatrixRain opacity={theme === 'dark' ? 0.16 : 0.12} theme={theme} />
+      <CyberMatrixRain theme={theme} />
 
       {/* Top HUD Telemetry Navigation */}
       <CyberHeader

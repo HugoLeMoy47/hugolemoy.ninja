@@ -73,14 +73,6 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
   const matrixGridRef = useRef<HTMLDivElement | null>(null);
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
 
-  // Lleva la vista al borde superior de la tarjeta que se está redibujando
-  // (scroll-margin en el contenedor compensa el HUD y las pestañas sticky)
-  const scrollToStage = () => {
-    requestAnimationFrame(() => {
-      stageContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  };
-
   // Sync external dimension if triggered from Operator CLI
   useEffect(() => {
     if (externalDimension) {
@@ -91,7 +83,6 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
         setVisitedNodes((prev) => new Set(prev).add(match.id));
       }
       triggerHolographicRepaint();
-      scrollToStage();
     }
   }, [externalDimension]);
 
@@ -186,7 +177,6 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       }
     }
     triggerHolographicRepaint();
-    scrollToStage();
   };
 
   const handleFocusNode = (node: PortfolioNode) => {
@@ -196,7 +186,6 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
     onNodeSelectForOperator(node.id);
     setViewMode('hologram');
     triggerHolographicRepaint();
-    scrollToStage();
   };
 
   const startExpedition = () => {
@@ -351,12 +340,11 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
             </div>
           </div>
 
-          {/* 3D Wireframe Shuriken Core */}
+          {/* 3D Wireframe Core */}
           <div className="shrink-0">
             <CyberWireframeCore 
               accentColor={currentPersona === 'PROJECT_2501' ? 'crimson' : 'amber'}
               syncPercent={syncPercentage}
-              label="3D CYBER-SHURIKEN"
               theme={theme}
               onCoreClick={() => {
                 triggerHolographicRepaint();

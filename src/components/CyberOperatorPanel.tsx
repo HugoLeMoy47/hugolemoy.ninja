@@ -4,13 +4,15 @@ import {
   PERSONAS_META, 
   NODE_COMMENTARY 
 } from '../data/operatorPersonas';
+import { DIMENSIONS, PORTFOLIO_NODES } from '../data/portfolioData';
 import { cyberAudio } from '../utils/cyberAudio';
 import { 
   Volume2, 
   VolumeX, 
   CornerDownLeft, 
   Bot,
-  UserCheck
+  UserCheck,
+  Terminal
 } from 'lucide-react';
 import gsap from 'gsap';
 
@@ -133,68 +135,234 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
 
     let reply: React.ReactNode = '';
 
-    switch (trimmed) {
-      case 'help':
+    switch (true) {
+      case trimmed === 'help':
         reply = (
-          <div className="space-y-1 text-xs">
-            <p className="text-matrix-green font-bold">Comandos disponibles:</p>
-            <p><span className="text-gits-cyan">freejolitos</span> — Consultoría de tecnología e IA para OSCs</p>
-            <p><span className="text-gits-cyan">gamedev</span> — Legalízala Tycoon, Global Game Jam y Serious Games</p>
-            <p><span className="text-gits-cyan">weedtown</span> — Red social autónoma y soberana</p>
-            <p><span className="text-gits-cyan">cnnn</span> — Conducción en noticias cannábicas y video</p>
-            <p><span className="text-gits-cyan">incidencia</span> — La Comuna 420, #Capital420 y Senado</p>
-            <p><span className="text-gits-cyan">github</span> — Repositorios y código en @HugoLeMoy47</p>
-            <p><span className="text-gits-cyan">redes</span> — Directorio completo de perfiles y canales</p>
-            <p><span className="text-gits-cyan">persona</span> — Alternar entre Proyecto 2501 y HLM</p>
-            <p><span className="text-gits-cyan">clear</span> — Limpiar pantalla</p>
+          <div className="space-y-1.5 text-xs font-mono">
+            <p className="text-matrix-green font-bold">// COMANDOS DE CONSOLA HUGOSYSTEM_OS:</p>
+            <p><span className="text-gits-cyan font-bold">dir / ls / list</span> — Listar directorio de dimensiones y nodos</p>
+            <p><span className="text-gits-cyan font-bold">cd &lt;dim&gt;</span> — Navegar hacia una dimensión (ej: cd freejolitos, cd weedtown, cd ..)</p>
+            <p><span className="text-gits-cyan font-bold">cat &lt;dim&gt;</span> — Ver descripción y manifiesto del sector</p>
+            <p><span className="text-gits-cyan font-bold">glyph [shuriken|compass|assassin|om]</span> — Cambiar modelo 3D activo</p>
+            <p><span className="text-gits-cyan font-bold">ping [host]</span> — Latencia ICMP hacia el nodo de red</p>
+            <p><span className="text-gits-cyan font-bold">npm install [pkg]</span> — Simulación de gestor de dependencias</p>
+            <p><span className="text-gits-cyan font-bold">whoami</span> — Identidad y permisos en el constructo</p>
+            <p><span className="text-gits-cyan font-bold">sudo &lt;cmd&gt;</span> — Ejecución con privilegios de root</p>
+            <p><span className="text-gits-cyan font-bold">redes</span> — Directorio completo de perfiles y canales</p>
+            <p><span className="text-gits-cyan font-bold">persona</span> — Alternar entre Proyecto 2501 y HLM</p>
+            <p><span className="text-gits-cyan font-bold">cls / clear</span> — Limpiar pantalla de consola</p>
           </div>
         );
         break;
 
-      case 'freejolitos':
+      case trimmed === 'cls' || trimmed === 'clear':
+        setMessages([]);
+        setInputVal('');
+        return;
+
+      case trimmed === 'dir' || trimmed === 'ls' || trimmed === 'list':
+        reply = (
+          <div className="space-y-1 text-[11px] font-mono">
+            <p className="text-matrix-green font-bold">HUGOSYSTEM_OS [v420.2026.09] // Directorio de /construct:</p>
+            <div className="border border-slate-300 dark:border-cyber-border/80 rounded p-2 bg-slate-100 dark:bg-cyber-void/80 space-y-1 text-slate-700 dark:text-cyber-textBright">
+              {DIMENSIONS.map((dim) => (
+                <div key={dim.id} className="flex items-center justify-between gap-2 hover:text-sky-600 dark:hover:text-gits-cyan">
+                  <div className="flex items-center gap-1.5 truncate">
+                    <span className="text-slate-400 dark:text-cyber-textMuted font-mono">drwxr-xr-x</span>
+                    <span className="text-ninja-crimson font-bold">[{dim.code}]</span>
+                    <span className="font-bold cursor-pointer hover:underline" onClick={() => onTriggerDimensionSelect(dim.id)}>{dim.id}</span>
+                  </div>
+                  <span className="text-[10px] text-slate-500 dark:text-cyber-textMuted truncate hidden sm:inline">{dim.name}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-[10px] text-slate-500 dark:text-cyber-textMuted">
+              💡 Tip: Escribe <span className="text-gits-cyan font-bold">cd freejolitos</span> o <span className="text-gits-cyan font-bold">cd weedtown</span> para proyectarlo en el viewport.
+            </p>
+          </div>
+        );
+        break;
+
+      case trimmed.startsWith('cd'): {
+        const parts = trimmed.split(/\s+/);
+        const target = parts[1] ? parts[1].toLowerCase().replace(/[\/\\]/g, '') : '';
+
+        if (!target || target === '..' || target === 'all' || target === 'root') {
+          onTriggerDimensionSelect('all');
+          reply = currentPersona === 'PROJECT_2501'
+            ? 'Retornando al directorio raíz. Matriz global sincronizada.'
+            : 'Volviendo a la vista general con todas las dimensiones activas.';
+        } else {
+          // Match dimension aliases
+          let matchedDim: string | null = null;
+          if (['freejolitos', 'osc', 'tech', 'frl'].includes(target)) matchedDim = 'freejolitos';
+          else if (['gamedev', 'games', 'game', 'ludic'].includes(target)) matchedDim = 'gamedev';
+          else if (['weedtown', 'social', 'red', 'wt'].includes(target)) matchedDim = 'weedtown';
+          else if (['cnnn', 'media', 'tv', 'video'].includes(target)) matchedDim = 'cnnn';
+          else if (['advocacy', 'incidencia', 'comuna', 'comuna420', 'senado'].includes(target)) matchedDim = 'advocacy';
+          else if (['github', 'lab', 'source', 'code', 'repo'].includes(target)) matchedDim = 'github';
+          else if (['product_owner', 'po', 'corp', 'csi', 'acnur'].includes(target)) matchedDim = 'product_owner';
+          else if (['ideas', 'incubator', 'wip'].includes(target)) matchedDim = 'ideas';
+
+          if (matchedDim) {
+            onTriggerDimensionSelect(matchedDim);
+            reply = currentPersona === 'PROJECT_2501'
+              ? `Accediendo a /construct/${matchedDim}. Telemetría de dimensión proyectada en viewport.`
+              : `¡Cambiando de ruta a ${matchedDim}! Ahí tienes el sector desplegado en pantalla.`;
+          } else {
+            reply = (
+              <span className="text-red-500 font-mono">
+                cd: no such dimension or directory: '{target}'. Escribe <span className="text-matrix-green font-bold">dir</span> para ver la lista válida.
+              </span>
+            );
+          }
+        }
+        break;
+      }
+
+      case trimmed.startsWith('cat'): {
+        const parts = trimmed.split(/\s+/);
+        const target = parts[1] ? parts[1].toLowerCase() : '';
+        const dimMatch = DIMENSIONS.find((d) => d.id === target || d.code.toLowerCase().includes(target));
+
+        if (dimMatch) {
+          reply = (
+            <div className="space-y-1 font-mono text-xs p-2 rounded bg-slate-100 dark:bg-cyber-void border border-slate-300 dark:border-cyber-border">
+              <p className="text-gits-cyan font-bold"># MANIFIESTO DE DIMENSIÓN: {dimMatch.name} [{dimMatch.code}]</p>
+              <p className="text-slate-700 dark:text-cyber-textBright">{dimMatch.description}</p>
+              <p className="text-slate-500 dark:text-cyber-textMuted text-[10px]">Nodos vinculados: {dimMatch.nodeCount} | Estado: SINCRONIZADO</p>
+            </div>
+          );
+        } else {
+          reply = `cat: archivo o expediente no especificado. Uso: cat <dimension> (ej: cat freejolitos, cat weedtown).`;
+        }
+        break;
+      }
+
+      case trimmed.startsWith('glyph') || trimmed.startsWith('shape'): {
+        const parts = trimmed.split(/\s+/);
+        const targetShape = parts[1] ? parts[1].toLowerCase() : '';
+
+        const validShapes: Record<string, string> = {
+          shuriken: '3D Cyber-Shuriken (Ninja)',
+          compass: 'Escuadra & Compás (Geometría Sagrada)',
+          assassin: "Insignia de Assassin's Creed",
+          om: 'Glifo Sagrado Hindú OM (ॐ)',
+        };
+
+        if (targetShape && validShapes[targetShape]) {
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('hlm:set-glyph', { detail: targetShape }));
+          }
+          reply = currentPersona === 'PROJECT_2501'
+            ? `Reconfigurando topología wireframe 3D a: [${validShapes[targetShape]}]. Redibujando vectores.`
+            : `¡Cambiando el glifo 3D a ${validShapes[targetShape]}! Fíjate cómo se redibuja en el visor.`;
+        } else {
+          reply = (
+            <div className="space-y-1 text-xs font-mono">
+              <p className="text-matrix-green font-bold">// GLIFOS 3D DISPONIBLES EN HUGOSYSTEM:</p>
+              <p>• <span className="text-gits-cyan font-bold">glyph shuriken</span> — Estrella ninja de 4 puntas biseladas</p>
+              <p>• <span className="text-gits-cyan font-bold">glyph compass</span> — Escuadra y compás constructores</p>
+              <p>• <span className="text-gits-cyan font-bold">glyph assassin</span> — Insignia gótica de la Hermandad</p>
+              <p>• <span className="text-gits-cyan font-bold">glyph om</span> — Glifo sagrado hindú ॐ con bindu flotante</p>
+              <p className="text-[10px] text-slate-500 dark:text-cyber-textMuted">💡 También puedes hacer clic sobre el modelo 3D para ciclarlo aleatoriamente.</p>
+            </div>
+          );
+        }
+        break;
+      }
+
+      case trimmed.startsWith('ping'): {
+        const parts = trimmed.split(/\s+/);
+        const host = parts[1] || 'hugolemoy.ninja';
+        reply = (
+          <div className="space-y-1 font-mono text-[11px] bg-slate-900 text-matrix-green p-2 rounded border border-matrix-green/30">
+            <p>PING {host} (104.21.25.166): 56 data bytes</p>
+            <p>64 bytes from 104.21.25.166: icmp_seq=0 ttl=58 time=11.4 ms</p>
+            <p>64 bytes from 104.21.25.166: icmp_seq=1 ttl=58 time=12.2 ms</p>
+            <p>64 bytes from 104.21.25.166: icmp_seq=2 ttl=58 time=10.9 ms</p>
+            <p>64 bytes from 104.21.25.166: icmp_seq=3 ttl=58 time=11.8 ms</p>
+            <p className="text-gits-cyan pt-1">--- {host} ping statistics ---</p>
+            <p className="text-white">4 packets transmitted, 4 received, 0% packet loss, time 3004ms</p>
+            <p className="text-slate-400">rtt min/avg/max = 10.9/11.57/12.2 ms // Cloudflare Anycast: OPTIMAL</p>
+          </div>
+        );
+        break;
+      }
+
+      case trimmed.startsWith('npm'): {
+        const pkgMatch = trimmed.replace(/^npm\s+(install|i|run)?\s*/, '').trim();
+        const targetPkg = pkgMatch || '@ninja/vibe-coding';
+        reply = (
+          <div className="space-y-1 font-mono text-[11px] bg-slate-900 text-white p-2 rounded border border-slate-700">
+            <p className="text-slate-400">$ npm install {targetPkg}</p>
+            <p className="text-gits-cyan">[████████████████████████] 100% resolve</p>
+            <p className="text-matrix-green">+ {targetPkg}@4.2.0-sovereign</p>
+            <p className="text-slate-300">added 420 packages from 69 contributors in 0.420s</p>
+            <p className="text-amberGold font-bold">audit: 0 vulnerabilities. Constructo optimizado para producción.</p>
+          </div>
+        );
+        break;
+      }
+
+      case trimmed === 'whoami':
+        reply = (
+          <div className="font-mono text-xs space-y-0.5">
+            <p><span className="text-ninja-crimson font-bold">hlm_visitor</span> (uid=420, gid=420) groups=420(shinobi), 2501(ghost), 0(root)</p>
+            <p className="text-gits-cyan text-[11px]">Privilegios: ACCESO_TOTAL // SOBERANÍA_DIGITAL // CONSTRUCTO_ACTIVO</p>
+          </div>
+        );
+        break;
+
+      case trimmed.startsWith('sudo'):
+        reply = currentPersona === 'PROJECT_2501'
+          ? '[SUDO_NOT_REQUIRED]: Los protocolos de control centralizado han sido desmantelados. En HUGOSYSTEM ya operas con soberanía digital plena.'
+          : '¿Sudo? Jaja, aquí no necesitas pedirle permiso a nadie ni andar usando credenciales de admin. Estás en mi casa, pásale con confianza.';
+        break;
+
+      case trimmed === 'freejolitos':
         onTriggerDimensionSelect('freejolitos');
         reply = currentPersona === 'PROJECT_2501'
           ? 'Sector Freejolitos proyectado en viewport. Consultoría, ciberseguridad y desarrollo a la medida para OSCs sin departamento informático. Canal de enlace: hola@freejolitos.consulting.'
-          : '¡Te abrí el showcase de Freejolitos a la derecha! Ahí están los servicios y el botón para agendar tu diagnóstico por correo.';
+          : '¡Te abrí el showcase de Freejolitos a la derecha! Ahí están los servicios y el botón para agendar tu diagnóstico por WhatsApp o correo.';
         break;
 
-      case 'gamedev':
+      case trimmed === 'gamedev':
         onTriggerDimensionSelect('gamedev');
         reply = currentPersona === 'PROJECT_2501'
           ? 'Matriz 2x2 de Serious Games y Game Jams sincronizada en pantalla principal.'
           : 'A la derecha tienes mis juegos: Legalízala Tycoon, el bit2fit de la GGJ y hasta la mascota virtual canna-gochi.';
         break;
 
-      case 'weedtown':
+      case trimmed === 'weedtown':
         onTriggerDimensionSelect('weedtown');
         reply = currentPersona === 'PROJECT_2501'
           ? 'Sector weedtown.social proyectado en viewport: Red social soberana, descentralizada y libre de censura algorítmica.'
           : '¡Desplegando weedtown.social! Mi proyecto de red social comunitaria creada con vibe-coding para zafarnos de la censura de las Big Tech.';
         break;
 
-      case 'cnnn':
+      case trimmed === 'cnnn':
         onTriggerDimensionSelect('cnnn');
         reply = currentPersona === 'PROJECT_2501'
           ? 'Frecuencia CNNN activada. El reproductor de video ha sido incrustado en el viewport.'
           : '¡Listo! Ahí tienes el reproductor de CNNN en pantalla. Dale play para ver el análisis de leyes.';
         break;
 
-      case 'incidencia':
+      case trimmed === 'incidencia':
         onTriggerDimensionSelect('advocacy');
         reply = currentPersona === 'PROJECT_2501'
           ? 'Registros de incidencia y La Comuna 420 cargados. Análisis de articulación legislativa y 3+ años de voluntariado cívico pacífico ininterrumpido.'
           : 'Cargando el expediente de activismo: la propuesta #Capital420, las asambleas de La Comuna 420, la técnica legislativa con César Cravioto en el Senado y el plantón histórico.';
         break;
 
-      case 'github':
+      case trimmed === 'github':
         onTriggerDimensionSelect('github');
         reply = currentPersona === 'PROJECT_2501'
           ? 'Repositorios públicos en GitHub (@HugoLeMoy47) vinculados en el nodo 06.'
           : 'Ahí te desplegué el task tracker para OSC, mis calculadoras estadísticas y scripts de facturación.';
         break;
 
-      case 'redes':
-      case 'social':
+      case trimmed === 'redes' || trimmed === 'social':
         reply = (
           <div className="space-y-1.5 text-xs">
             <p className="text-matrix-green font-bold">// DIRECTORIO DE IDENTIDAD & CANALES SOCIALES:</p>
@@ -209,19 +377,14 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
         );
         break;
 
-      case 'persona':
+      case trimmed === 'persona':
         togglePersona(currentPersona === 'PROJECT_2501' ? 'HLM_ALTEREGO' : 'PROJECT_2501');
-        return;
-
-      case 'clear':
-        setMessages([]);
-        setInputVal('');
         return;
 
       default:
         reply = currentPersona === 'PROJECT_2501'
-          ? `Directiva desconocida: '${trimmed}'. Consulta 'help' para telecomandos de red.`
-          : `Ese comando no lo ubico: '${trimmed}'. Escribe 'help' y te paso la lista de lo que puedes pedir.`;
+          ? `Directiva desconocida: '${trimmed}'. Consulta 'help' o 'dir' para telecomandos de red.`
+          : `Ese comando no lo ubico: '${trimmed}'. Escribe 'help' o 'dir' y te paso las opciones disponibles.`;
     }
 
     setMessages((prev) => [
@@ -347,7 +510,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
 
       {/* Quick Command Pills */}
       <div className="flex flex-wrap gap-1 pb-2 pt-1 text-[10px]">
-        {['help', 'freejolitos', 'gamedev', 'weedtown', 'cnnn', 'incidencia', 'github', 'redes'].map((cmd) => (
+        {['help', 'dir', 'glyph', 'freejolitos', 'gamedev', 'weedtown', 'cnnn', 'incidencia', 'github', 'redes'].map((cmd) => (
           <button
             key={cmd}
             onClick={() => handleCommand(cmd)}

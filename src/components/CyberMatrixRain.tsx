@@ -5,8 +5,9 @@ interface MatrixRainProps {
   theme?: 'light' | 'dark';
 }
 
-export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22, theme = 'dark' }) => {
+export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 1, theme = 'dark' }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const mouseRef = useRef<{ x: number; y: number; active: boolean }>({ x: -1000, y: -1000, active: false });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -17,6 +18,19 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22, the
     let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
+      mouseRef.current.active = true;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.active = false;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseleave', handleMouseLeave);
 
     // Characters: Katakana, Kanji (Shinobi, Jutsu, Ghost, Net, Cyber), Numbers, and Hex
     const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン忍術魂電影道網鬼0123456789ABCDEFλΨ420';
@@ -43,50 +57,89 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22, the
     window.addEventListener('resize', handleResize);
 
     const isDark = theme === 'dark';
+    const spotRadius = 240;
+    const spotRadiusSq = spotRadius * spotRadius;
 
     const render = () => {
       // Clear with background fade: obsidian in dark mode, washi paper in light mode
-      ctx.fillStyle = isDark ? 'rgba(6, 9, 14, 0.09)' : 'rgba(250, 250, 250, 0.12)';
+      ctx.fillStyle = isDark ? 'rgba(6, 9, 14, 0.14)' : 'rgba(250, 250, 250, 0.16)';
       ctx.fillRect(0, 0, width, height);
 
       ctx.font = `${fontSize}px "JetBrains Mono", "Courier New", monospace`;
+
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      const mActive = mouseRef.current.active;
 
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
+        // Proximity calculation relative to cursor
+        let proximity = 0;
+        if (mActive) {
+          const dx = x - mx;
+          const dy = y - my;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < spotRadiusSq) {
+            proximity = 1 - Math.sqrt(distSq) / spotRadius;
+          }
+        }
+
         const rand = Math.random();
 
         if (isDark) {
           // Neo-Tokyo Chromatic Distribution (Dark mode):
-          // - 10%: Ninja Crimson / Vermilion (#ff0055)
-          // - 40%: GitS Cyan (#00f0ff)
-          // - 15%: Ghost White phosphor (#ffffff)
-          // - 35%: Deep cyber slate cyan (#006680)
-          if (rand > 0.90) {
-            ctx.fillStyle = '#ff0055'; // Ninja Crimson
-          } else if (rand > 0.50) {
-            ctx.fillStyle = '#00f0ff'; // GitS Cyan
-          } else if (rand > 0.35) {
-            ctx.fillStyle = '#ffffff'; // Ghost White
+          // Ambient base alpha is ~0.15, boosted up to 0.95 in mouse spotlight
+          const baseAlpha = 0.16 + proximity * 0.78;
+
+          if (proximity > 0.35) {
+            // Hot aura around mouse: bright electric neon
+            if (rand > 0.80) {
+              ctx.fillStyle = `rgba(255, 0, 85, ${Math.min(baseAlpha + 0.1, 1)})`; // Vivid Crimson
+            } else if (rand > 0.30) {
+              ctx.fillStyle = `rgba(0, 240, 255, ${Math.min(baseAlpha + 0.1, 1)})`; // Electric Cyan
+            } else {
+              ctx.fillStyle = `rgba(255, 255, 255, ${Math.min(baseAlpha + 0.15, 1)})`; // Flash White
+            }
           } else {
-            ctx.fillStyle = 'rgba(0, 160, 200, 0.45)'; // Dim Cyber Cyan tail
+            // Ambient faint background
+            if (rand > 0.90) {
+              ctx.fillStyle = `rgba(255, 0, 85, ${baseAlpha})`;
+            } else if (rand > 0.50) {
+              ctx.fillStyle = `rgba(0, 240, 255, ${baseAlpha})`;
+            } else if (rand > 0.35) {
+              ctx.fillStyle = `rgba(255, 255, 255, ${baseAlpha})`;
+            } else {
+              ctx.fillStyle = `rgba(0, 160, 200, ${baseAlpha * 0.7})`;
+            }
           }
         } else {
           // Sumi-e Japanese Ink on Washi Paper Distribution (Light mode):
-          // - 10%: Vermilion Hanko Seal (#dc2626)
-          // - 45%: Deep Charcoal Calligraphy Ink (rgba(15, 23, 42, 0.45))
-          // - 15%: Indigo Cyber Ink (#0284c7)
-          // - 30%: Faint graphite tail (rgba(100, 116, 139, 0.22))
-          if (rand > 0.90) {
-            ctx.fillStyle = '#dc2626'; // Vermilion red seal
-          } else if (rand > 0.45) {
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.45)'; // Sumi ink
-          } else if (rand > 0.30) {
-            ctx.fillStyle = '#0284c7'; // Indigo
+          // Ambient base alpha is ~0.14, boosted up to 0.90 in mouse spotlight
+          const baseAlpha = 0.15 + proximity * 0.75;
+
+          if (proximity > 0.35) {
+            // Near cursor: deep dense carbon calligraphy ink
+            if (rand > 0.85) {
+              ctx.fillStyle = `rgba(220, 38, 38, ${Math.min(baseAlpha + 0.1, 1)})`; // Vermilion seal
+            } else if (rand > 0.30) {
+              ctx.fillStyle = `rgba(15, 23, 42, ${Math.min(baseAlpha + 0.1, 1)})`; // Deep sumi ink
+            } else {
+              ctx.fillStyle = `rgba(2, 132, 199, ${Math.min(baseAlpha + 0.1, 1)})`; // Indigo accent
+            }
           } else {
-            ctx.fillStyle = 'rgba(100, 116, 139, 0.22)'; // Graphite tail
+            // Ambient faint graphite
+            if (rand > 0.90) {
+              ctx.fillStyle = `rgba(220, 38, 38, ${baseAlpha})`;
+            } else if (rand > 0.45) {
+              ctx.fillStyle = `rgba(15, 23, 42, ${baseAlpha})`;
+            } else if (rand > 0.30) {
+              ctx.fillStyle = `rgba(2, 132, 199, ${baseAlpha})`;
+            } else {
+              ctx.fillStyle = `rgba(100, 116, 139, ${baseAlpha * 0.6})`;
+            }
           }
         }
 
@@ -106,6 +159,8 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22, the
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
   }, [theme]);
@@ -114,7 +169,6 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 0.22, the
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity }}
     />
   );
 };
