@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hugolemoy.ninja/sitemap-index.xml
+Sitemap: https://hugolemoy.ninja/sitemap.xml
 Disallow:
 
 # AI Discovery & Crawlers

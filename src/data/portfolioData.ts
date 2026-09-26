@@ -26,6 +26,9 @@ export interface PortfolioNode {
 
 export const FREEJOLITOS_CONTACT = {
   email: 'hola@freejolitos.consulting',
+  whatsapp:
+    'https://wa.me/525533444852?text=Hola%20Hugo,%20vengo%20de%20hugolemoy.ninja%20y%20me%20gustar%C3%ADa%20agendar%20un%20diagn%C3%B3stico%20de%20tecnolog%C3%ADa%20e%20IA%20para%20mi%20organizaci%C3%B3n.',
+  phoneDisplay: '+52 55 3344 4852',
   diagnosticMailto:
     'mailto:hola@freejolitos.consulting?subject=Agenda%20tu%20diagn%C3%B3stico%20-%20Freejolitos',
   quote: 'Ponemos orden en la tecnología para que ustedes puedan poner el corazón en su causa.',
@@ -218,6 +221,12 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
         title: 'Sitio Web Oficial',
         url: 'https://freejolitos.consulting',
         description: 'Servicios, enfoque y casos de acompañamiento',
+      },
+      {
+        type: 'link',
+        title: 'WhatsApp Directo (Diagnóstico)',
+        url: FREEJOLITOS_CONTACT.whatsapp,
+        description: `${FREEJOLITOS_CONTACT.phoneDisplay} · Vía rápida sin intermediarios`,
       },
       {
         type: 'link',

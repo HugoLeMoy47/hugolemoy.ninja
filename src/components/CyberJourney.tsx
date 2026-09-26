@@ -32,6 +32,7 @@ import {
   RefreshCw,
   Users,
   Mail,
+  MessageSquare,
   MonitorPlay
 } from 'lucide-react';
 import gsap from 'gsap';
@@ -763,15 +764,30 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                         ))}
                       </ul>
 
-                      <a
-                        href={FREEJOLITOS_CONTACT.diagnosticMailto}
-                        className="w-full py-2 rounded bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-md"
-                      >
-                        <Mail className="w-3.5 h-3.5" />
-                        <span>Agenda tu diagnóstico</span>
-                      </a>
-                      <p className="text-[10px] text-center text-slate-500 dark:text-cyber-textMuted">
-                        {FREEJOLITOS_CONTACT.email}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <a
+                          href={FREEJOLITOS_CONTACT.whatsapp}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-2 px-3 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-md group"
+                          title="Vía rápida por WhatsApp"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+                          <span>WhatsApp (Rápido)</span>
+                        </a>
+                        <a
+                          href={FREEJOLITOS_CONTACT.diagnosticMailto}
+                          className="py-2 px-3 rounded bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-md group"
+                          title="Vía institucional por correo"
+                        >
+                          <Mail className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+                          <span>Por Correo</span>
+                        </a>
+                      </div>
+                      <p className="text-[10px] text-center text-slate-500 dark:text-cyber-textMuted flex items-center justify-center gap-2">
+                        <span>{FREEJOLITOS_CONTACT.phoneDisplay}</span>
+                        <span>·</span>
+                        <span>{FREEJOLITOS_CONTACT.email}</span>
                       </p>
                     </div>
                   )}
