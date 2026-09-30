@@ -66,12 +66,26 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
 
   const [isScanning, setIsScanning] = useState<boolean>(false);
   const [scanPercent, setScanPercent] = useState<number>(100);
+  const [isCardPulsing, setIsCardPulsing] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const scanlineRef = useRef<HTMLDivElement | null>(null);
   const stageContentRef = useRef<HTMLDivElement | null>(null);
   const matrixGridRef = useRef<HTMLDivElement | null>(null);
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
+
+  // Smoothly scroll to center the active holographic activity area with comfortable HUD headroom
+  const scrollToActiveArea = () => {
+    if (typeof window === 'undefined' || !stageContainerRef.current) return;
+    const rect = stageContainerRef.current.getBoundingClientRect();
+    const yOffset = -90; // Preserves sticky header and dimension pills in view
+    const targetY = window.pageYOffset + rect.top + yOffset;
+
+    window.scrollTo({
+      top: Math.max(0, targetY),
+      behavior: 'smooth',
+    });
+  };
 
   // Sync external dimension if triggered from Operator CLI
   useEffect(() => {
@@ -83,6 +97,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
         setVisitedNodes((prev) => new Set(prev).add(match.id));
       }
       triggerHolographicRepaint();
+      scrollToActiveArea();
     }
   }, [externalDimension]);
 
@@ -95,6 +110,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
         setSelectedDimension(match.dimension);
         setVisitedNodes((prev) => new Set(prev).add(match.id));
         triggerHolographicRepaint();
+        scrollToActiveArea();
       }
     }
   }, [activeNodeId]);
@@ -103,12 +119,14 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
   const triggerHolographicRepaint = () => {
     setIsScanning(true);
     setScanPercent(0);
+    setIsCardPulsing(true);
     cyberAudio.playHoloRepaint(1.35);
 
     const tl = gsap.timeline({
       onComplete: () => {
         setIsScanning(false);
         setScanPercent(100);
+        setTimeout(() => setIsCardPulsing(false), 450);
         if (stageContentRef.current) {
           gsap.set(stageContentRef.current, { clearProps: 'clipPath' });
         }
@@ -177,6 +195,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       }
     }
     triggerHolographicRepaint();
+    scrollToActiveArea();
   };
 
   const handleFocusNode = (node: PortfolioNode) => {
@@ -186,6 +205,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
     onNodeSelectForOperator(node.id);
     setViewMode('hologram');
     triggerHolographicRepaint();
+    scrollToActiveArea();
   };
 
   const startExpedition = () => {
@@ -200,6 +220,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       onNodeSelectForOperator(firstNode.id);
       setViewMode('hologram');
       triggerHolographicRepaint();
+      scrollToActiveArea();
     }
   };
 
@@ -214,6 +235,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       setVisitedNodes((prev) => new Set(prev).add(nextNode.id));
       onNodeSelectForOperator(nextNode.id);
       triggerHolographicRepaint();
+      scrollToActiveArea();
     }
   };
 
@@ -228,6 +250,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       setVisitedNodes((prev) => new Set(prev).add(prevNode.id));
       onNodeSelectForOperator(prevNode.id);
       triggerHolographicRepaint();
+      scrollToActiveArea();
     }
   };
 
@@ -417,6 +440,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                   setVisitedNodes((prev) => new Set(prev).add(n.id));
                   onNodeSelectForOperator(n.id);
                   triggerHolographicRepaint();
+                  scrollToActiveArea();
                 }}
                 className={`h-1.5 rounded-full transition-all ${
                   i === expeditionIndex 
@@ -527,7 +551,11 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
           {/* MODE A: EXPANSIVE HOLOGRAPHIC PROJECTION FOCUS                        */}
           {/* ===================================================================== */}
           {viewMode === 'hologram' && focusedNode && (
-            <section className="relative rounded-xl bg-white/95 dark:bg-cyber-card/95 border border-slate-300 dark:border-ninja-crimson/50 p-5 sm:p-7 space-y-6 shadow-xl backdrop-blur-md font-mono text-xs overflow-hidden transition-colors duration-250">
+            <section className={`relative rounded-xl bg-white/95 dark:bg-cyber-card/95 border p-5 sm:p-7 space-y-6 shadow-xl backdrop-blur-md font-mono text-xs overflow-hidden transition-all duration-300 ${
+              isCardPulsing
+                ? 'border-ninja-crimson ring-2 ring-ninja-crimson/50 shadow-[0_0_35px_rgba(255,0,85,0.35)]'
+                : 'border-slate-300 dark:border-ninja-crimson/50'
+            }`}>
               
               {/* Giant Japanese Kanji Holographic Watermark */}
               <div className="absolute right-4 top-2 text-8xl sm:text-9xl font-serif text-slate-900/[0.04] dark:text-white/[0.03] select-none pointer-events-none">
@@ -543,6 +571,11 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                       <span className="text-ninja-crimson font-bold text-xs tracking-wider">
                         PROYECCIÓN HOLOGRÁFICA // [{focusedNode.code}]
                       </span>
+                      {isCardPulsing && (
+                        <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-ninja-crimson text-white animate-pulse shadow-sm">
+                          ÁREA ACTIVA
+                        </span>
+                      )}
                       <span className="text-[10px] text-slate-500 dark:text-cyber-textMuted">
                         KANJI: {getDimensionKanji(focusedNode.dimension)}
                       </span>

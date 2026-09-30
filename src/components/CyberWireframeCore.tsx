@@ -29,6 +29,7 @@ interface GeometryData {
   edges: [number, number][];
   tipIndices: Set<number>;
   apexIndices: Set<number>;
+  rotationMode?: 'spinZ' | 'upright';
 }
 
 // =========================================================================
@@ -205,7 +206,43 @@ function createCompassGeometry(): GeometryData {
   edges.push([sqStart + 4, sqStart + 5]);
   edges.push([sqStart + 8, sqStart + 9]);
 
-  return { id: 'compass', name: 'ESCUADRA & COMPÁS', kanji: '規', vertices, edges, tipIndices, apexIndices };
+  return { id: 'compass', name: 'ESCUADRA & COMPÁS', kanji: '規', vertices, edges, tipIndices, apexIndices, rotationMode: 'upright' };
+}
+
+// Catmull-Rom spline interpolation helper for smooth calligraphic curves
+function generateSplinePoints(
+  controlPoints: { x: number; y: number }[],
+  subdivisions = 3
+): { x: number; y: number }[] {
+  const points: { x: number; y: number }[] = [];
+  for (let i = 0; i < controlPoints.length - 1; i++) {
+    const p0 = controlPoints[Math.max(0, i - 1)];
+    const p1 = controlPoints[i];
+    const p2 = controlPoints[i + 1];
+    const p3 = controlPoints[Math.min(controlPoints.length - 1, i + 2)];
+
+    for (let t = 0; t < subdivisions; t++) {
+      const u = t / subdivisions;
+      const u2 = u * u;
+      const u3 = u2 * u;
+
+      const x = 0.5 * (
+        (2 * p1.x) +
+        (-p0.x + p2.x) * u +
+        (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * u2 +
+        (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * u3
+      );
+      const y = 0.5 * (
+        (2 * p1.y) +
+        (-p0.y + p2.y) * u +
+        (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * u2 +
+        (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * u3
+      );
+      points.push({ x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 });
+    }
+  }
+  points.push(controlPoints[controlPoints.length - 1]);
+  return points;
 }
 
 // =========================================================================
@@ -217,96 +254,136 @@ function createAssassinGeometry(): GeometryData {
   const tipIndices = new Set<number>();
   const apexIndices = new Set<number>();
 
-  // Front spine vertices (Z = 12)
-  const spineTop = vertices.length;
-  apexIndices.add(spineTop);
-  vertices.push({ x: 0, y: 70, z: 12 });
-  vertices.push({ x: 0, y: 24, z: 14 });
-  vertices.push({ x: 0, y: 5, z: 10 });
-  vertices.push({ x: 0, y: -22, z: 8 });
-
-  // Back spine vertices (Z = -12)
-  const backSpineTop = vertices.length;
-  apexIndices.add(backSpineTop);
-  vertices.push({ x: 0, y: 70, z: -12 });
-  vertices.push({ x: 0, y: 24, z: -14 });
-  vertices.push({ x: 0, y: 5, z: -10 });
-  vertices.push({ x: 0, y: -22, z: -8 });
-
-  edges.push([spineTop, spineTop + 1], [spineTop + 1, spineTop + 2], [spineTop + 2, spineTop + 3]);
-  edges.push([backSpineTop, backSpineTop + 1], [backSpineTop + 1, backSpineTop + 2], [backSpineTop + 2, backSpineTop + 3]);
-  edges.push([spineTop, backSpineTop], [spineTop + 3, backSpineTop + 3]);
-
-  // Outer perimeter (Z = 0)
-  const perimStart = vertices.length;
-  const perim = [
-    { x: 0, y: 72 },       // 0: top peak
-    { x: 36, y: 28 },      // 1: right upper shoulder
-    { x: 28, y: 14 },      // 2: right inner waist
-    { x: 54, y: -24 },     // 3: right flare hip
-    { x: 42, y: -68 },     // 4: right bottom tip
-    { x: 22, y: -38 },     // 5: right inner arch
-    { x: 0, y: -22 },      // 6: bottom inner apex
-    { x: -22, y: -38 },    // 7: left inner arch
-    { x: -42, y: -68 },    // 8: left bottom tip
-    { x: -54, y: -24 },    // 9: left flare hip
-    { x: -28, y: 14 },     // 10: left inner waist
-    { x: -36, y: 28 }      // 11: left upper shoulder
+  // Canonical silhouette of the Brotherhood hooded blade crest
+  const profile2D = [
+    { x: 0, y: 76 },       // 0: Top sharp beak (apex)
+    { x: 15, y: 62 },      // 1: Upper hood slope R
+    { x: 28, y: 44 },      // 2: Upper shoulder point R
+    { x: 23, y: 22 },      // 3: Waist indent notch R
+    { x: 38, y: -2 },      // 4: Mid wing flare R
+    { x: 55, y: -28 },     // 5: Outer hip flare R
+    { x: 62, y: -54 },     // 6: Lower blade sweep R
+    { x: 48, y: -74 },     // 7: Bottom wingtip blade point R
+    { x: 34, y: -62 },     // 8: Inner arch wing bevel R
+    { x: 26, y: -34 },     // 9: Inner arch waist R
+    { x: 16, y: -10 },     // 10: Inner arch rise R
+    { x: 0, y: 12 },       // 11: Inner arch apex (top of hollow hood cutout)
+    { x: -16, y: -10 },    // 12: Inner arch rise L
+    { x: -26, y: -34 },    // 13: Inner arch waist L
+    { x: -34, y: -62 },    // 14: Inner arch wing bevel L
+    { x: -48, y: -74 },    // 15: Bottom wingtip blade point L
+    { x: -62, y: -54 },    // 16: Lower blade sweep L
+    { x: -55, y: -28 },    // 17: Outer hip flare L
+    { x: -38, y: -2 },     // 18: Mid wing flare L
+    { x: -23, y: 22 },     // 19: Waist indent notch L
+    { x: -28, y: 44 },     // 20: Upper shoulder point L
+    { x: -15, y: 62 },     // 21: Upper hood slope L
   ];
 
-  tipIndices.add(perimStart);
-  tipIndices.add(perimStart + 4);
-  tipIndices.add(perimStart + 8);
+  const rimStart = vertices.length;
+  profile2D.forEach((p) => {
+    vertices.push({ x: p.x, y: p.y, z: 0 });
+  });
 
-  perim.forEach((p) => vertices.push({ x: p.x, y: p.y, z: 0 }));
-
-  // Perimeter loop
-  for (let i = 0; i < 12; i++) {
-    edges.push([perimStart + i, perimStart + ((i + 1) % 12)]);
+  // Perimeter boundary loop
+  const n = profile2D.length;
+  for (let i = 0; i < n; i++) {
+    edges.push([rimStart + i, rimStart + ((i + 1) % n)]);
   }
 
-  // Connect Front spine to perimeter
-  edges.push([spineTop, perimStart]);
-  edges.push([spineTop, perimStart + 1]);
-  edges.push([spineTop, perimStart + 11]);
-  edges.push([spineTop + 1, perimStart + 2]);
-  edges.push([spineTop + 1, perimStart + 10]);
-  edges.push([spineTop + 2, perimStart + 3]);
-  edges.push([spineTop + 2, perimStart + 9]);
-  edges.push([spineTop + 3, perimStart + 4]);
-  edges.push([spineTop + 3, perimStart + 8]);
-  edges.push([spineTop + 3, perimStart + 6]);
+  // Key glowing tips and apexes
+  apexIndices.add(rimStart + 0);  // Top beak
+  apexIndices.add(rimStart + 11); // Inner hood arch apex
+  tipIndices.add(rimStart + 7);   // Right bottom wingtip
+  tipIndices.add(rimStart + 15);  // Left bottom wingtip
 
-  // Connect Back spine to perimeter
-  edges.push([backSpineTop, perimStart]);
-  edges.push([backSpineTop, perimStart + 1]);
-  edges.push([backSpineTop, perimStart + 11]);
-  edges.push([backSpineTop + 1, perimStart + 2]);
-  edges.push([backSpineTop + 1, perimStart + 10]);
-  edges.push([backSpineTop + 2, perimStart + 3]);
-  edges.push([backSpineTop + 2, perimStart + 9]);
-  edges.push([backSpineTop + 3, perimStart + 4]);
-  edges.push([backSpineTop + 3, perimStart + 8]);
-  edges.push([backSpineTop + 3, perimStart + 6]);
+  // Front Center Spine (Z = +10)
+  const fSpineStart = vertices.length;
+  vertices.push({ x: 0, y: 76, z: 9 });   // 0: top beak front
+  vertices.push({ x: 0, y: 44, z: 12 });  // 1: upper crest front
+  vertices.push({ x: 0, y: 22, z: 10 });  // 2: waist crest front
+  vertices.push({ x: 0, y: 12, z: 6 });   // 3: inner arch apex front
 
-  // Inner Cutout Chevron ring
-  const cutStart = vertices.length;
-  vertices.push({ x: 0, y: 16, z: 3 });
-  vertices.push({ x: 18, y: -6, z: 3 });
-  vertices.push({ x: 0, y: -12, z: 3 });
-  vertices.push({ x: -18, y: -6, z: 3 });
-  vertices.push({ x: 0, y: 16, z: -3 });
-  vertices.push({ x: 18, y: -6, z: -3 });
-  vertices.push({ x: 0, y: -12, z: -3 });
-  vertices.push({ x: -18, y: -6, z: -3 });
+  apexIndices.add(fSpineStart);
+  apexIndices.add(fSpineStart + 1);
 
-  for (let i = 0; i < 4; i++) {
-    edges.push([cutStart + i, cutStart + ((i + 1) % 4)]);
-    edges.push([cutStart + 4 + i, cutStart + 4 + ((i + 1) % 4)]);
-    edges.push([cutStart + i, cutStart + 4 + i]);
-  }
+  // Front spine edges
+  edges.push([fSpineStart, fSpineStart + 1]);
+  edges.push([fSpineStart + 1, fSpineStart + 2]);
+  edges.push([fSpineStart + 2, fSpineStart + 3]);
 
-  return { id: 'assassin', name: 'CREDO DE ASESINOS', kanji: '影', vertices, edges, tipIndices, apexIndices };
+  // Connect Front spine to perimeter facets (leaves inner arch void completely open)
+  edges.push([fSpineStart, rimStart + 0]);
+  edges.push([fSpineStart, rimStart + 1]);
+  edges.push([fSpineStart, rimStart + 21]);
+
+  edges.push([fSpineStart + 1, rimStart + 2]);
+  edges.push([fSpineStart + 1, rimStart + 3]);
+  edges.push([fSpineStart + 1, rimStart + 19]);
+  edges.push([fSpineStart + 1, rimStart + 20]);
+
+  edges.push([fSpineStart + 2, rimStart + 4]);
+  edges.push([fSpineStart + 2, rimStart + 18]);
+
+  edges.push([fSpineStart + 3, rimStart + 10]);
+  edges.push([fSpineStart + 3, rimStart + 11]);
+  edges.push([fSpineStart + 3, rimStart + 12]);
+
+  // Back Center Spine (Z = -10)
+  const bSpineStart = vertices.length;
+  vertices.push({ x: 0, y: 76, z: -9 });   // 0: top beak back
+  vertices.push({ x: 0, y: 44, z: -12 });  // 1: upper crest back
+  vertices.push({ x: 0, y: 22, z: -10 });  // 2: waist crest back
+  vertices.push({ x: 0, y: 12, z: -6 });   // 3: inner arch apex back
+
+  apexIndices.add(bSpineStart);
+  apexIndices.add(bSpineStart + 1);
+
+  // Back spine edges
+  edges.push([bSpineStart, bSpineStart + 1]);
+  edges.push([bSpineStart + 1, bSpineStart + 2]);
+  edges.push([bSpineStart + 2, bSpineStart + 3]);
+
+  // Connect Back spine to perimeter facets
+  edges.push([bSpineStart, rimStart + 0]);
+  edges.push([bSpineStart, rimStart + 1]);
+  edges.push([bSpineStart, rimStart + 21]);
+
+  edges.push([bSpineStart + 1, rimStart + 2]);
+  edges.push([bSpineStart + 1, rimStart + 3]);
+  edges.push([bSpineStart + 1, rimStart + 19]);
+  edges.push([bSpineStart + 1, rimStart + 20]);
+
+  edges.push([bSpineStart + 2, rimStart + 4]);
+  edges.push([bSpineStart + 2, rimStart + 18]);
+
+  edges.push([bSpineStart + 3, rimStart + 10]);
+  edges.push([bSpineStart + 3, rimStart + 11]);
+  edges.push([bSpineStart + 3, rimStart + 12]);
+
+  // Depth struts at vertical apexes
+  edges.push([fSpineStart, bSpineStart]);
+  edges.push([fSpineStart + 3, bSpineStart + 3]);
+
+  // Wing Blade Facets (Bevel cross-ribs on the left and right blades)
+  edges.push([rimStart + 4, rimStart + 9]);
+  edges.push([rimStart + 5, rimStart + 8]);
+  edges.push([rimStart + 6, rimStart + 8]);
+
+  edges.push([rimStart + 18, rimStart + 13]);
+  edges.push([rimStart + 17, rimStart + 14]);
+  edges.push([rimStart + 16, rimStart + 14]);
+
+  return {
+    id: 'assassin',
+    name: 'CREDO DE ASESINOS',
+    kanji: '影',
+    vertices,
+    edges,
+    tipIndices,
+    apexIndices,
+    rotationMode: 'upright',
+  };
 }
 
 // =========================================================================
@@ -318,103 +395,121 @@ function createOmGeometry(): GeometryData {
   const tipIndices = new Set<number>();
   const apexIndices = new Set<number>();
 
-  // Helper to add extruded 3D curve with front (z=5) and back (z=-5) rails
-  const addExtrudedCurve = (pts: { x: number; y: number }[], isClosed = false) => {
+  // Helper to add clean extruded 3D ribbon with front (z=+3.5) and back (z=-3.5) rails
+  // Only places depth struts at ends and key intervals to prevent railroad rung clutter
+  const addRibbonCurve = (pts: { x: number; y: number }[], zDepth = 3.5, strutStep = 6) => {
     const startIdx = vertices.length;
     const len = pts.length;
     pts.forEach((p) => {
-      vertices.push({ x: p.x, y: p.y, z: 5 });
-      vertices.push({ x: p.x, y: p.y, z: -5 });
+      vertices.push({ x: p.x, y: p.y, z: zDepth });
+      vertices.push({ x: p.x, y: p.y, z: -zDepth });
     });
+
     for (let i = 0; i < len - 1; i++) {
       const a = startIdx + i * 2;
       const b = startIdx + (i + 1) * 2;
       edges.push([a, b]);         // Front rail
       edges.push([a + 1, b + 1]); // Back rail
-      edges.push([a, a + 1]);     // Depth strut
+      if (i === 0 || i % strutStep === 0) {
+        edges.push([a, a + 1]);   // Clean depth strut
+      }
     }
-    edges.push([startIdx + (len - 1) * 2, startIdx + (len - 1) * 2 + 1]);
-    if (isClosed) {
-      const last = startIdx + (len - 1) * 2;
-      edges.push([last, startIdx]);
-      edges.push([last + 1, startIdx + 1]);
-    }
+    const lastA = startIdx + (len - 1) * 2;
+    edges.push([lastA, lastA + 1]); // Terminal depth strut
+
+    tipIndices.add(startIdx);
+    tipIndices.add(lastA);
     return startIdx;
   };
 
-  // 1. Upper Loop (The top arc of the '3')
-  const upperLoop = [
-    { x: -2, y: 16 },
-    { x: -16, y: 28 },
-    { x: -30, y: 44 },
-    { x: -22, y: 58 },
-    { x: -4, y: 54 },
-    { x: -2, y: 38 },
-    { x: -14, y: 22 }
-  ];
-  addExtrudedCurve(upperLoop);
+  // 1. Upper Loop (The top arc of the Devanagari '3')
+  const upperPts = generateSplinePoints([
+    { x: -4, y: 22 },
+    { x: -22, y: 34 },
+    { x: -28, y: 50 },
+    { x: -16, y: 62 },
+    { x: 2, y: 58 },
+    { x: 0, y: 40 },
+    { x: -4, y: 22 }
+  ], 3);
+  addRibbonCurve(upperPts, 3.5, 5);
 
-  // 2. Lower Main Belly (The big sweeping lower curve)
-  const lowerBelly = [
-    { x: -14, y: 22 },
-    { x: -34, y: 8 },
-    { x: -46, y: -12 },
-    { x: -40, y: -42 },
-    { x: -18, y: -58 },
-    { x: 8, y: -50 },
-    { x: 18, y: -30 },
+  // 2. Lower Main Belly (The big sweeping lower curve of Devanagari '3')
+  const lowerPts = generateSplinePoints([
+    { x: -4, y: 22 },
+    { x: -24, y: 14 },
+    { x: -44, y: -4 },
+    { x: -46, y: -28 },
+    { x: -32, y: -52 },
+    { x: -10, y: -64 },
+    { x: 14, y: -58 },
+    { x: 26, y: -40 },
+    { x: 22, y: -22 },
     { x: 12, y: -16 }
-  ];
-  const lowerStart = addExtrudedCurve(lowerBelly);
-  tipIndices.add(lowerStart + (lowerBelly.length - 1) * 2);
+  ], 3);
+  addRibbonCurve(lowerPts, 4.0, 6);
 
-  // 3. Right Sweeping Tail (Emerging from the waist junction)
-  const tailCurve = [
-    { x: -14, y: 22 },
-    { x: 4, y: 16 },
-    { x: 22, y: 18 },
-    { x: 40, y: 28 },
-    { x: 48, y: 46 },
-    { x: 38, y: 58 },
-    { x: 26, y: 54 }
-  ];
-  const tailStart = addExtrudedCurve(tailCurve);
-  tipIndices.add(tailStart + (tailCurve.length - 1) * 2);
+  // 3. Central Sweeping Tail / Trunk (Ascending to upper right)
+  const tailPts = generateSplinePoints([
+    { x: -4, y: 22 },
+    { x: 10, y: 20 },
+    { x: 26, y: 24 },
+    { x: 42, y: 36 },
+    { x: 52, y: 52 },
+    { x: 48, y: 66 },
+    { x: 36, y: 70 },
+    { x: 26, y: 64 }
+  ], 3);
+  addRibbonCurve(tailPts, 3.5, 5);
 
-  // 4. Chandra (Crescent Moon at top right)
-  const chandra = [
-    { x: 12, y: 58 },
-    { x: 24, y: 50 },
-    { x: 36, y: 50 },
-    { x: 46, y: 58 }
-  ];
-  addExtrudedCurve(chandra);
+  // 4. Chandra (Sacred Crescent Moon at top right)
+  const chandraPts = generateSplinePoints([
+    { x: 10, y: 66 },
+    { x: 18, y: 58 },
+    { x: 30, y: 56 },
+    { x: 42, y: 60 },
+    { x: 48, y: 68 }
+  ], 3);
+  addRibbonCurve(chandraPts, 2.5, 4);
 
   // 5. Bindu (Sacred Floating Orb / Diamond above Chandra)
-  const bCenter = { x: 29, y: 70 };
+  const bCenter = { x: 29, y: 80 };
   const binduStart = vertices.length;
   apexIndices.add(binduStart);
   apexIndices.add(binduStart + 1);
 
-  // 3D Octahedron Bindu
-  vertices.push({ x: bCenter.x, y: bCenter.y, z: 8 });     // Top apex
-  vertices.push({ x: bCenter.x, y: bCenter.y, z: -8 });    // Bottom apex
-  vertices.push({ x: bCenter.x - 7, y: bCenter.y, z: 0 }); // Left
-  vertices.push({ x: bCenter.x + 7, y: bCenter.y, z: 0 }); // Right
-  vertices.push({ x: bCenter.x, y: bCenter.y + 7, z: 0 }); // Upper
-  vertices.push({ x: bCenter.x, y: bCenter.y - 7, z: 0 }); // Lower
+  // 3D Octahedron Bindu with sparkling apexes
+  vertices.push({ x: bCenter.x, y: bCenter.y + 7, z: 0 }); // 0: Top apex
+  vertices.push({ x: bCenter.x, y: bCenter.y - 7, z: 0 }); // 1: Bottom apex
+  vertices.push({ x: bCenter.x, y: bCenter.y, z: 6 });     // 2: Front
+  vertices.push({ x: bCenter.x, y: bCenter.y, z: -6 });    // 3: Back
+  vertices.push({ x: bCenter.x - 6, y: bCenter.y, z: 0 }); // 4: Left
+  vertices.push({ x: bCenter.x + 6, y: bCenter.y, z: 0 }); // 5: Right
 
-  // Connect bindu octahedron
-  for (let i = 2; i <= 5; i++) {
-    edges.push([binduStart, binduStart + i]);     // To top
-    edges.push([binduStart + 1, binduStart + i]); // To bottom
-  }
+  // Connect bindu octahedron facets
+  edges.push([binduStart, binduStart + 2]);
+  edges.push([binduStart, binduStart + 3]);
+  edges.push([binduStart, binduStart + 4]);
+  edges.push([binduStart, binduStart + 5]);
+  edges.push([binduStart + 1, binduStart + 2]);
+  edges.push([binduStart + 1, binduStart + 3]);
+  edges.push([binduStart + 1, binduStart + 4]);
+  edges.push([binduStart + 1, binduStart + 5]);
   edges.push([binduStart + 2, binduStart + 4]);
   edges.push([binduStart + 4, binduStart + 3]);
   edges.push([binduStart + 3, binduStart + 5]);
   edges.push([binduStart + 5, binduStart + 2]);
 
-  return { id: 'om', name: 'GLIFO PRIMORDIAL // ॐ', kanji: '魂', vertices, edges, tipIndices, apexIndices };
+  return {
+    id: 'om',
+    name: 'GLIFO SAGRADO // ॐ',
+    kanji: '魂',
+    vertices,
+    edges,
+    tipIndices,
+    apexIndices,
+    rotationMode: 'upright',
+  };
 }
 
 const GEOMETRIES: Record<WireframeShapeId, () => GeometryData> = {
@@ -492,11 +587,13 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
       },
     });
 
-    gsap.to(angleZRef, {
-      current: angleZRef.current + Math.PI * 2,
-      duration: 1.4,
-      ease: 'power2.out',
-    });
+    if (geoDataRef.current.rotationMode !== 'upright') {
+      gsap.to(angleZRef, {
+        current: angleZRef.current + Math.PI * 2,
+        duration: 1.4,
+        ease: 'power2.out',
+      });
+    }
   };
 
   useEffect(() => {
@@ -532,7 +629,7 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
       const x = e.clientX - (rect.left + rect.width / 2);
       const y = e.clientY - (rect.top + rect.height / 2);
       // Enhanced tilt responsiveness when hovering
-      const multiplier = isHovered ? 2.4 : 1.1;
+      const multiplier = isHovered ? 2.8 : 1.3;
       targetAngleY = (x / rect.width) * multiplier;
       targetAngleX = (-y / rect.height) * multiplier;
     };
@@ -542,10 +639,21 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
     const render = () => {
       ctx.clearRect(0, 0, size, size);
 
-      const lerp = isHovered ? 0.08 : 0.04;
+      const { vertices, edges, tipIndices, apexIndices, rotationMode = 'spinZ' } = geoDataRef.current;
+
+      const lerp = isHovered ? 0.12 : 0.05;
       angleX += (targetAngleX - angleX) * lerp;
-      angleY += (targetAngleY - angleY) * lerp + (isHovered ? 0.008 : 0.003);
-      angleZRef.current += isSpinningFast ? 0.015 : (isHovered ? 0.007 : 0.0035);
+
+      if (rotationMode === 'upright') {
+        // Slow ambient 3D yaw rotation (like a rotating holographic talisman/crest)
+        angleY += (targetAngleY - angleY) * lerp + (isHovered ? 0.007 : 0.0025);
+        // Upright orientation with subtle organic breathing levitation (never turns upside down)
+        angleZRef.current = Math.sin(Date.now() * 0.0015) * 0.04;
+      } else {
+        // Continuous ninja spin around Z
+        angleY += (targetAngleY - angleY) * lerp + (isHovered ? 0.008 : 0.003);
+        angleZRef.current += isSpinningFast ? 0.015 : (isHovered ? 0.007 : 0.0035);
+      }
 
       const angleZ = angleZRef.current;
       const cosX = Math.cos(angleX);
@@ -554,8 +662,6 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
       const sinY = Math.sin(angleY);
       const cosZ = Math.cos(angleZ);
       const sinZ = Math.sin(angleZ);
-
-      const { vertices, edges, tipIndices, apexIndices } = geoDataRef.current;
 
       // Project vertices to 2D
       const projected = vertices.map((v) => {
