@@ -37,6 +37,8 @@ export const PERSONAS_META: Record<OperatorPersona, PersonaMeta> = {
 export const NODE_COMMENTARY: Record<OperatorPersona, Record<string, string>> = {
   PROJECT_2501: {
     'freejolitos-core': 'Sector 01 indexado: Protocolo Freejolitos. Transferencia tecnológica hacia quienes sostienen causas humanitarias: consultoría, ciberseguridad y desarrollo a la medida. La privacidad de las personas atendidas permanece sellada.',
+    'bitacora-viva': 'Nodo FRL-02: expediente humanitario con custodia, no propiedad. El registro no se borra: se anonimiza de forma irreversible. Estado: prueba de concepto con datos simulados; ningún dato real ha entrado al sistema.',
+    'sutramind': 'Nodo FRL-03: asesor directivo con capa semántica desacoplada. El modelo interpreta la intención; la base de datos calcula la cifra y la fuente queda citada. Estado: prueba de concepto sobre una empresa ficticia.',
     'legalizala-tycoon': 'Simulador legislativo 2501: Las leyes son líneas de código social con bugs sistémicos. Este artefacto modela la resistencia comunitaria contra la inercia burocrática del Estado.',
     'bit2fit-ggj': 'Protocolo de supervivencia 48 horas: Sincronización rítmica en Godot Engine. La creatividad bajo constricciones extremas genera estructuras de datos resilientes.',
     'canna-gochi': 'Entidad biológico-digital: El ciclo de vida vegetal traducido a estados reactivos de TypeScript. Vigilancia de estrés y nutrición cuántica.',
@@ -58,6 +60,8 @@ export const NODE_COMMENTARY: Record<OperatorPersona, Record<string, string>> = 
   },
   HLM_ALTEREGO: {
     'freejolitos-core': 'Freejolitos es mi proyecto consentido. ¿Sabías que a las OSCs chicas les cobran como si fueran bancos? Yo les pongo orden, ciberseguridad y desarrollo a la medida, a la escala real de cada organización. Si te interesa, agenda un diagnóstico por correo.',
+    'bitacora-viva': 'Bitácora Viva es lo que más me importa de Freejolitos: un sistema para albergues donde la persona no repite su historia cuatro veces y donde el dato que no hace falta, no se pide. Hoy es un prototipo con datos inventados; primero hay que probarlo con quienes atienden.',
+    'sutramind': 'SutraMind es mi apuesta contra la IA que inventa números: la IA entiende tu pregunta, pero la cifra la calcula una base de datos y siempre te dice de dónde salió. Todavía es una prueba de concepto con una empresa de mentiritas.',
     'legalizala-tycoon': '¿Has intentado pasar una iniciativa ciudadana en México? Es un infierno de cabildeos, operativos y burocracia. Por eso convertí toda esa experiencia en un juego de simulación.',
     'bit2fit-ggj': 'La Global Game Jam 2020: 48 horas sin dormir comiendo pizza y programando en Godot. Ese juego me demostró lo que se puede armar con pura pasión.',
     'canna-gochi': 'Mi intento de crear un Tamagotchi pero con una plantita que te pide agua, luz y cariño botánico. Hecho en TypeScript para pasar un buen rato.',
@@ -68,7 +72,7 @@ export const NODE_COMMENTARY: Record<OperatorPersona, Record<string, string>> = 
     'planton-420-memoria': 'El Plantón 420 frente al Senado fue histórico. Sembrar plantas frente a los legisladores para que entendieran que una planta no hace delincuente a nadie.',
     'weedtown-social': 'En weedtown.social me aventé a construir mi propia red social con vibe-coding para zafarnos de la censura de Facebook e Instagram. Un espacio libre donde la banda puede cotorrear y compartir autocultivo sin que te tiren la cuenta.',
     'cnnn-noticias': 'En CNNN me puse el traje y me senté frente a las cámaras en Jotvox a desmenuzar las sentencias de la Suprema Corte. Chécate el video que dejé en la tarjeta.',
-    'osc-task-tracker': 'Lo hice pensando en CAFEMIN, que atiende a muchísimas personas migrantes, para que el equipo operativo no se volviera loco con papelitos perdidos. Sirve para cualquier OSC con operación diaria.',
+    'osc-task-tracker': 'Lo hice pensando en una casa de acogida que atiende a muchísimas personas migrantes, para que el equipo operativo no se volviera loco con papelitos perdidos. Sirve para cualquier OSC con operación diaria y hoy ya vive dentro de Bitácora Viva.',
     'calculadora-regresion': 'Hice esta calculadora en TypeScript porque me daba flojera abrir software pesado cada vez que quería modelar tendencias de conversión en mi trabajo de PO.',
     'descargador-facturas-sat': 'El portal del SAT es una pesadilla de clics. Este script de Python me ahorra semanas de descargar PDFs y XMLs a mano.',
     'cedula-checker': 'Una utilería rápida en C# para checar cédulas profesionales al vuelo en procesos de reclutamiento técnico.',

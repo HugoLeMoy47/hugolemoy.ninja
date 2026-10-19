@@ -141,7 +141,7 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
             <p>2. <span className="text-matrix-green">LegalizalaTycoon</span> — Simulador legislativo en TypeScript.</p>
             <p>3. <span className="text-matrix-green">canna-gochi</span> — Experimento de mascota virtual.</p>
             <p>4. <span className="text-matrix-green">freejolitosConsultingWeb</span> — Sitio web institucional.</p>
-            <p>5. <span className="text-matrix-green">cafemin-task-tracker</span> — Task tracker para OSC (caso de uso: CAFEMIN).</p>
+            <p>5. <span className="text-matrix-green">BitacoraViva</span> — Gestión de casos humanitarios (prueba de concepto, datos simulados).</p>
             <p>6. <span className="text-matrix-green">CalculadoraWebRegresLineal</span> — Calculadora estadística web.</p>
             <p>7. <span className="text-matrix-green">descargador_facturas</span> — Script Python de facturación SAT.</p>
           </div>

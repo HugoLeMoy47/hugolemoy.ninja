@@ -24,6 +24,7 @@ Hugo Legorreta Moysén (alias Hugo LeMoy, @HugoLeMoy47) es Product Owner, Consul
 ### 1. Freejolitos Consultores (Tecnología para OSCs)
 Práctica de consultoría en TI enfocada en organizaciones del tercer sector sin área de sistemas.
 - Servicios: consultoría tecnológica, ciberseguridad, desarrollo a la medida, diagnóstico y ruta crítica, acompañamiento mensual.
+- Productos propios: **Bitácora Viva** (gestión de casos de atención humanitaria con custodia, anonimización y auditoría; prueba de concepto con datos simulados) y **SutraMind** (tablero y asesor con IA para empresas medianas: la IA interpreta, la base de datos calcula y cada cifra cita su fuente; prueba de concepto sobre una empresa ficticia).
 - Ethos: "Ponemos orden en la tecnología para que ustedes puedan poner el corazón en su causa."
 - Agenda tu diagnóstico: hola@freejolitos.consulting
 - Web: https://freejolitos.consulting
@@ -52,7 +53,8 @@ Práctica de consultoría en TI enfocada en organizaciones del tercer sector sin
 - Playlist oficial: https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7
 
 ### 6. Repositorios de Código Abierto (GitHub @HugoLeMoy47)
-- **Task Tracker para OSC (cafemin-task-tracker):** Gestor de tareas para organizaciones de la sociedad civil. Caso de uso: CAFEMIN (https://cafemin.org).
+- **Bitácora Viva (BitacoraViva):** Producto de Freejolitos para gestión de casos de atención humanitaria; incluye el módulo Seguidor de tareas para OSC. Prueba de concepto con datos simulados.
+- **Seguidor de tareas para OSC:** Gestor de tareas para organizaciones de la sociedad civil, nacido en una casa de acogida para personas migrantes.
 - **CalculadoraWebRegresLineal:** Calculadora estadística interactiva en TypeScript.
 - **descargador_facturas:** Script de automatización en Python para facturación fiscal SAT.
 - **CedulaChecker:** Validador en C# para folios de cédulas profesionales de la SEP.

@@ -135,7 +135,7 @@ export const DIMENSIONS: DimensionMeta[] = [
     color: 'amber',
     icon: 'Bean',
     description: 'Consultoría tecnológica, ciberseguridad y desarrollo a la medida para Organizaciones de la Sociedad Civil sin área de sistemas.',
-    nodeCount: 1,
+    nodeCount: 3,
   },
   {
     id: 'gamedev',
@@ -240,6 +240,64 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
       solutionOrRole: 'Fundador y Consultor Principal. Traduzco los estándares de agencias internacionales a la escala real de una OSC: orden, procesos, seguridad y desarrollo ágil sin sobrecostos de licencias innecesarias.',
       impactOrOutcome: 'Acompañamiento tecnológico continuo, protección estricta de datos de personas beneficiarias y fortalecimiento de capacidades instaladas.',
     }
+  },
+  {
+    id: 'bitacora-viva',
+    code: 'FRL-02',
+    title: 'Bitácora Viva',
+    subtitle: 'Gestión de casos de atención humanitaria que cuida a la persona atendida',
+    dimension: 'freejolitos',
+    accentColor: 'amber',
+    badge: 'PRODUCTO EN DESARROLLO · DATOS SIMULADOS',
+    summary: 'Producto de Freejolitos para organizaciones que atienden a personas en movilidad: expediente único con folio, bitácora por área, estatus simultáneos, consentimiento por tipo y auditoría de cada acción. Construyo la parte de producto y dirijo el desarrollo con un agente de IA bajo reglas duras. Hoy es una prueba de concepto: ningún dato real de personas.',
+    highlightStat: 'Más de 700 pruebas negativas de seguridad · Anonimiza, no borra · Cero valores supuestos',
+    tags: ['Product Owner', 'React + TypeScript', 'Supabase · RLS', 'Privacidad por diseño', 'Tercer Sector'],
+    evidence: [
+      {
+        type: 'link',
+        title: 'Cómo manejo la información (freejolitos.consulting)',
+        url: 'https://freejolitos.consulting/como-manejo-tu-informacion',
+        description: 'Salvaguardas de datos y uso transparente de IA',
+      },
+      {
+        type: 'link',
+        title: 'Guía: organizar el expediente digital para auditoría',
+        url: 'https://freejolitos.consulting/guias/organizar-expediente-digital-auditoria',
+        description: 'La lógica de custodia y anonimización, sin registro ni formularios',
+      }
+    ],
+    details: {
+      problemOrContext: 'Las organizaciones que atienden personas en movilidad cargan con el dato más sensible que existe con las herramientas más precarias: cuadernos, Excel y carpetas sin control. La persona repite su historia en cada área.',
+      solutionOrRole: 'Product Owner. Defino los compromisos del producto (custodia, no propiedad; el dato que no se necesita no se levanta; el registro no se borra, se anonimiza) y reviso cada ciclo de desarrollo contra ellos. El código lo construye un agente de IA con reglas duras, pruebas primero y mi aprobación para cada cambio de base de datos.',
+      impactOrOutcome: 'Prueba de concepto desplegada con datos ficticios, aún sin validar en campo. Primero la operación real, después el primer dato real.',
+    },
+    impactIsProjected: true,
+  },
+  {
+    id: 'sutramind',
+    code: 'FRL-03',
+    title: 'SutraMind',
+    subtitle: 'Tablero y asesor con IA para empresas medianas: cada cifra, con su fuente',
+    dimension: 'freejolitos',
+    accentColor: 'amber',
+    badge: 'PRUEBA DE CONCEPTO · EMPRESA FICTICIA',
+    summary: 'Base de conocimiento citable, tablero de indicadores y asesor con IA para empresas de 30 a 300 personas. El asesor propone; la Dirección decide. Toda cifra sale de SQL determinista, toda respuesta cita su fuente y cada persona ve solo lo que le corresponde.',
+    highlightStat: 'La IA interpreta la pregunta; la base de datos calcula la cifra',
+    tags: ['Product Owner', 'Python · PostgreSQL', 'Capa semántica', 'IA con fuentes citadas', 'Permisos por rol'],
+    evidence: [
+      {
+        type: 'link',
+        title: 'Cómo manejo la información (freejolitos.consulting)',
+        url: 'https://freejolitos.consulting/como-manejo-tu-informacion',
+        description: 'Arquitectura de datos y salvaguardas de IA',
+      }
+    ],
+    details: {
+      problemOrContext: 'Las empresas medianas tienen un ERP que produce datos y nadie que los convierta en respuestas. Pedirle cifras a un modelo de lenguaje sobre texto libre produce números verosímiles, no exactos.',
+      solutionOrRole: 'Product Owner y arquitecto. Capa semántica desacoplada: el modelo traduce la pregunta a una consulta parametrizada sobre un catálogo de métricas auditado; la base de datos calcula; el modelo redacta con citas.',
+      impactOrOutcome: 'Prueba de concepto sobre una empresa ficticia con 34 preguntas de referencia que miden cifras, fugas entre roles y respuestas «no sé». Sin datos de clientes.',
+    },
+    impactIsProjected: true,
   },
 
   // 02 // GAMEDEV
@@ -552,21 +610,15 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     dimension: 'github',
     accentColor: 'cyan',
     badge: 'IMPACTO SOCIAL',
-    summary: 'Herramienta de software liviana para coordinar equipos operativos de organizaciones de la sociedad civil: asignación de turnos, pendientes y atención a personas. Caso de uso inicial: CAFEMIN, casa de acogida para personas migrantes.',
+    summary: 'Herramienta de software liviana para coordinar equipos operativos de organizaciones de la sociedad civil: asignación de turnos, pendientes y atención a personas. Primer caso de uso: una casa de acogida para personas migrantes. Hoy vive dentro de Bitácora Viva como su módulo Seguidor de tareas.',
     highlightStat: 'Diseñado para operación real sin fricción técnica',
-    tags: ['JavaScript', 'Task Tracker', 'OSC', 'Humanitario', 'Caso de uso: CAFEMIN'],
+    tags: ['JavaScript', 'Task Tracker', 'OSC', 'Humanitario', 'Casa de acogida'],
     evidence: [
       {
         type: 'link',
-        title: 'Caso de uso: CAFEMIN (cafemin.org)',
-        url: 'https://cafemin.org',
-        description: 'Conoce y apoya el trabajo de CAFEMIN con personas migrantes',
-      },
-      {
-        type: 'github',
-        title: 'Repositorio en GitHub',
-        url: 'https://github.com/HugoLeMoy47/cafemin-task-tracker',
-        description: 'Código y arquitectura del gestor de tareas',
+        title: 'Desarrollo a la medida (freejolitos.consulting)',
+        url: 'https://freejolitos.consulting/servicios',
+        description: 'Cómo construyo software para organizaciones sin área de sistemas',
       }
     ],
     details: {
