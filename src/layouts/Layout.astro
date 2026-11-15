@@ -4,11 +4,21 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  ogType?: 'website' | 'article';
+  /** Capa de líneas CRT. Se apaga en páginas de lectura larga para no restar legibilidad. */
+  scanlines?: boolean;
+  /** Ficha Schema.org de la persona (portada). Las páginas del Cuaderno publican su propio esquema. */
+  esquemaPersona?: boolean;
 }
+
+const DESCRIPCION_PERSONA = "Tarjeta de presentación multidimensional de Hugo Legorreta Moysén: Product Owner, Consultor Tecnológico en Freejolitos, activista en La Comuna 420 (#Capital420 / Senado), creador de weedtown.social, creador de contenido digital y desarrollador de videojuegos.";
 
 const {
   title = "Hugo Legorreta Moysén (HLM) — Cyber-Hub & Portafolio Multidimensional",
-  description = "Tarjeta de presentación multidimensional de Hugo Legorreta Moysén: Product Owner, Consultor Tecnológico en Freejolitos, activista en La Comuna 420 (#Capital420 / Senado), creador de weedtown.social, creador de contenido digital y desarrollador de videojuegos.",
+  description = DESCRIPCION_PERSONA,
+  ogType = 'website',
+  scanlines = true,
+  esquemaPersona = true,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://hugolemoy.ninja");
@@ -25,7 +35,7 @@ const personSchema = {
     "name": "Freejolitos Consultores",
     "url": "https://freejolitos.consulting"
   },
-  "description": description,
+  "description": DESCRIPCION_PERSONA,
   "sameAs": [
     "https://github.com/HugoLeMoy47",
     "https://linkedin.com/in/hugolegorretamoysen",
@@ -54,7 +64,7 @@ const personSchema = {
 ---
 
 <!doctype html>
-<html lang="es" class="dark scroll-smooth">
+<html lang="es-MX" class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -82,7 +92,8 @@ const personSchema = {
     <meta name="theme-color" content="#05080c" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="es_MX" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -115,12 +126,19 @@ const personSchema = {
     />
 
     <!-- JSON-LD Structured Data Schema -->
-    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    {esquemaPersona && <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />}
+
+    <!-- Sin JavaScript la animación de arranque nunca termina: se oculta para que el contenido se pueda leer -->
+    <noscript><style>.hlm-boot-overlay { display: none !important; }</style></noscript>
+
+    <slot name="head" />
   </head>
   <body class="bg-cyber-void text-cyber-textBright min-h-screen selection:bg-ninja-crimson selection:text-white relative">
     
+    <a href="#contenido" class="enlace-saltar">Saltar al contenido</a>
+
     <!-- CRT Scanline Overlay -->
-    <div class="fixed inset-0 scanlines-overlay z-30 pointer-events-none"></div>
+    {scanlines && <div class="fixed inset-0 scanlines-overlay z-30 pointer-events-none" aria-hidden="true"></div>}
 
     <slot />
 
