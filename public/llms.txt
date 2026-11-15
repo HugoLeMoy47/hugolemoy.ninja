@@ -29,6 +29,12 @@ Práctica de consultoría en TI enfocada en organizaciones del tercer sector sin
 - Agenda tu diagnóstico: hola@freejolitos.consulting
 - Web: https://freejolitos.consulting
 
+### Cuaderno de construcción (relato en primera persona)
+Sección de hugolemoy.ninja donde Hugo cuenta los retos técnicos y los dilemas éticos de construir Bitácora Viva. La página del producto (qué resuelve y para quién) está en Freejolitos; aquí va la voz del autor.
+- Índice de piezas: https://hugolemoy.ninja/cuaderno/
+- **Anonimizar en lugar de borrar** (15 nov 2026): cómo se atiende el derecho de cancelación sin romper los informes de la organización, y qué sigue sin resolverse. https://hugolemoy.ninja/cuaderno/anonimizar-en-lugar-de-borrar/
+- Página del producto: https://freejolitos.consulting/bitacora-viva
+
 ### 2. Videojuegos, GameDev & Serious Games
 - **Legalízala Tycoon:** Serious game de simulación legislativa en TypeScript (iniciativa ciudadana de cabildo al DOF). Jugar: https://legalizala.weedtown.social · Repo: https://github.com/HugoLeMoy47/LegalizalaTycoon
 - **canna-gochi:** Mascota virtual cannábica interactiva en TypeScript. Jugar: https://cannagochi.weedtown.social · Repo: https://github.com/HugoLeMoy47/canna-gochi
