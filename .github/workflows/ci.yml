@@ -1,0 +1,37 @@
+# Verificación antes de fusionar: que el sitio compile.
+# Fusionar a `main` publica (Cloudflare Pages), así que un sitio que no compila
+# debe verse en rojo en el PR y no descubrirse después con una página en 404.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compilar:
+    name: Compilación del sitio
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Comprobar lo que salió
+        run: |
+          test -f dist/index.html
+          test -f dist/cuaderno/index.html
+          test -f dist/sitemap.xml
+          test -f dist/version.json
+          node -e "const v=require('./dist/version.json'); if(!/^[0-9a-f]{7}$/.test(v.commit)) { console.error('version.json sin commit válido:', v); process.exit(1) } console.log('version.json', v)"

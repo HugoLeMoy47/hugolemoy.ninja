@@ -50,6 +50,10 @@ El índice, el bloque de la página de inicio y `sitemap.xml` se actualizan solo
 
 ## 🌐 Despliegue en Cloudflare Pages
 
+Para saber qué está publicado: `https://hugolemoy.ninja/version.json` devuelve el commit y la fecha de compilación. Si no coincide con `main`, la última fusión no se publicó.
+
+Antes de fusionar, el flujo `CI` de GitHub comprueba que el sitio compile.
+
 - **Framework preset:** Astro
 - **Build command:** `npm run build`
 - **Build output directory:** `dist`
