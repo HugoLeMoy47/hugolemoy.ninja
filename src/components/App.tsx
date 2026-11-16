@@ -16,10 +16,27 @@ import {
   Instagram, 
   Github, 
   Users, 
-  Share2 
+  Share2,
+  NotebookPen
 } from 'lucide-react';
 
-export const App: React.FC = () => {
+export interface CuadernoResumen {
+  nombre: string;
+  ruta: string;
+  ultima?: {
+    titulo: string;
+    resumen: string;
+    ruta: string;
+    fecha: string;
+    fechaISO: string;
+  };
+}
+
+interface AppProps {
+  cuaderno?: CuadernoResumen;
+}
+
+export const App: React.FC<AppProps> = ({ cuaderno }) => {
   const [currentPersona, setCurrentPersona] = useState<OperatorPersona>('PROJECT_2501');
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [externalDimension, setExternalDimension] = useState<string | null>(null);
@@ -131,7 +148,7 @@ export const App: React.FC = () => {
       {/* ========================================================================= */}
       {/* CYBER-DECK SPLIT-SCREEN MAIN STAGE                                        */}
       {/* ========================================================================= */}
-      <main className="relative z-10 flex-1 max-w-[1600px] w-full mx-auto p-3 sm:p-5 lg:p-6 space-y-8">
+      <main id="contenido" className="relative z-10 flex-1 max-w-[1600px] w-full mx-auto p-3 sm:p-5 lg:p-6 space-y-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
@@ -158,6 +175,60 @@ export const App: React.FC = () => {
           </div>
 
         </div>
+
+        {/* ========================================================================= */}
+        {/* CUADERNO DE CONSTRUCCIÓN (relato en primera persona; páginas estáticas)   */}
+        {/* ========================================================================= */}
+        {cuaderno && (
+          <section
+            aria-labelledby="cuaderno-titulo"
+            className="rounded-xl bg-white/95 dark:bg-cyber-card/90 border border-slate-200 dark:border-cyber-border p-5 sm:p-6 shadow-xl backdrop-blur-md"
+          >
+            <div className="flex items-center gap-2 border-b border-slate-200 dark:border-cyber-border pb-3 mb-4 font-mono">
+              <NotebookPen className="w-4 h-4 text-red-700 dark:text-ninja-crimson" aria-hidden="true" />
+              <h2 id="cuaderno-titulo" className="font-bold text-xs text-slate-800 dark:text-white uppercase tracking-wider">
+                {cuaderno.nombre}
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 text-sm leading-relaxed">
+              <div className="space-y-3 text-slate-700 dark:text-cyber-textBright">
+                <p>
+                  Construyo Bitácora Viva, un expediente digital para albergues y organizaciones que atienden a
+                  personas en movilidad. Es una prueba de concepto y trabaja solo con datos de prueba.
+                </p>
+                <p>
+                  En el cuaderno cuento, en primera persona, los retos técnicos y los dilemas éticos de construirlo.
+                </p>
+                <p>
+                  <a
+                    href={cuaderno.ruta}
+                    className="font-bold text-sky-700 hover:text-sky-900 dark:text-gits-cyan dark:hover:text-white underline underline-offset-4"
+                  >
+                    Leer el {cuaderno.nombre}
+                  </a>
+                </p>
+              </div>
+
+              {cuaderno.ultima && (
+                <div className="p-4 rounded-lg border border-slate-200 dark:border-cyber-border bg-slate-50 dark:bg-cyber-void">
+                  <p className="font-mono text-xs text-slate-600 dark:text-slate-400 mb-1.5">
+                    Pieza más reciente · <time dateTime={cuaderno.ultima.fechaISO}>{cuaderno.ultima.fecha}</time>
+                  </p>
+                  <h3 className="font-display font-bold text-base sm:text-lg leading-snug">
+                    <a
+                      href={cuaderno.ultima.ruta}
+                      className="text-slate-900 dark:text-white underline underline-offset-4 decoration-1 hover:decoration-red-700 dark:hover:decoration-ninja-crimson"
+                    >
+                      {cuaderno.ultima.titulo}
+                    </a>
+                  </h3>
+                  <p className="mt-2 text-slate-700 dark:text-cyber-textBright">{cuaderno.ultima.resumen}</p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* ========================================================================= */}
         {/* SOCIAL PROFILES & DIRECTORY HUB (TARJETA TOTAL DE PRESENTACIÓN)          */}
@@ -218,6 +289,9 @@ export const App: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-[11px]">
+            <a href="/cuaderno/" className="text-sky-700 dark:text-gits-cyan hover:underline">
+              Cuaderno de construcción
+            </a>
             <a href="https://linkedin.com/in/hugolegorretamoysen/" target="_blank" rel="noopener noreferrer" className="hover:text-sky-600 dark:hover:text-gits-cyan">
               LinkedIn
             </a>

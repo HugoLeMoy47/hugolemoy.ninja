@@ -56,7 +56,7 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
         </div>
 
         {/* Global Action HUD */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
           
           {/* Theme Toggle: Modo Blanco Tinta (Sumi-e / Washi) vs Modo Oscuro Vacío (Cyberpunk) */}
           <button
@@ -107,6 +107,14 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
             <span className="hidden xs:inline">OPERADOR:</span>
             <span className="font-bold">{meta.name}</span>
           </button>
+
+          {/* Cuaderno de construcción (páginas estáticas del sitio) */}
+          <a
+            href="/cuaderno/"
+            className="flex items-center gap-1 text-sky-700 dark:text-gits-cyan hover:underline px-1.5 py-1 font-semibold"
+          >
+            <span>Cuaderno</span>
+          </a>
 
           {/* Direct weedtown.social link */}
           <a

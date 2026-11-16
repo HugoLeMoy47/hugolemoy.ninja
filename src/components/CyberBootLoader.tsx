@@ -133,7 +133,7 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 overflow-hidden bg-cyber-void flex items-center justify-center font-mono select-none"
+      className="hlm-boot-overlay fixed inset-0 z-50 overflow-hidden bg-cyber-void flex items-center justify-center font-mono select-none"
     >
       {/* Background Slices for GSAP Cyber-Katana diagonal split */}
       <div

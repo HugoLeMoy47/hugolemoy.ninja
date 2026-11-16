@@ -1,8 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { App } from '../components/App';
+import { CUADERNO, obtenerPiezas, rutaDePieza, fechaLarga, fechaISO } from '../lib/cuaderno';
+
+// Pieza más reciente del Cuaderno, para el bloque de la página de inicio.
+const [ultima] = await obtenerPiezas();
+const cuaderno = {
+  nombre: CUADERNO.nombre,
+  ruta: CUADERNO.ruta,
+  ultima: ultima && {
+    titulo: ultima.data.titulo,
+    resumen: ultima.data.resumen,
+    ruta: rutaDePieza(ultima),
+    fecha: fechaLarga(ultima.data.fecha),
+    fechaISO: fechaISO(ultima.data.fecha),
+  },
+};
 ---
 
 <Layout>
-  <App client:load />
+  <App client:load cuaderno={cuaderno} />
 </Layout>

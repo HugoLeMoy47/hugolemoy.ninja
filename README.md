@@ -25,6 +25,29 @@ npm run build
 
 ---
 
+## Cuaderno de construcción (`/cuaderno/`)
+
+Relato en primera persona de los retos técnicos y los dilemas éticos de construir Bitácora Viva.
+
+Para publicar una pieza nueva, crea un archivo Markdown en `src/content/cuaderno/`. El nombre del archivo es la URL (`mi-pieza.md` → `/cuaderno/mi-pieza/`). Encabezado obligatorio:
+
+```yaml
+---
+titulo: "Título de la pieza"
+resumen: "Una o dos frases (máximo 200 caracteres)."
+fecha: 2026-11-15
+producto:
+  nombre: "Bitácora Viva"
+  url: "https://freejolitos.consulting/bitacora-viva"
+  estado: "Bitácora Viva es una prueba de concepto funcional y trabaja solo con datos de prueba."
+# borrador: true   # no se publica
+---
+```
+
+El índice, el bloque de la página de inicio y `sitemap.xml` se actualizan solos en el build. En el cuerpo, los subtítulos empiezan en `##` (el `h1` es el título). `public/llms.txt` se edita a mano.
+
+---
+
 ## 🌐 Despliegue en Cloudflare Pages
 
 - **Framework preset:** Astro
