@@ -301,41 +301,50 @@ function createCompassGeometry(): GeometryData {
 function createAssassinGeometry(): GeometryData {
   const b = new Builder();
 
-  // Mitad derecha, de la punta superior al ápice del arco interior (Y hacia arriba)
-  const outerR = spline(
+  // Mitad derecha, en sentido horario desde el pico (Y hacia arriba).
+  // «A» alta de lados casi rectos, arco interior que sube cerca del pico y,
+  // al pie de cada pierna, una hoja en forma de ola con la punta levantada.
+  const pico = { x: 0, y: 86 };
+  const ladoR: P2[] = [
+    { x: 11, y: 58 },
+    { x: 22, y: 30 },
+    { x: 32, y: 2 },
+    { x: 42, y: -26 }, // fin del lado exterior de la pierna
+  ];
+  const muescaR = { x: 38, y: -34 }; // muesca entre la pierna y la hoja
+  const hojaArribaR = spline(
     [
-      { x: 0, y: 84 },
-      { x: 16, y: 70 },
-      { x: 30, y: 56 },
-      { x: 42, y: 44 }, // hombro ancho
-    ],
-    2
-  );
-  const notchR = [{ x: 31, y: 34 }]; // muesca lateral (pico hacia dentro)
-  const flankR = spline(
-    [
-      { x: 44, y: 28 },
-      { x: 58, y: 10 },
-      { x: 67, y: -14 },
-      { x: 70, y: -38 },
-      { x: 64, y: -58 },
-      { x: 52, y: -76 }, // punta de la hoja
-    ],
-    3
-  );
-  const archR = spline(
-    [
-      { x: 44, y: -64 },
-      { x: 40, y: -44 },
-      { x: 31, y: -20 },
-      { x: 18, y: 2 },
-      { x: 0, y: 20 }, // ápice del arco (hueco de la capucha)
+      muescaR,
+      { x: 48, y: -37 },
+      { x: 58, y: -39 },
+      { x: 67, y: -36 },
+      { x: 74, y: -28 }, // punta levantada de la ola
     ],
     3
-  );
+  ).slice(1);
+  const hojaAbajoR = spline(
+    [
+      { x: 74, y: -28 },
+      { x: 68, y: -42 },
+      { x: 56, y: -53 },
+      { x: 42, y: -60 },
+      { x: 28, y: -64 },
+      { x: 18, y: -62 }, // base interior de la pierna
+    ],
+    3
+  ).slice(1);
+  const arcoR = spline(
+    [
+      { x: 18, y: -62 },
+      { x: 19, y: -40 },
+      { x: 15, y: -10 },
+      { x: 9, y: 16 },
+      { x: 0, y: 40 }, // ápice del arco interior
+    ],
+    3
+  ).slice(1);
 
-  const right = [...outerR, ...notchR, ...flankR, ...archR];
-  // Contorno completo: derecha de arriba al arco, luego la izquierda en espejo de regreso
+  const right = [pico, ...ladoR, muescaR, ...hojaArribaR, ...hojaAbajoR, ...arcoR];
   const leftMirror = right
     .slice(1, -1)
     .reverse()
@@ -345,34 +354,31 @@ function createAssassinGeometry(): GeometryData {
   const idxOf = (p: P2) => outline.findIndex((q) => Math.abs(q.x - p.x) < 0.01 && Math.abs(q.y - p.y) < 0.01);
   const top = 0;
   const archApex = right.length - 1;
-  const tipRight = idxOf({ x: 52, y: -76 });
-  const tipLeft = idxOf({ x: -52, y: -76 });
-  const shoulderR = idxOf({ x: 42, y: 44 });
-  const shoulderL = idxOf({ x: -42, y: 44 });
-  const notchRi = idxOf(notchR[0]);
-  const notchLi = idxOf({ x: -31, y: 34 });
+  const tipR = idxOf({ x: 74, y: -28 });
+  const tipL = idxOf({ x: -74, y: -28 });
+  const notchR = idxOf(muescaR);
+  const notchL = idxOf({ x: -muescaR.x, y: muescaR.y });
+  const baseR = idxOf({ x: 18, y: -62 });
+  const baseL = idxOf({ x: -18, y: -62 });
 
   const solid = b.bevel(outline, {
-    inset: 6,
-    depth: 8,
-    strutAt: [top, archApex, tipRight, tipLeft, shoulderR, shoulderL, notchRi, notchLi].filter((i) => i >= 0),
+    inset: 3.2,
+    depth: 7,
+    strutAt: [top, archApex, tipR, tipL, notchR, notchL, baseR, baseL].filter((i) => i >= 0),
   });
 
-  // Lomo central frontal y trasero: de la punta al ápice del arco
+  // Lomo central: del pico al ápice del arco, por delante y por detrás
   const ridge = b.vertices.length;
-  b.vertices.push({ x: 0, y: 54, z: 14 }, { x: 0, y: 54, z: -14 });
+  b.vertices.push({ x: 0, y: 62, z: 12 }, { x: 0, y: 62, z: -12 });
   b.edge(solid.front + top, ridge, 1);
   b.edge(ridge, solid.front + archApex, 1);
   b.edge(solid.back + top, ridge + 1, 0);
   b.edge(ridge + 1, solid.back + archApex, 0);
-  if (shoulderR >= 0) b.edge(ridge, solid.front + shoulderR, 1);
-  if (shoulderL >= 0) b.edge(ridge, solid.front + shoulderL, 1);
 
   b.apexIndices.add(solid.rim + top);
   b.apexIndices.add(solid.rim + archApex);
-  b.apexIndices.add(ridge);
-  if (tipRight >= 0) b.tipIndices.add(solid.rim + tipRight);
-  if (tipLeft >= 0) b.tipIndices.add(solid.rim + tipLeft);
+  if (tipR >= 0) b.tipIndices.add(solid.rim + tipR);
+  if (tipL >= 0) b.tipIndices.add(solid.rim + tipL);
 
   return b.build('assassin', 'CREDO DE ASESINOS', '影', 'upright');
 }
