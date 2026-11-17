@@ -43,7 +43,6 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
   const [isAudioMuted, setIsAudioMuted] = useState(true);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
 
   // Initialize or update welcome on persona switch
@@ -100,10 +99,26 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
     }
   }, [selectedNodeId, currentPersona]);
 
-  // Auto scroll
+  // Desplaza solo el historial; scrollIntoView arrastraba la página entera.
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const el = scrollRef.current;
+    if (!el || el.offsetParent === null) return;
+    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
   }, [messages]);
+
+  // Al mostrarse la pestaña del operador en móvil, abre en el mensaje más reciente.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    let visible = el.offsetParent !== null;
+    const ro = new ResizeObserver(() => {
+      const ahora = el.offsetParent !== null;
+      if (ahora && !visible) el.scrollTop = el.scrollHeight;
+      visible = ahora;
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const togglePersona = (newPersona: OperatorPersona) => {
     cyberAudio.playClick(900);
@@ -403,68 +418,75 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
   return (
     <div 
       ref={panelRef}
-      className={`flex flex-col h-full rounded-xl border-2 p-4 shadow-2xl backdrop-blur-md font-mono text-xs transition-colors duration-250 ${
+      className={`flex flex-col h-[calc(100dvh-var(--hlm-sticky-top)-1.75rem)] min-h-[440px] lg:h-full lg:min-h-0 rounded-xl border sm:border-2 p-3 sm:p-4 shadow-2xl backdrop-blur-md font-mono text-xs transition-colors duration-250 ${
         theme === 'light'
           ? 'bg-white/95 border-slate-300 text-slate-800 shadow-lg'
           : 'bg-cyber-card/95 border-cyber-border text-cyber-textBright box-glow-cyan'
       }`}
     >
-      {/* Operator Header & Persona Switcher */}
-      <div className="border-b border-slate-200 dark:border-cyber-border pb-3 space-y-2.5">
-        
-        {/* Top Control Bar: Audio + Persona Badge */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full animate-ping ${currentPersona === 'PROJECT_2501' ? 'bg-sky-500 dark:bg-gits-cyan' : 'bg-amber-500 dark:bg-amberGold'}`}></span>
-            <span className={`font-bold tracking-wider text-[11px] ${currentPersona === 'PROJECT_2501' ? 'text-sky-600 dark:text-gits-cyan' : 'text-amber-600 dark:text-amberGold'}`}>
+      {/* Encabezado: insignia, selector de personalidad y audio en una sola fila */}
+      <div className="border-b border-slate-200 dark:border-cyber-border pb-2.5 sm:pb-3 space-y-2">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <span className={`shrink-0 w-2 h-2 rounded-full animate-ping ${currentPersona === 'PROJECT_2501' ? 'bg-sky-500 dark:bg-gits-cyan' : 'bg-amber-500 dark:bg-amberGold'}`}></span>
+            <span className={`truncate font-bold tracking-wider text-[11px] ${currentPersona === 'PROJECT_2501' ? 'text-sky-600 dark:text-gits-cyan' : 'text-amber-600 dark:text-amberGold'}`}>
               {meta.systemBadge}
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* Selector A/B de personalidad */}
+          <div
+            className="shrink-0 bg-slate-100 dark:bg-cyber-void p-0.5 rounded-lg border border-slate-200 dark:border-cyber-border grid grid-cols-2 gap-0.5 text-[11px]"
+            role="radiogroup"
+            aria-label="Personalidad del operador"
+          >
             <button
-              onClick={toggleAudio}
-              className={`p-1 px-2 rounded border text-[11px] flex items-center gap-1 transition-all ${
-                isAudioMuted 
-                  ? 'border-slate-300 dark:border-cyber-border text-slate-500 dark:text-cyber-textMuted hover:text-slate-800 dark:hover:text-cyber-textBright' 
-                  : 'border-emerald-500 text-emerald-600 dark:text-matrix-green bg-emerald-50 dark:bg-matrix-green/10'
+              onClick={() => togglePersona('PROJECT_2501')}
+              role="radio"
+              aria-checked={currentPersona === 'PROJECT_2501'}
+              className={`hlm-tap h-8 px-2.5 rounded-md font-bold transition-colors flex items-center justify-center gap-1.5 border ${
+                currentPersona === 'PROJECT_2501'
+                  ? 'bg-sky-500/15 text-sky-700 dark:text-gits-cyan border-sky-400 dark:border-gits-cyan/50 shadow-sm'
+                  : 'border-transparent text-slate-500 dark:text-cyber-textMuted hover:text-slate-900 dark:hover:text-cyber-textBright'
               }`}
-              title="Efectos de audio táctiles"
             >
-              {isAudioMuted ? <VolumeX className="w-3 h-3" /> : <Volume2 className="w-3 h-3" />}
-              <span className="hidden sm:inline">{isAudioMuted ? 'MUTE' : 'AUDIO'}</span>
+              <Bot className="w-3.5 h-3.5" />
+              <span className="sm:hidden lg:inline 2xl:hidden">2501</span>
+              <span className="hidden sm:inline lg:hidden 2xl:inline">PROYECTO 2501</span>
+            </button>
+            <button
+              onClick={() => togglePersona('HLM_ALTEREGO')}
+              role="radio"
+              aria-checked={currentPersona === 'HLM_ALTEREGO'}
+              className={`hlm-tap h-8 px-2.5 rounded-md font-bold transition-colors flex items-center justify-center gap-1.5 border ${
+                currentPersona === 'HLM_ALTEREGO'
+                  ? 'bg-amber-500/15 text-amber-800 dark:text-amberGold border-amber-400 dark:border-amberGold/50 shadow-sm'
+                  : 'border-transparent text-slate-500 dark:text-cyber-textMuted hover:text-slate-900 dark:hover:text-cyber-textBright'
+              }`}
+            >
+              <UserCheck className="w-3.5 h-3.5" />
+              <span className="sm:hidden lg:inline 2xl:hidden">HLM</span>
+              <span className="hidden sm:inline lg:hidden 2xl:inline">HLM ALTER EGO</span>
             </button>
           </div>
-        </div>
-
-        {/* Persona A/B Selector Segmented Switch */}
-        <div className="bg-slate-100 dark:bg-cyber-void p-1 rounded-lg border border-slate-200 dark:border-cyber-border grid grid-cols-2 gap-1 text-[11px]">
-          <button
-            onClick={() => togglePersona('PROJECT_2501')}
-            className={`py-1.5 px-2 rounded font-bold transition-all flex items-center justify-center gap-1.5 ${
-              currentPersona === 'PROJECT_2501'
-                ? 'bg-sky-500/15 text-sky-700 dark:text-gits-cyan border border-sky-400 dark:border-gits-cyan/50 shadow-sm'
-                : 'text-slate-500 dark:text-cyber-textMuted hover:text-slate-900 dark:hover:text-cyber-textBright'
-            }`}
-          >
-            <Bot className="w-3.5 h-3.5" />
-            <span>PROYECTO 2501</span>
-          </button>
 
           <button
-            onClick={() => togglePersona('HLM_ALTEREGO')}
-            className={`py-1.5 px-2 rounded font-bold transition-all flex items-center justify-center gap-1.5 ${
-              currentPersona === 'HLM_ALTEREGO'
-                ? 'bg-amber-500/15 text-amber-800 dark:text-amberGold border border-amber-400 dark:border-amberGold/50 shadow-sm'
-                : 'text-slate-500 dark:text-cyber-textMuted hover:text-slate-900 dark:hover:text-cyber-textBright'
+            onClick={toggleAudio}
+            aria-pressed={!isAudioMuted}
+            aria-label={isAudioMuted ? 'Activar efectos de audio' : 'Silenciar efectos de audio'}
+            className={`hlm-tap shrink-0 h-8 min-w-8 px-2 rounded-md border text-[11px] flex items-center justify-center gap-1 transition-colors ${
+              isAudioMuted
+                ? 'border-slate-300 dark:border-cyber-border text-slate-500 dark:text-cyber-textMuted hover:text-slate-800 dark:hover:text-cyber-textBright'
+                : 'border-emerald-500 text-emerald-600 dark:text-matrix-green bg-emerald-50 dark:bg-matrix-green/10'
             }`}
+            title="Efectos de audio táctiles"
           >
-            <UserCheck className="w-3.5 h-3.5" />
-            <span>HLM ALTER EGO</span>
+            {isAudioMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+            <span className="hidden xl:inline">{isAudioMuted ? 'MUTE' : 'AUDIO'}</span>
           </button>
         </div>
 
-        <p className="text-[11px] text-slate-500 dark:text-cyber-textMuted leading-tight italic">
+        <p className="text-[11px] text-slate-500 dark:text-cyber-textMuted leading-snug italic line-clamp-2 sm:line-clamp-none">
           {meta.tagline}
         </p>
       </div>
@@ -472,8 +494,10 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
       {/* Messages / Dialogue Stream */}
       <div 
         ref={scrollRef}
-        className="flex-1 overflow-y-auto p-2 my-2 space-y-3 bg-slate-50 dark:bg-cyber-void/70 rounded-lg border border-slate-200 dark:border-cyber-border/80 text-xs"
-        style={{ minHeight: '380px', maxHeight: '520px' }}
+        className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-2 my-2 space-y-2.5 sm:space-y-3 bg-slate-50 dark:bg-cyber-void/70 rounded-lg border border-slate-200 dark:border-cyber-border/80 text-[13px] sm:text-xs lg:min-h-[380px] lg:max-h-[520px]"
+        role="log"
+        aria-live="polite"
+        aria-label="Conversación con el operador"
       >
         {messages.map((m) => (
           <div key={m.id} className="space-y-1">
@@ -500,52 +524,62 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
                   <span>{meta.name}:</span>
                   <span className="font-normal opacity-70">{m.timestamp}</span>
                 </div>
-                <div>{m.text}</div>
+                <div className="break-words">{m.text}</div>
               </div>
             )}
           </div>
         ))}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Quick Command Pills */}
-      <div className="flex flex-wrap gap-1 pb-2 pt-1 text-[11px]">
+      <div className="hlm-scroll-x [mask-image:linear-gradient(to_right,black_85%,transparent)] sm:[mask-image:none] pr-10 sm:pr-0 flex sm:flex-wrap gap-1.5 sm:gap-1 pb-2 pt-1 text-[11px]" aria-label="Comandos rápidos">
         {['help', 'dir', 'glyph', 'freejolitos', 'gamedev', 'weedtown', 'cnnn', 'incidencia', 'github', 'redes'].map((cmd) => (
           <button
             key={cmd}
             onClick={() => handleCommand(cmd)}
-            className="px-2 py-0.5 rounded bg-white dark:bg-cyber-void border border-slate-300 dark:border-cyber-border hover:border-red-500 dark:hover:border-gits-cyan text-slate-600 dark:text-cyber-textMuted hover:text-red-600 dark:hover:text-gits-cyan transition-colors"
+            className="hlm-tap shrink-0 whitespace-nowrap px-2.5 sm:px-2 py-1 sm:py-0.5 rounded bg-white dark:bg-cyber-void border border-slate-300 dark:border-cyber-border hover:border-red-500 dark:hover:border-gits-cyan text-slate-600 dark:text-cyber-textMuted hover:text-red-600 dark:hover:text-gits-cyan transition-colors"
           >
             /{cmd}
           </button>
         ))}
       </div>
 
-      {/* Command Line Input */}
-      <div className="pt-2 border-t border-slate-200 dark:border-cyber-border flex items-center gap-2">
-        <span className={`text-xs font-bold ${currentPersona === 'PROJECT_2501' ? 'text-sky-600 dark:text-gits-cyan' : 'text-amber-600 dark:text-amberGold'}`}>
-          {currentPersona === 'PROJECT_2501' ? '2501@net:~$ ' : 'hugo@cdmx:~$ '}
-        </span>
+      {/* Línea de comandos */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleCommand(inputVal);
+        }}
+        className="pt-2 border-t border-slate-200 dark:border-cyber-border flex items-center gap-2"
+      >
+        <label htmlFor="hlm-operador-cmd" className={`shrink-0 text-xs font-bold ${currentPersona === 'PROJECT_2501' ? 'text-sky-600 dark:text-gits-cyan' : 'text-amber-600 dark:text-amberGold'}`}>
+          <span className="hidden sm:inline">{currentPersona === 'PROJECT_2501' ? '2501@net:~$' : 'hugo@cdmx:~$'}</span>
+          <span className="sm:hidden" aria-hidden="true">$</span>
+          <span className="sr-only sm:hidden">Comando</span>
+        </label>
         <input
+          id="hlm-operador-cmd"
           type="text"
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleCommand(inputVal);
-            }
-          }}
-          placeholder="escribe una consulta o comando..."
-          className="flex-1 bg-transparent text-slate-900 dark:text-white text-xs focus:outline-none placeholder:text-slate-400 dark:placeholder:text-cyber-textMuted/60"
+          enterKeyHint="send"
+          autoCapitalize="none"
+          autoCorrect="off"
+          autoComplete="off"
+          spellCheck={false}
+          placeholder="escribe un comando · help"
+          className="min-w-0 flex-1 h-10 sm:h-auto bg-transparent text-slate-900 dark:text-white text-base sm:text-xs focus:outline-none placeholder:text-slate-400 dark:placeholder:text-cyber-textMuted/60"
         />
         <button
-          onClick={() => handleCommand(inputVal)}
-          className="p-1 rounded text-sky-600 dark:text-gits-cyan hover:text-red-600 dark:hover:text-matrix-green"
+          type="submit"
+          disabled={!inputVal.trim()}
+          className="shrink-0 w-10 h-10 sm:w-auto sm:h-auto sm:p-1 flex items-center justify-center rounded-md border sm:border-0 border-slate-300 dark:border-cyber-border text-sky-600 dark:text-gits-cyan hover:text-red-600 dark:hover:text-matrix-green disabled:opacity-40 transition-colors"
+          aria-label="Ejecutar comando"
           title="Ejecutar"
         >
-          <CornerDownLeft className="w-3.5 h-3.5" />
+          <CornerDownLeft className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
         </button>
-      </div>
+      </form>
 
     </div>
   );
