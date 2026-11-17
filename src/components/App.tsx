@@ -4,7 +4,7 @@ import { CyberMatrixRain } from './CyberMatrixRain';
 import { CyberJourney } from './CyberJourney';
 import { CyberOperatorPanel } from './CyberOperatorPanel';
 import { CyberBootLoader } from './CyberBootLoader';
-import { type OperatorPersona } from '../data/operatorPersonas';
+import { type OperatorPersona, NODE_COMMENTARY } from '../data/operatorPersonas';
 import { SOCIAL_PROFILES } from '../data/portfolioData';
 import { 
   Bot, 
@@ -41,6 +41,8 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [externalDimension, setExternalDimension] = useState<string | null>(null);
   const [mobileTab, setMobileTab] = useState<'operator' | 'viewport'>('viewport');
+  // Comentarios del operador que llegaron mientras la pestaña móvil mostraba el constructo.
+  const [sinLeer, setSinLeer] = useState(0);
   const [isBooting, setIsBooting] = useState<boolean>(true);
 
   // Japanese Sumi-e Light Theme vs Obsidian Dark Theme
@@ -88,13 +90,28 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
     }
   };
 
+  // Cambia de pestaña en móvil sin dejar al lector a media página de la vista anterior.
+  const cambiarPestana = (tab: 'operator' | 'viewport') => {
+    if (tab === 'operator') setSinLeer(0);
+    if (tab === mobileTab) return;
+    setMobileTab(tab);
+    const main = document.getElementById('contenido');
+    if (!main || window.matchMedia('(min-width: 1024px)').matches) return;
+    const sticky = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hlm-sticky-top')) || 0;
+    const tope = main.getBoundingClientRect().top + window.scrollY - sticky;
+    if (window.scrollY > tope) window.scrollTo({ top: tope, behavior: 'instant' as ScrollBehavior });
+  };
+
   const handleNodeSelectFromViewport = (nodeId: string) => {
     setSelectedNodeId(nodeId);
+    if (mobileTab === 'viewport' && NODE_COMMENTARY[currentPersona][nodeId]) {
+      setSinLeer((n) => n + 1);
+    }
   };
 
   const handleTriggerDimensionFromCLI = (dimId: string) => {
     setExternalDimension(dimId);
-    setMobileTab('viewport'); // Switch to viewport on mobile if dimension triggered
+    cambiarPestana('viewport'); // En móvil, el resultado del comando se ve en el constructo
   };
 
   const iconCls = 'w-4 h-4 text-sky-700 dark:text-gits-cyan group-hover:text-ninja-crimson transition-colors duration-200';
@@ -139,7 +156,7 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
       {/* Mobile Tab Switcher */}
       <div className="lg:hidden sticky top-[52px] z-30 h-14 items-center bg-[#fafafa]/95 dark:bg-cyber-void/95 backdrop-blur-md px-3 border-b border-slate-200 dark:border-cyber-border font-mono text-[11px] flex gap-1.5" role="tablist" aria-label="Vista">
         <button
-          onClick={() => setMobileTab('viewport')}
+          onClick={() => cambiarPestana('viewport')}
           role="tab"
           aria-selected={mobileTab === 'viewport'}
           className={`hlm-tap flex-1 py-2 rounded-md border duration-200 flex items-center justify-center gap-1.5 transition-all ${
@@ -153,7 +170,7 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
         </button>
 
         <button
-          onClick={() => setMobileTab('operator')}
+          onClick={() => cambiarPestana('operator')}
           role="tab"
           aria-selected={mobileTab === 'operator'}
           className={`hlm-tap flex-1 py-2 rounded-md border duration-200 flex items-center justify-center gap-1.5 transition-all ${
@@ -164,6 +181,14 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
         >
           <Bot className="w-3.5 h-3.5" />
           <span>OPERADOR · {currentPersona === 'PROJECT_2501' ? '2501' : 'HLM'}</span>
+          {sinLeer > 0 && mobileTab !== 'operator' && (
+            <span
+              className="ml-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-ninja-crimson text-white text-[10px] font-bold leading-[18px] text-center"
+              aria-label={`${sinLeer} comentario${sinLeer === 1 ? '' : 's'} nuevo${sinLeer === 1 ? '' : 's'} del operador`}
+            >
+              {sinLeer > 9 ? '9+' : sinLeer}
+            </span>
+          )}
         </button>
       </div>
 
