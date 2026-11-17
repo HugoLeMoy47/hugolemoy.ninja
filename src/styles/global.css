@@ -4,6 +4,8 @@
 
 @layer base {
   :root {
+    /* Altura de las barras fijas: encabezado (52px) + pestañas en móvil (56px) */
+    --hlm-sticky-top: 108px;
     --color-ninja: #dc2626;
     --color-gits: #0284c7;
     --color-amber: #d97706;
@@ -20,6 +22,11 @@
     text-size-adjust: 100%;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --hlm-sticky-top: 52px;
+    }
   }
   html.dark {
     scrollbar-color: #182436 transparent;

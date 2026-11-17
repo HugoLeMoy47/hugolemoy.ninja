@@ -112,7 +112,7 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#fafafa] dark:bg-cyber-void text-slate-900 dark:text-cyber-textBright overflow-x-hidden flex flex-col justify-between transition-colors duration-250 font-sans">
+    <div className="relative min-h-screen bg-[#fafafa] dark:bg-cyber-void text-slate-900 dark:text-cyber-textBright overflow-x-clip flex flex-col justify-between transition-colors duration-250 font-sans">
       
       {/* Cinematic Ghost Dive Boot Loader */}
       {isBooting && (
@@ -137,7 +137,7 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
       />
 
       {/* Mobile Tab Switcher */}
-      <div className="lg:hidden sticky top-[var(--hlm-header-h,52px)] z-30 bg-[#fafafa]/90 dark:bg-cyber-void/85 backdrop-blur-md px-3 py-2 border-b border-slate-200 dark:border-cyber-border font-mono text-[11px] flex gap-1.5" role="tablist" aria-label="Vista">
+      <div className="lg:hidden sticky top-[52px] z-30 h-14 items-center bg-[#fafafa]/95 dark:bg-cyber-void/95 backdrop-blur-md px-3 border-b border-slate-200 dark:border-cyber-border font-mono text-[11px] flex gap-1.5" role="tablist" aria-label="Vista">
         <button
           onClick={() => setMobileTab('viewport')}
           role="tab"
@@ -175,7 +175,7 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* Left Panel: AI Operator Console (4.5 of 12 cols in Desktop) */}
-          <div className={`lg:col-span-5 xl:col-span-4 ${mobileTab === 'operator' ? 'block' : 'hidden lg:block'} lg:sticky lg:top-20 hlm-rise`}>
+          <div className={`lg:col-span-5 xl:col-span-4 ${mobileTab === 'operator' ? 'block' : 'hidden lg:block'} lg:sticky lg:top-[68px] hlm-rise`}>
             <CyberOperatorPanel
               currentPersona={currentPersona}
               onPersonaChange={setCurrentPersona}

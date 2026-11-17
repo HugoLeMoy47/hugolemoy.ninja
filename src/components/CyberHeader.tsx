@@ -49,8 +49,8 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
               <span className="xs:hidden">HLM</span>
             </span>
           </a>
-          <span className="hidden md:inline-block text-slate-400 dark:text-cyber-textMuted" aria-hidden="true">|</span>
-          <span className={`hidden md:inline-flex items-center gap-1.5 ${theme === 'light' ? 'text-sky-700' : 'text-gits-cyan'}`}>
+          <span className="hidden xl:inline-block text-slate-400 dark:text-cyber-textMuted" aria-hidden="true">|</span>
+          <span className={`hidden xl:inline-flex whitespace-nowrap items-center gap-1.5 ${theme === 'light' ? 'text-sky-700' : 'text-gits-cyan'}`}>
             <Shield className="w-3.5 h-3.5" />
             <span>NEURAL_LINK: ACTIVE</span>
           </span>
@@ -74,7 +74,7 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
             title={theme === 'light' ? 'Cambiar a Modo Oscuro (Vacío / Cyberpunk)' : 'Cambiar a Modo Blanco Japonés (Tinta / Sumi-e Washi)'}
           >
             <span className="text-sm font-serif text-red-600 dark:text-ninja-crimson">☯</span>
-            <span className="hidden sm:inline">
+            <span className="hidden xl:inline whitespace-nowrap">
               {theme === 'light' ? 'TINTA (BLANCO)' : 'VACÍO (OSCURO)'}
             </span>
           </button>
@@ -87,7 +87,7 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
               title="Volver a ejecutar secuencia cinematográfica Ghost Dive"
             >
               <RefreshCw className="w-3 h-3 text-ninja-crimson" />
-              <span className="hidden md:inline text-[11px]">GHOST DIVE</span>
+              <span className="hidden xl:inline whitespace-nowrap text-[11px]">GHOST DIVE</span>
             </button>
           )}
 
@@ -107,8 +107,8 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
             ) : (
               <UserCheck className="w-3.5 h-3.5" />
             )}
-            <span className="hidden lg:inline">OPERADOR:</span>
-            <span className="font-bold hidden sm:inline">{meta.name}</span>
+            <span className="hidden xl:inline">OPERADOR:</span>
+            <span className="font-bold hidden sm:inline whitespace-nowrap">{meta.name}</span>
           </button>
 
           {/* Cuaderno de construcción (páginas estáticas del sitio) */}
