@@ -3,6 +3,15 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}'],
   darkMode: 'class',
   theme: {
+    // Se declaran todos para que `xs` quede antes de `sm` en la cascada
+    screens: {
+      xs: '420px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       colors: {
         cyber: {
@@ -29,7 +38,17 @@ export default {
         amberGold: {
           DEFAULT: '#f59e0b',
           glow: 'rgba(245, 158, 11, 0.4)',
-        }
+        },
+        // Cuarto acento del sistema (weedtown / CNNN / evidencias). Antes se usaba sin definir.
+        matrix: {
+          green: '#34d399',
+          dim: '#059669',
+          glow: 'rgba(52, 211, 153, 0.4)',
+        },
+      },
+      transitionTimingFunction: {
+        // Curva única para hover, entradas y paneles: rápida al inicio, suave al final.
+        cyber: 'cubic-bezier(0.22, 1, 0.36, 1)',
       },
       fontFamily: {
         mono: ['"JetBrains Mono"', 'Menlo', 'Monaco', 'Consolas', '"Courier New"', 'monospace'],

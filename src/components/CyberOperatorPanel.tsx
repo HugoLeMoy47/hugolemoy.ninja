@@ -88,7 +88,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
           sender: 'ai',
           text: (
             <div>
-              <span className="text-[10px] text-matrix-green font-bold block uppercase tracking-wider mb-1">
+              <span className="text-[11px] text-matrix-green font-bold block uppercase tracking-wider mb-1">
                 // ANÁLISIS DE TELEMETRÍA [NODO: {selectedNodeId}]
               </span>
               <p className="text-cyber-textBright text-xs leading-relaxed">{commentary}</p>
@@ -172,11 +172,11 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
                     <span className="text-ninja-crimson font-bold">[{dim.code}]</span>
                     <span className="font-bold cursor-pointer hover:underline" onClick={() => onTriggerDimensionSelect(dim.id)}>{dim.id}</span>
                   </div>
-                  <span className="text-[10px] text-slate-500 dark:text-cyber-textMuted truncate hidden sm:inline">{dim.name}</span>
+                  <span className="text-[11px] text-slate-500 dark:text-cyber-textMuted truncate hidden sm:inline">{dim.name}</span>
                 </div>
               ))}
             </div>
-            <p className="text-[10px] text-slate-500 dark:text-cyber-textMuted">
+            <p className="text-[11px] text-slate-500 dark:text-cyber-textMuted">
               💡 Tip: Escribe <span className="text-gits-cyan font-bold">cd freejolitos</span> o <span className="text-gits-cyan font-bold">cd weedtown</span> para proyectarlo en el viewport.
             </p>
           </div>
@@ -230,7 +230,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
             <div className="space-y-1 font-mono text-xs p-2 rounded bg-slate-100 dark:bg-cyber-void border border-slate-300 dark:border-cyber-border">
               <p className="text-gits-cyan font-bold"># MANIFIESTO DE DIMENSIÓN: {dimMatch.name} [{dimMatch.code}]</p>
               <p className="text-slate-700 dark:text-cyber-textBright">{dimMatch.description}</p>
-              <p className="text-slate-500 dark:text-cyber-textMuted text-[10px]">Nodos vinculados: {dimMatch.nodeCount} | Estado: SINCRONIZADO</p>
+              <p className="text-slate-500 dark:text-cyber-textMuted text-[11px]">Nodos vinculados: {dimMatch.nodeCount} | Estado: SINCRONIZADO</p>
             </div>
           );
         } else {
@@ -265,7 +265,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
               <p>• <span className="text-gits-cyan font-bold">glyph compass</span> — Escuadra y compás constructores</p>
               <p>• <span className="text-gits-cyan font-bold">glyph assassin</span> — Insignia gótica de la Hermandad</p>
               <p>• <span className="text-gits-cyan font-bold">glyph om</span> — Glifo sagrado hindú ॐ con bindu flotante</p>
-              <p className="text-[10px] text-slate-500 dark:text-cyber-textMuted">💡 También puedes hacer clic sobre el modelo 3D para ciclarlo aleatoriamente.</p>
+              <p className="text-[11px] text-slate-500 dark:text-cyber-textMuted">💡 También puedes hacer clic sobre el modelo 3D para ciclarlo aleatoriamente.</p>
             </div>
           );
         }
@@ -424,7 +424,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={toggleAudio}
-              className={`p-1 px-2 rounded border text-[10px] flex items-center gap-1 transition-all ${
+              className={`p-1 px-2 rounded border text-[11px] flex items-center gap-1 transition-all ${
                 isAudioMuted 
                   ? 'border-slate-300 dark:border-cyber-border text-slate-500 dark:text-cyber-textMuted hover:text-slate-800 dark:hover:text-cyber-textBright' 
                   : 'border-emerald-500 text-emerald-600 dark:text-matrix-green bg-emerald-50 dark:bg-matrix-green/10'
@@ -464,7 +464,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
           </button>
         </div>
 
-        <p className="text-[10px] text-slate-500 dark:text-cyber-textMuted leading-tight italic">
+        <p className="text-[11px] text-slate-500 dark:text-cyber-textMuted leading-tight italic">
           {meta.tagline}
         </p>
       </div>
@@ -478,7 +478,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
         {messages.map((m) => (
           <div key={m.id} className="space-y-1">
             {m.sender === 'system' && (
-              <div className="text-[10px] text-slate-400 dark:text-cyber-textMuted border-b border-slate-200 dark:border-cyber-border/40 pb-1">
+              <div className="text-[11px] text-slate-400 dark:text-cyber-textMuted border-b border-slate-200 dark:border-cyber-border/40 pb-1">
                 {m.text}
               </div>
             )}
@@ -496,7 +496,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
                   ? 'bg-sky-50 dark:bg-gits-cyan/10 border-sky-200 dark:border-gits-cyan/30 text-slate-800 dark:text-cyber-textBright'
                   : 'bg-amber-50 dark:bg-amberGold/10 border-amber-200 dark:border-amberGold/30 text-slate-800 dark:text-cyber-textBright'
               }`}>
-                <div className="flex items-center justify-between text-[10px] opacity-75 mb-1 font-bold">
+                <div className="flex items-center justify-between text-[11px] opacity-75 mb-1 font-bold">
                   <span>{meta.name}:</span>
                   <span className="font-normal opacity-70">{m.timestamp}</span>
                 </div>
@@ -509,7 +509,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
       </div>
 
       {/* Quick Command Pills */}
-      <div className="flex flex-wrap gap-1 pb-2 pt-1 text-[10px]">
+      <div className="flex flex-wrap gap-1 pb-2 pt-1 text-[11px]">
         {['help', 'dir', 'glyph', 'freejolitos', 'gamedev', 'weedtown', 'cnnn', 'incidencia', 'github', 'redes'].map((cmd) => (
           <button
             key={cmd}

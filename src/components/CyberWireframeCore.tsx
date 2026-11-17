@@ -537,16 +537,21 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
   const [isRedrawing, setIsRedrawing] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Pick random shape initially if not specified
-  const [activeShapeId, setActiveShapeId] = useState<WireframeShapeId>(() => {
-    if (initialShape && SHAPE_ORDER.includes(initialShape)) {
-      return initialShape;
-    }
-    const rand = Math.floor(Math.random() * SHAPE_ORDER.length);
-    return SHAPE_ORDER[rand];
-  });
+  // El servidor y el navegador deben pintar la misma figura al hidratar (si no, React
+  // lanza el error #418 y regenera el árbol). El azar se aplica ya montado el componente.
+  const tieneInicial = !!initialShape && SHAPE_ORDER.includes(initialShape);
+  const [activeShapeId, setActiveShapeId] = useState<WireframeShapeId>(
+    tieneInicial ? (initialShape as WireframeShapeId) : SHAPE_ORDER[0]
+  );
 
   const geoDataRef = useRef<GeometryData>(GEOMETRIES[activeShapeId]());
+
+  useEffect(() => {
+    if (tieneInicial) return;
+    const azar = SHAPE_ORDER[Math.floor(Math.random() * SHAPE_ORDER.length)];
+    setActiveShapeId(azar);
+    geoDataRef.current = GEOMETRIES[azar]();
+  }, []);
 
   // Listen for terminal CLI event to change shape
   useEffect(() => {
@@ -791,12 +796,12 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
       title={`${currentGeo.name} // Clic: Cambiar y redibujar glifo 3D`}
     >
       {/* Top Telemetry Header */}
-      <div className="absolute top-2 left-2 text-[9px] font-mono text-ninja-crimson font-bold flex items-center gap-1.5">
+      <div className="absolute top-2 left-2 text-[10px] font-mono text-ninja-crimson font-bold flex items-center gap-1.5">
         <span className={`w-1.5 h-1.5 rounded-full bg-ninja-crimson ${isRedrawing ? 'animate-ping' : 'animate-pulse'}`}></span>
         <span>{currentGeo.kanji} [{activeShapeId.toUpperCase()}_3D]</span>
       </div>
 
-      <div className={`absolute top-2 right-2 text-[9px] font-mono ${theme === 'light' ? 'text-sky-700' : 'text-gits-cyan'}`}>
+      <div className={`absolute top-2 right-2 text-[10px] font-mono ${theme === 'light' ? 'text-sky-700' : 'text-gits-cyan'}`}>
         <span>{isRedrawing ? 'REDIBUJANDO...' : `SYNC: ${syncPercent}%`}</span>
       </div>
 
@@ -814,7 +819,7 @@ export const CyberWireframeCore: React.FC<WireframeCoreProps> = ({
         <span className={`text-xs font-bold tracking-widest block transition-colors ${theme === 'light' ? 'text-slate-900 group-hover:text-red-600' : 'text-white group-hover:text-ninja-crimson'}`}>
           {displayLabel}
         </span>
-        <span className={`text-[10px] transition-colors ${theme === 'light' ? 'text-slate-500 group-hover:text-slate-800' : 'text-cyber-textMuted group-hover:text-gits-cyan'}`}>
+        <span className={`text-[11px] transition-colors ${theme === 'light' ? 'text-slate-500 group-hover:text-slate-800' : 'text-cyber-textMuted group-hover:text-gits-cyan'}`}>
           [Clic: Ciclar Glifo 3D ({activeShapeId})]
         </span>
       </div>

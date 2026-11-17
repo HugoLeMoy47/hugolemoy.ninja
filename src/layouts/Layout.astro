@@ -73,12 +73,17 @@ const personSchema = {
 
     <!-- Theme Initialization Script (Avoid Flash) -->
     <script is:inline>
-      const savedTheme = localStorage.getItem('hlm_theme') || 'dark';
-      if (savedTheme === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
-      }
+      (function () {
+        var root = document.documentElement;
+        var savedTheme = 'dark';
+        try { savedTheme = localStorage.getItem('hlm_theme') || 'dark'; } catch (e) {}
+        root.classList.toggle('dark', savedTheme !== 'light');
+        // El arranque cinematográfico se ve una vez por sesión y nunca con movimiento reducido.
+        var visto = false;
+        try { visto = sessionStorage.getItem('hlm_boot_visto') === '1'; } catch (e) {}
+        var reducido = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (visto || reducido) root.classList.add('hlm-booted');
+      })();
     </script>
 
     <!-- Canonical & Sitemap -->
@@ -89,7 +94,8 @@ const personSchema = {
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#05080c" />
+    <meta name="theme-color" content="#06090e" />
+    <meta name="color-scheme" content="dark light" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content={ogType} />

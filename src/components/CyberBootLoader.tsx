@@ -27,41 +27,52 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [isFinishing, setIsFinishing] = useState(false);
 
+  // Duración total de la carga simulada. Se mide con el reloj (no con ticks de intervalo)
+  // para que dure lo mismo en un teléfono lento que en escritorio.
+  const BOOT_MS = 1600;
+
   useEffect(() => {
-    // Play subtle boot sound arpeggio
     cyberAudio.playBootGlitch();
 
-    // Progress interval (reaches 100% in ~3.2s, giving time to read logs and appreciate the shuriken)
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        const step = Math.floor(Math.random() * 4) + 2;
-        const next = Math.min(100, prev + step);
-        
-        // Advance log lines proportionally
-        const logIdx = Math.min(BOOT_LOGS.length - 1, Math.floor((next / 100) * BOOT_LOGS.length));
-        setCurrentLogIndex(logIdx);
-        
-        if (Math.random() > 0.45) {
+    let frame = 0;
+    let lastPct = -1;
+    let lastChirp = 0;
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / BOOT_MS);
+      // easeOutCubic: arranca rápido y se asienta al final
+      const eased = 1 - Math.pow(1 - t, 3);
+      const pct = Math.round(eased * 100);
+
+      if (pct !== lastPct) {
+        lastPct = pct;
+        setProgress(pct);
+        setCurrentLogIndex(Math.min(BOOT_LOGS.length - 1, Math.floor((pct / 100) * BOOT_LOGS.length)));
+        if (now - lastChirp > 160) {
+          lastChirp = now;
           cyberAudio.playTypingChirp();
         }
+      }
 
-        return next;
-      });
-    }, 95);
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
 
-    return () => clearInterval(interval);
+    frame = requestAnimationFrame(tick);
+    // Si la pestaña está en segundo plano rAF se pausa: este respaldo garantiza que el arranque termine.
+    const respaldo = window.setTimeout(() => setProgress(100), BOOT_MS + 600);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(respaldo);
+    };
   }, []);
 
-  // When progress hits 100%, trigger slice exit after brief pause
+  // Al llegar a 100% se abre el corte diagonal tras una pausa breve
   useEffect(() => {
     if (progress >= 100 && !isFinishing) {
       const timer = setTimeout(() => {
         triggerCyberSliceExit();
-      }, 400);
+      }, 180);
       return () => clearTimeout(timer);
     }
   }, [progress, isFinishing]);
@@ -69,22 +80,32 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
   const triggerCyberSliceExit = () => {
     if (isFinishing) return;
     setIsFinishing(true);
+    try {
+      sessionStorage.setItem('hlm_boot_visto', '1');
+    } catch {
+      /* almacenamiento bloqueado: el arranque simplemente se repetirá */
+    }
 
     cyberAudio.playShurikenWhoosh();
     cyberAudio.playHoloRepaint(1.2);
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        onBootComplete();
-      },
-    });
+    let terminado = false;
+    const terminar = () => {
+      if (terminado) return;
+      terminado = true;
+      onBootComplete();
+    };
+    // Respaldo: si la animación no corre (pestaña en segundo plano, rAF pausado), igual se entra al sitio
+    window.setTimeout(terminar, 1200);
+
+    const tl = gsap.timeline({ onComplete: terminar });
 
     // Content smooth fade & slight scale
     if (contentRef.current) {
       tl.to(contentRef.current, {
         scale: 1.02,
         opacity: 0,
-        duration: 0.5,
+        duration: 0.3,
         ease: 'power2.inOut',
       });
     }
@@ -96,17 +117,17 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
         {
           x: '-105%',
           opacity: 0,
-          duration: 0.85,
+          duration: 0.55,
           ease: 'power2.inOut',
         },
-        '-=0.2'
+        '-=0.15'
       );
       tl.to(
         bottomSliceRef.current,
         {
           x: '105%',
           opacity: 0,
-          duration: 0.85,
+          duration: 0.55,
           ease: 'power2.inOut',
         },
         '<'
@@ -118,7 +139,7 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
         overlayRef.current,
         {
           opacity: 0,
-          duration: 0.3,
+          duration: 0.2,
           ease: 'none',
         },
         '-=0.2'
@@ -133,6 +154,8 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
   return (
     <div
       ref={overlayRef}
+      role="status"
+      aria-label="Cargando hugolemoy.ninja"
       className="hlm-boot-overlay fixed inset-0 z-50 overflow-hidden bg-cyber-void flex items-center justify-center font-mono select-none"
     >
       {/* Background Slices for GSAP Cyber-Katana diagonal split */}
@@ -166,7 +189,7 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
             <span>GHOST_DIVE // INICIALIZANDO</span>
           </div>
 
-          <div className="text-[10px] text-cyber-textMuted tracking-widest pt-1">
+          <div className="text-[11px] text-cyber-textMuted tracking-widest pt-1">
             CONSTRUCTO VIRTUAL: <span className="text-gits-cyan font-bold">HUGOSYSTEM_OS</span>
           </div>
         </div>
@@ -185,7 +208,7 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
 
         {/* Telemetry Log Feed */}
         <div className="w-full bg-cyber-card/90 border border-cyber-border rounded-lg p-3 text-left space-y-1.5 shadow-xl">
-          <div className="flex items-center justify-between text-[10px] text-cyber-textMuted border-b border-cyber-border pb-1">
+          <div className="flex items-center justify-between text-[11px] text-cyber-textMuted border-b border-cyber-border pb-1">
             <div className="flex items-center gap-1.5 text-gits-cyan font-bold">
               <Terminal className="w-3 h-3" />
               <span>TERMINAL TELEMETRÍA</span>
@@ -219,7 +242,7 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
             />
           </div>
 
-          <div className="flex justify-between text-[9px] text-cyber-textMuted">
+          <div className="flex justify-between text-[11px] text-cyber-textMuted">
             <span>MEM: 0x420FF89 // SHA256: 7F0A</span>
             <span>TLD: HUGOLMOY.NINJA</span>
           </div>
@@ -228,7 +251,7 @@ export const CyberBootLoader: React.FC<CyberBootLoaderProps> = ({ onBootComplete
         {/* Skip Dive Button */}
         <button
           onClick={handleSkip}
-          className="group px-4 py-1.5 rounded-lg border border-cyber-border hover:border-ninja-crimson/70 bg-cyber-card/80 hover:bg-ninja-crimson/10 text-xs font-mono text-cyber-textMuted hover:text-white transition-all flex items-center gap-2"
+          className="hlm-tap group px-4 py-1.5 rounded-lg border border-cyber-border hover:border-ninja-crimson/70 bg-cyber-card/80 hover:bg-ninja-crimson/10 text-xs font-mono text-cyber-textMuted hover:text-white transition-all flex items-center gap-2"
         >
           <span>SALTAR GHOST DIVE</span>
           <FastForward className="w-3.5 h-3.5 text-ninja-crimson group-hover:translate-x-1 transition-transform" />
