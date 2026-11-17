@@ -45,6 +45,18 @@ interface CyberJourneyProps {
   theme?: 'light' | 'dark';
 }
 
+// Nombres cortos para el selector fijo (el nombre completo queda en el título del botón)
+const NOMBRE_CORTO: Record<string, string> = {
+  freejolitos: 'Freejolitos',
+  gamedev: 'GameDev',
+  advocacy: 'Incidencia',
+  weedtown: 'weedtown',
+  cnnn: 'Contenido',
+  github: 'Laboratorio',
+  product_owner: 'Product Owner',
+  ideas: 'Incubadora',
+};
+
 const KANJI_NUMERALS = ['壱', '弐', '参', '四', '伍', '六', '七', '八', '九', '拾', '十一', '十二'];
 
 export const CyberJourney: React.FC<CyberJourneyProps> = ({ 
@@ -73,22 +85,45 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
   const stageContentRef = useRef<HTMLDivElement | null>(null);
   const matrixGridRef = useRef<HTMLDivElement | null>(null);
   const stageContainerRef = useRef<HTMLDivElement | null>(null);
+  const dimsBarRef = useRef<HTMLDivElement | null>(null);
 
-  // Smoothly scroll to center the active holographic activity area with comfortable HUD headroom
-  const scrollToActiveArea = () => {
+  // Alto de las barras fijas (encabezado, pestañas en móvil y selector de dimensiones)
+  const alturaFija = () => {
+    const raiz = getComputedStyle(document.documentElement).getPropertyValue('--hlm-sticky-top');
+    const base = parseFloat(raiz) || 52;
+    return base + (dimsBarRef.current?.offsetHeight ?? 0) + 8;
+  };
+
+  /**
+   * Mantiene a la vista el inicio del escenario sin «brincos»:
+   * - Si el lector ya ve el escenario, la página no se mueve.
+   * - Si estaba leyendo más abajo (el contenido se reemplaza), se reubica al instante
+   *   detrás del fundido, así se percibe como cambio de página y no como salto.
+   * - Solo cuando la orden viene de fuera (consola, operador, expedición) y el escenario
+   *   no se ve, se desplaza con suavidad.
+   */
+  const alinearEscenario = (origen: 'local' | 'externo' = 'local') => {
     if (typeof window === 'undefined' || !stageContainerRef.current) return;
     const rect = stageContainerRef.current.getBoundingClientRect();
-    // Si el escenario ya está a la vista no se mueve la página: evita saltos innecesarios
-    const headerH = window.innerWidth < 1024 ? 110 : 70;
-    if (rect.top >= headerH - 10 && rect.top < window.innerHeight * 0.45) return;
-    const yOffset = -(headerH + 16); // Preserves sticky header and dimension pills in view
-    const targetY = window.pageYOffset + rect.top + yOffset;
-
-    window.scrollTo({
-      top: Math.max(0, targetY),
-      behavior: 'smooth',
-    });
+    const off = alturaFija();
+    const leyendoMasAbajo = rect.top < off - 4;
+    const noSeVe = rect.top > window.innerHeight - 140;
+    if (!leyendoMasAbajo && !(origen === 'externo' && noSeVe)) return;
+    const destino = Math.max(0, window.scrollY + rect.top - off);
+    window.scrollTo({ top: destino, behavior: (leyendoMasAbajo ? 'instant' : 'smooth') as ScrollBehavior });
   };
+
+  // La pestaña activa siempre queda visible dentro de la tira (sin mover la página en vertical)
+  useEffect(() => {
+    const tira = dimsBarRef.current?.querySelector<HTMLElement>('[role="tablist"]');
+    const activa = tira?.querySelector<HTMLElement>('[aria-selected="true"]');
+    if (!tira || !activa) return;
+    const izq = activa.offsetLeft - tira.offsetLeft;
+    const fuera = izq < tira.scrollLeft + 8 || izq + activa.offsetWidth > tira.scrollLeft + tira.clientWidth - 8;
+    if (fuera) {
+      tira.scrollTo({ left: izq - (tira.clientWidth - activa.offsetWidth) / 2, behavior: 'smooth' });
+    }
+  }, [selectedDimension]);
 
   // Sync external dimension if triggered from Operator CLI
   useEffect(() => {
@@ -100,7 +135,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
         setVisitedNodes((prev) => new Set(prev).add(match.id));
       }
       triggerHolographicRepaint();
-      scrollToActiveArea();
+      alinearEscenario('externo');
     }
   }, [externalDimension]);
 
@@ -113,13 +148,14 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
         setSelectedDimension(match.dimension);
         setVisitedNodes((prev) => new Set(prev).add(match.id));
         triggerHolographicRepaint();
-        scrollToActiveArea();
+        alinearEscenario('externo');
       }
     }
   }, [activeNodeId]);
 
-  // Reconstrucción holográfica: barrido de 0.7 s (antes 1.35 s) para que la navegación se sienta ágil
-  const REPAINT_S = 0.7;
+  // Cambio de contenido: fundido corto (0.3 s) con el barrido láser como capa decorativa.
+  // El contenido nunca se oculta ni se recorta, así que la altura y la lectura no saltan.
+  const REPAINT_S = 0.5;
   const triggerHolographicRepaint = () => {
     const reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducido) {
@@ -137,25 +173,19 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       onComplete: () => {
         setIsScanning(false);
         setScanPercent(100);
-        setTimeout(() => setIsCardPulsing(false), 350);
-        if (stageContentRef.current) {
-          gsap.set(stageContentRef.current, { clearProps: 'clipPath' });
-        }
+        setTimeout(() => setIsCardPulsing(false), 250);
       },
     });
 
-    // 1. Scanning Laser Beam sweeps top to bottom over 1.35s
     if (scanlineRef.current) {
       tl.fromTo(
         scanlineRef.current,
-        { top: '-2%', opacity: 1 },
+        { top: '-2%', opacity: 0.85 },
         {
           top: '102%',
-          opacity: 1,
           duration: REPAINT_S,
-          ease: 'power2.inOut',
+          ease: 'power1.inOut',
           onUpdate: function () {
-            // Se actualiza en saltos de 10% para no re-renderizar el componente en cada cuadro
             const prog = Math.round(this.progress() * 10) * 10;
             if (prog !== ultimoPct) {
               ultimoPct = prog;
@@ -164,34 +194,24 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
           },
         },
         0
-      ).to(scanlineRef.current, { opacity: 0, duration: 0.15 }, '-=0.1');
+      ).to(scanlineRef.current, { opacity: 0, duration: 0.12 }, '-=0.12');
     }
 
-    // 2. Stage content smoothly unrolls following the laser curtain
     if (stageContentRef.current) {
       tl.fromTo(
         stageContentRef.current,
-        {
-          clipPath: 'inset(0% 0% 100% 0%)',
-          opacity: 0.95,
-        },
-        {
-          clipPath: 'inset(0% 0% 0% 0%)',
-          opacity: 1,
-          duration: REPAINT_S,
-          ease: 'power2.inOut',
-        },
+        { opacity: 0, y: 6 },
+        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out', clearProps: 'transform' },
         0
       );
     }
 
-    // 3. Matrix grid stagger animation
     if (matrixGridRef.current && viewMode === 'matrix') {
       tl.fromTo(
         matrixGridRef.current.children,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, stagger: 0.035, duration: 0.35, ease: 'power3.out' },
-        0.1
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, stagger: 0.025, duration: 0.28, ease: 'power3.out' },
+        0.05
       );
     }
   };
@@ -210,7 +230,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       }
     }
     triggerHolographicRepaint();
-    scrollToActiveArea();
+    alinearEscenario();
   };
 
   const handleFocusNode = (node: PortfolioNode) => {
@@ -220,7 +240,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
     onNodeSelectForOperator(node.id);
     setViewMode('hologram');
     triggerHolographicRepaint();
-    scrollToActiveArea();
+    alinearEscenario();
   };
 
   const startExpedition = () => {
@@ -235,7 +255,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       onNodeSelectForOperator(firstNode.id);
       setViewMode('hologram');
       triggerHolographicRepaint();
-      scrollToActiveArea();
+      alinearEscenario();
     }
   };
 
@@ -250,7 +270,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       setVisitedNodes((prev) => new Set(prev).add(nextNode.id));
       onNodeSelectForOperator(nextNode.id);
       triggerHolographicRepaint();
-      scrollToActiveArea();
+      alinearEscenario();
     }
   };
 
@@ -265,7 +285,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       setVisitedNodes((prev) => new Set(prev).add(prevNode.id));
       onNodeSelectForOperator(prevNode.id);
       triggerHolographicRepaint();
-      scrollToActiveArea();
+      alinearEscenario();
     }
   };
 
@@ -314,12 +334,12 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
   const syncPercentage = Math.round((visitedNodes.size / PORTFOLIO_NODES.length) * 100);
 
   return (
-    <div ref={containerRef} className="space-y-6">
+    <div ref={containerRef} className="space-y-4 sm:space-y-5">
       
       {/* ========================================================================= */}
       {/* HERO CONSTRUCT WITH 3D SHURIKEN WIREFRAME CORE                            */}
       {/* ========================================================================= */}
-      <section className="hlm-rise relative overflow-hidden rounded-xl bg-white/95 dark:bg-cyber-card/90 border border-slate-200 dark:border-cyber-border p-5 sm:p-7 shadow-xl backdrop-blur-md transition-colors duration-250">
+      <section className="hlm-rise relative overflow-hidden rounded-xl bg-white/95 dark:bg-cyber-card/90 border border-slate-200 dark:border-cyber-border p-5 sm:p-6 lg:py-5 shadow-xl backdrop-blur-md transition-colors duration-250">
         
         {/* Subtle Corner Crest */}
         <div className="hidden sm:block absolute top-2 right-3 text-[11px] font-mono text-ninja-crimson/70 dark:text-ninja-crimson/50 select-none">
@@ -455,7 +475,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                   setVisitedNodes((prev) => new Set(prev).add(n.id));
                   onNodeSelectForOperator(n.id);
                   triggerHolographicRepaint();
-                  scrollToActiveArea();
+                  alinearEscenario();
                 }}
                 className={`h-1.5 rounded-full transition-all ${
                   i === expeditionIndex 
@@ -473,60 +493,50 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       {/* ========================================================================= */}
       {/* DIMENSIONS SELECTOR BUTTONS                                               */}
       {/* ========================================================================= */}
-      <section className="space-y-3">
-        <div className="flex items-center justify-between font-mono text-xs text-slate-500 dark:text-cyber-textMuted">
+      <section
+        ref={dimsBarRef}
+        aria-label="Dimensiones del constructo"
+        className="sticky top-[var(--hlm-sticky-top)] z-20 -mx-3 px-3 sm:mx-0 sm:px-0 py-2 bg-[#fafafa]/95 dark:bg-cyber-void/95 backdrop-blur-md border-b border-slate-200/70 dark:border-cyber-border/60 sm:rounded-lg"
+      >
+        <div className="flex items-center justify-between font-mono text-[11px] text-slate-500 dark:text-cyber-textMuted mb-1.5 sm:px-1">
           <div className="flex items-center gap-1.5">
-            <Compass className="w-3.5 h-3.5 text-ninja-crimson" />
-            <span className="text-slate-800 dark:text-cyber-textBright font-bold">DIMENSIONES DEL CONSTRUCTO:</span>
+            <Compass className="w-3.5 h-3.5 text-ninja-crimson" aria-hidden="true" />
+            <span className="text-slate-800 dark:text-cyber-textBright font-bold">DIMENSIONES</span>
           </div>
-          <span>({filteredNodes.length} NODOS ACTIVOS)</span>
+          <span>{filteredNodes.length} nodos</span>
         </div>
 
-        <div className="hlm-scroll-x scroll-px-3 sm:scroll-px-0 flex sm:grid sm:overflow-visible sm:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-9 gap-1.5 -mx-3 px-3 sm:mx-0 sm:px-0 pb-1 sm:pb-0 font-mono text-xs">
-          <button
-            onClick={() => handleSelectDimension('all')}
-            className={`shrink-0 w-[9.5rem] sm:w-auto p-2.5 rounded-lg border text-left transition-all duration-200 flex flex-col justify-between ${
-              selectedDimension === 'all'
-                ? 'bg-red-500/15 border-red-500 text-slate-900 dark:text-white shadow-md box-glow-crimson font-bold'
-                : 'bg-white dark:bg-cyber-card border-slate-200 dark:border-cyber-border text-slate-600 dark:text-cyber-textMuted hover:border-red-400 hover:text-slate-900 dark:hover:text-cyber-textBright'
-            }`}
-          >
-            <div className="flex items-center justify-between mb-1">
-              <Layers className="w-3.5 h-3.5 text-ninja-crimson" />
-              <span className="text-[11px] font-bold text-ninja-crimson">{PORTFOLIO_NODES.length}</span>
-            </div>
-            <div>
-              <div className="font-bold text-slate-800 dark:text-white text-[11px]">TODAS</div>
-              <div className="text-[10px] text-slate-500 dark:text-cyber-textMuted">Ecosistema</div>
-            </div>
-          </button>
-
-          {DIMENSIONS.map((dim) => {
+        <div className="hlm-scroll-x scroll-px-3 sm:scroll-px-1 flex lg:flex-wrap lg:overflow-visible gap-1.5 font-mono text-xs sm:px-1" role="tablist">
+          {[{ id: 'all', color: 'crimson' as const }, ...DIMENSIONS].map((dim) => {
             const isSelected = selectedDimension === dim.id;
+            const total = dim.id === 'all' ? PORTFOLIO_NODES.length : PORTFOLIO_NODES.filter((n) => n.dimension === dim.id).length;
+            const nombre = dim.id === 'all' ? 'Todas' : NOMBRE_CORTO[dim.id] ?? (dim as DimensionMeta).name;
+            const activo =
+              dim.color === 'amber'
+                ? 'bg-amber-500/15 border-amber-500 text-amber-900 dark:text-white box-glow-amber'
+                : dim.color === 'green'
+                ? 'bg-emerald-500/15 border-emerald-500 dark:border-matrix-green text-emerald-900 dark:text-white box-glow-matrix'
+                : dim.color === 'crimson'
+                ? 'bg-ninja-crimson/15 border-ninja-crimson text-slate-900 dark:text-white box-glow-crimson'
+                : 'bg-sky-500/15 border-sky-500 dark:border-gits-cyan text-sky-900 dark:text-white box-glow-cyan';
             return (
               <button
                 key={dim.id}
+                role="tab"
+                aria-selected={isSelected}
+                title={dim.id === 'all' ? 'Todo el ecosistema' : `${(dim as DimensionMeta).name} · ${(dim as DimensionMeta).code}`}
                 onClick={() => handleSelectDimension(dim.id)}
-                className={`shrink-0 w-[9.5rem] sm:w-auto p-2.5 rounded-lg border text-left transition-all duration-200 flex flex-col justify-between ${
+                className={`hlm-tap shrink-0 inline-flex items-center gap-2 h-9 pl-2.5 pr-2 rounded-lg border whitespace-nowrap transition-colors duration-200 ${
                   isSelected
-                    ? dim.color === 'amber'
-                      ? 'bg-amber-500/15 border-amber-500 text-amber-900 dark:text-white box-glow-amber font-bold'
-                      : dim.color === 'green'
-                      ? 'bg-emerald-500/15 border-emerald-500 text-emerald-900 dark:text-white box-glow-matrix font-bold'
-                      : 'bg-sky-500/15 border-sky-500 text-sky-900 dark:text-white box-glow-cyan font-bold'
-                    : 'bg-white dark:bg-cyber-card border-slate-200 dark:border-cyber-border text-slate-600 dark:text-cyber-textMuted hover:border-red-400 hover:text-slate-900 dark:hover:text-cyber-textBright'
+                    ? `${activo} font-bold`
+                    : 'bg-white dark:bg-cyber-card border-slate-200 dark:border-cyber-border text-slate-700 dark:text-cyber-textBright/80 hover:border-ninja-crimson/60 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                <div className="flex items-center justify-between mb-1">
-                  {getDimensionIcon(dim.id)}
-                  <span className="text-[11px] font-bold text-slate-400 dark:text-cyber-textMuted">
-                    {PORTFOLIO_NODES.filter((n) => n.dimension === dim.id).length}
-                  </span>
-                </div>
-                <div>
-                  <div className="font-bold text-slate-800 dark:text-white truncate text-[11px]">{dim.name}</div>
-                  <div className="text-[10px] text-slate-500 dark:text-cyber-textMuted truncate">{dim.code}</div>
-                </div>
+                {dim.id === 'all' ? <Layers className="w-3.5 h-3.5 text-ninja-crimson" /> : getDimensionIcon(dim.id)}
+                <span className="text-xs">{nombre}</span>
+                <span className={`text-[10px] tabular-nums px-1.5 rounded ${isSelected ? 'bg-black/10 dark:bg-white/15' : 'bg-slate-100 dark:bg-cyber-void text-slate-500 dark:text-cyber-textMuted'}`}>
+                  {total}
+                </span>
               </button>
             );
           })}
@@ -536,7 +546,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
       {/* ========================================================================= */}
       {/* HOLOGRAPHIC STAGE CONTAINER (WITH LASER SCANLINE REPAINT)                  */}
       {/* ========================================================================= */}
-      <div ref={stageContainerRef} className="relative overflow-hidden rounded-xl border border-cyber-border/80 scroll-mt-28 lg:scroll-mt-20">
+      <div ref={stageContainerRef} className="relative overflow-hidden rounded-xl border border-cyber-border/80">
         
         {/* Underlying Blueprint Wireframe Matrix Grid */}
         <div 
@@ -587,7 +597,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
                         PROYECCIÓN HOLOGRÁFICA // [{focusedNode.code}]
                       </span>
                       {isCardPulsing && (
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-ninja-crimson text-white animate-pulse shadow-sm">
+                        <span className="whitespace-nowrap px-2 py-0.5 rounded text-[10px] font-bold bg-ninja-crimson text-white shadow-sm">
                           ÁREA ACTIVA
                         </span>
                       )}
