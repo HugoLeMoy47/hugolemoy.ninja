@@ -33,22 +33,23 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#fafafa]/95 dark:bg-cyber-void/90 backdrop-blur-md border-b border-slate-200 dark:border-cyber-border px-3 sm:px-4 py-2.5 transition-colors duration-250">
-      <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+    <header className="sticky top-0 z-40 h-[52px] bg-[#fafafa]/90 dark:bg-cyber-void/85 backdrop-blur-md supports-[backdrop-filter]:backdrop-saturate-150 border-b border-slate-200 dark:border-cyber-border px-3 sm:px-4 transition-colors duration-250">
+      <div className="max-w-[1600px] h-full mx-auto flex flex-nowrap items-center justify-between gap-2 sm:gap-3 text-xs font-mono">
         
         {/* System Identifier & .ninja TLD Badge */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 min-w-0">
+          <a href="/" className="flex items-center gap-2 shrink-0" aria-label="hugolemoy.ninja, inicio">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ninja-crimson opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-ninja-crimson"></span>
             </span>
             <span className="font-bold tracking-wider text-ninja-crimson glow-crimson flex items-center gap-1.5">
               <span className="text-sm font-serif">忍</span>
-              <span>hugolemoy.ninja</span>
+              <span className="hidden xs:inline">hugolemoy.ninja</span>
+              <span className="xs:hidden">HLM</span>
             </span>
-          </div>
-          <span className="hidden sm:inline-block text-slate-400 dark:text-cyber-textMuted">|</span>
+          </a>
+          <span className="hidden md:inline-block text-slate-400 dark:text-cyber-textMuted" aria-hidden="true">|</span>
           <span className={`hidden md:inline-flex items-center gap-1.5 ${theme === 'light' ? 'text-sky-700' : 'text-gits-cyan'}`}>
             <Shield className="w-3.5 h-3.5" />
             <span>NEURAL_LINK: ACTIVE</span>
@@ -56,7 +57,7 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
         </div>
 
         {/* Global Action HUD */}
-        <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+        <nav aria-label="Principal" className="flex flex-nowrap items-center justify-end gap-1.5 sm:gap-2.5">
           
           {/* Theme Toggle: Modo Blanco Tinta (Sumi-e / Washi) vs Modo Oscuro Vacío (Cyberpunk) */}
           <button
@@ -64,7 +65,8 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
               cyberAudio.playClick(1050);
               onThemeToggle();
             }}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded border text-[11px] font-bold transition-all shadow-sm ${
+            aria-label={theme === 'light' ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro'}
+            className={`flex items-center justify-center gap-1.5 h-8 min-w-8 px-2 sm:px-2.5 rounded-md border text-[11px] font-bold transition-all duration-200 shadow-sm ${
               theme === 'light'
                 ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800 hover:border-red-600'
                 : 'bg-cyber-card hover:bg-cyber-cardHover border-cyber-border text-cyber-textBright hover:border-ninja-crimson'
@@ -81,7 +83,7 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
           {onReplayBoot && (
             <button
               onClick={handleReplayBoot}
-              className="flex items-center gap-1 px-2.5 py-1 rounded border border-slate-300 dark:border-cyber-border hover:border-ninja-crimson/60 bg-white dark:bg-cyber-card text-slate-700 dark:text-cyber-textMuted hover:text-ninja-crimson dark:hover:text-white transition-colors"
+              className="hidden md:flex items-center gap-1 h-8 px-2.5 rounded-md border border-slate-300 dark:border-cyber-border hover:border-ninja-crimson/60 bg-white dark:bg-cyber-card text-slate-700 dark:text-cyber-textMuted hover:text-ninja-crimson dark:hover:text-white transition-colors"
               title="Volver a ejecutar secuencia cinematográfica Ghost Dive"
             >
               <RefreshCw className="w-3 h-3 text-ninja-crimson" />
@@ -92,7 +94,8 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
           {/* Quick Persona A/B Toggle Button */}
           <button
             onClick={handleToggle}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded border transition-all ${
+            aria-label={`Operador de IA: ${meta.name}. Cambiar personalidad`}
+            className={`flex items-center gap-1.5 h-8 px-2 sm:px-3 rounded-md border transition-all duration-200 ${
               currentPersona === 'PROJECT_2501'
                 ? 'bg-sky-50 dark:bg-gits-cyan/15 border-sky-400 dark:border-gits-cyan text-sky-700 dark:text-gits-cyan shadow-sm box-glow-cyan'
                 : 'bg-amber-50 dark:bg-amberGold/15 border-amber-400 dark:border-amberGold text-amber-800 dark:text-amberGold shadow-sm box-glow-amber'
@@ -104,14 +107,14 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
             ) : (
               <UserCheck className="w-3.5 h-3.5" />
             )}
-            <span className="hidden xs:inline">OPERADOR:</span>
-            <span className="font-bold">{meta.name}</span>
+            <span className="hidden lg:inline">OPERADOR:</span>
+            <span className="font-bold hidden sm:inline">{meta.name}</span>
           </button>
 
           {/* Cuaderno de construcción (páginas estáticas del sitio) */}
           <a
             href="/cuaderno/"
-            className="flex items-center gap-1 text-sky-700 dark:text-gits-cyan hover:underline px-1.5 py-1 font-semibold"
+            className="flex items-center gap-1 h-8 text-sky-700 dark:text-gits-cyan hover:underline underline-offset-4 px-1.5 font-semibold"
           >
             <span>Cuaderno</span>
           </a>
@@ -121,7 +124,7 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
             href="https://weedtown.social"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-1 text-emerald-600 dark:text-emerald-400 hover:underline px-1.5 py-1 font-semibold"
+            className="hidden md:flex items-center gap-1 h-8 text-emerald-600 dark:text-matrix-green hover:underline underline-offset-4 px-1.5 font-semibold"
             title="Red social autónoma y soberana"
           >
             <span>weedtown</span>
@@ -133,10 +136,12 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
             href="https://freejolitos.consulting"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-amber-600 dark:text-amberGold hover:underline px-1.5 py-1 font-semibold"
+            aria-label="Freejolitos Consultores (abre en otra pestaña)"
+            className="flex items-center gap-1 h-8 text-amber-600 dark:text-amberGold hover:underline underline-offset-4 px-1.5 font-semibold"
           >
-            <span>Freejolitos 🫘</span>
-            <ExternalLink className="w-3 h-3" />
+            <span className="hidden sm:inline">Freejolitos</span>
+            <span aria-hidden="true">🫘</span>
+            <ExternalLink className="w-3 h-3 hidden sm:block" />
           </a>
 
           {/* LLMs.txt Direct Link */}
@@ -144,13 +149,13 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
             href="/llms.txt"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden lg:flex items-center gap-1 text-slate-500 dark:text-cyber-textMuted hover:text-sky-700 dark:hover:text-gits-cyan transition-colors px-1.5 py-1"
+            className="hidden xl:flex items-center gap-1 h-8 text-slate-500 dark:text-cyber-textMuted hover:text-sky-700 dark:hover:text-gits-cyan transition-colors px-1.5 py-1"
             title="Especificación llms.txt para Agentes de IA"
           >
             <BookOpen className="w-3.5 h-3.5" />
             <span>/llms.txt</span>
           </a>
-        </div>
+        </nav>
       </div>
     </header>
   );

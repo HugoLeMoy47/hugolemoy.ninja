@@ -15,7 +15,7 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 1, theme 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId = 0;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
@@ -29,18 +29,21 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 1, theme 
       mouseRef.current.active = false;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
 
     // Characters: Katakana, Kanji (Shinobi, Jutsu, Ghost, Net, Cyber), Numbers, and Hex
+    const reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン忍術魂電影道網鬼0123456789ABCDEFλΨ420';
-    const fontSize = 14;
+    // En pantallas chicas: glifos más grandes = menos columnas = menos trabajo por cuadro
+    let fontSize = window.innerWidth < 640 ? 18 : 14;
     let columns = Math.floor(width / fontSize);
     let drops: number[] = [];
 
     const initDrops = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      fontSize = width < 640 ? 18 : 14;
       columns = Math.floor(width / fontSize);
       drops = [];
       for (let i = 0; i < columns; i++) {
@@ -50,17 +53,39 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 1, theme 
 
     initDrops();
 
+    // Solo se reinicia si cambia el ancho: en móvil la barra del navegador cambia el alto al desplazarse
+    let lastW = window.innerWidth;
+    let resizeTimer = 0;
     const handleResize = () => {
-      initDrops();
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        if (window.innerWidth !== lastW) {
+          lastW = window.innerWidth;
+          initDrops();
+        }
+      }, 150);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
 
     const isDark = theme === 'dark';
     const spotRadius = 240;
     const spotRadiusSq = spotRadius * spotRadius;
 
-    const render = () => {
+    // ~30 cuadros por segundo: el efecto de lluvia se ve igual y cuesta la mitad
+    const FRAME_MS = 1000 / 30;
+    let lastFrame = 0;
+
+    const render = (now: number = performance.now()) => {
+      if (document.hidden) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+      if (now - lastFrame < FRAME_MS) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+      lastFrame = now;
       // Clear with background fade: obsidian in dark mode, washi paper in light mode
       ctx.fillStyle = isDark ? 'rgba(6, 9, 14, 0.14)' : 'rgba(250, 250, 250, 0.16)';
       ctx.fillRect(0, 0, width, height);
@@ -155,9 +180,19 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 1, theme 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    render();
+    if (reducido) {
+      // Movimiento reducido: un solo cuadro estático con la textura de fondo
+      for (let k = 0; k < 40; k++) {
+        lastFrame = -Infinity;
+        render();
+        cancelAnimationFrame(animationFrameId);
+      }
+    } else {
+      animationFrameId = requestAnimationFrame(render);
+    }
 
     return () => {
+      window.clearTimeout(resizeTimer);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
@@ -168,6 +203,7 @@ export const CyberMatrixRain: React.FC<MatrixRainProps> = ({ opacity = 1, theme 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className="fixed inset-0 pointer-events-none z-0"
     />
   );
