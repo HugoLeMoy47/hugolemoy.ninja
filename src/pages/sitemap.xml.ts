@@ -18,8 +18,11 @@ export const GET: APIRoute = async () => {
     (pieza.data.actualizado ?? pieza.data.fecha).toISOString();
 
   const entradas: Entrada[] = [
-    { ruta: '/', lastmod: '2026-11-15T00:00:00.000Z', changefreq: 'weekly', priority: '1.0' },
-    { ruta: '/llms.txt', lastmod: '2026-11-15T00:00:00.000Z', changefreq: 'monthly', priority: '0.8' },
+    { ruta: '/', lastmod: '2026-11-19T00:00:00.000Z', changefreq: 'weekly', priority: '1.0' },
+    { ruta: '/cv/', lastmod: '2026-11-19T00:00:00.000Z', changefreq: 'monthly', priority: '0.9' },
+    { ruta: '/llms.txt', lastmod: '2026-11-19T00:00:00.000Z', changefreq: 'monthly', priority: '0.8' },
+    { ruta: '/llms-full.txt', lastmod: '2026-11-19T00:00:00.000Z', changefreq: 'monthly', priority: '0.7' },
+    { ruta: '/cv.json', lastmod: '2026-11-19T00:00:00.000Z', changefreq: 'monthly', priority: '0.6' },
   ];
 
   if (piezas.length > 0) {

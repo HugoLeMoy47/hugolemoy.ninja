@@ -1,0 +1,239 @@
+---
+// Vista de currículum: la tercera forma de ver el sitio (después de Vacío y Tinta).
+// Sobria, legible y lista para imprimir o guardar como PDF. Los datos salen de src/data/cv.ts.
+import { CV, fechaCorta, voluntariadoVisible, type CvPuesto } from '../../data/cv';
+
+const b = CV.basicos;
+const titulo = `${b.nombre} · Currículum`;
+const descripcion = `Currículum de ${b.nombre}: ${b.titular}. Experiencia, formación, certificaciones, habilidades y proyectos.`;
+const canonica = new URL('/cv/', Astro.site ?? 'https://hugolemoy.ninja');
+const periodo = (p: CvPuesto) => (p.inicio ? `${fechaCorta(p.inicio)} – ${fechaCorta(p.fin)}` : '');
+const voluntariado = voluntariadoVisible();
+const actualizado = new Date(`${CV.actualizado}T12:00:00`).toLocaleDateString('es-MX', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonica} />
+    <link rel="alternate" type="application/json" href="/cv.json" title="Currículum en formato JSON Resume" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Perfil completo para modelos de lenguaje" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:url" content={canonica} />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:image" content="https://hugolemoy.ninja/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HugoLeMoy" />
+    <style>
+      :root {
+        --papel: #fbfaf7;
+        --tinta: #1c1f24;
+        --suave: #5b6270;
+        --linea: #dcdad3;
+        --acento: #0e6e8c;
+        color-scheme: light dark;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --papel: #0d1117;
+          --tinta: #e6e8eb;
+          --suave: #9aa3af;
+          --linea: #262c36;
+          --acento: #4cc3e6;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--papel);
+        color: var(--tinta);
+        font: 16px/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      }
+      a { color: var(--acento); }
+      .barra {
+        max-width: 860px; margin: 0 auto; padding: 14px 16px;
+        display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between;
+        font-size: 14px; border-bottom: 1px solid var(--linea);
+      }
+      .barra nav { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+      .barra button {
+        font: inherit; cursor: pointer; padding: 6px 12px; border-radius: 6px;
+        border: 1px solid var(--acento); background: transparent; color: var(--acento); min-height: 36px;
+      }
+      main { max-width: 860px; margin: 0 auto; padding: 24px 16px 48px; }
+      header.cabeza h1 { font-size: 30px; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+      header.cabeza .titular { font-size: 18px; color: var(--acento); margin: 4px 0 10px; font-weight: 600; }
+      .contacto { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 14px; color: var(--suave); margin: 0; padding: 0; list-style: none; }
+      .contacto a { color: inherit; }
+      h2 {
+        font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--acento);
+        border-bottom: 1px solid var(--linea); padding-bottom: 4px; margin: 28px 0 12px;
+      }
+      .resumen { margin: 16px 0 0; }
+      .puesto { margin: 0 0 18px; break-inside: avoid; }
+      .puesto .fila { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; }
+      .puesto h3 { font-size: 17px; margin: 0; }
+      .puesto .fecha { font-size: 14px; color: var(--suave); white-space: nowrap; }
+      .puesto .org { font-size: 15px; color: var(--suave); margin: 0 0 6px; }
+      .puesto p { margin: 4px 0; }
+      ul.logros { margin: 6px 0 0; padding-left: 20px; }
+      ul.logros li { margin: 3px 0; }
+      .rejilla { display: grid; grid-template-columns: 1fr; gap: 6px 24px; }
+      @media (min-width: 640px) { .rejilla { grid-template-columns: 1fr 1fr; } }
+      .habilidad strong { display: block; font-size: 14px; }
+      .habilidad span { font-size: 14px; color: var(--suave); }
+      .lista-simple { margin: 0; padding-left: 20px; }
+      .lista-simple li { margin: 3px 0; }
+      .nota { font-size: 13px; color: var(--suave); margin-top: 32px; }
+      @media print {
+        :root { --papel: #fff; --tinta: #000; --suave: #333; --linea: #bbb; --acento: #0b5870; }
+        .barra { display: none; }
+        body { font-size: 11pt; }
+        main { padding: 0; max-width: none; }
+        h2 { margin-top: 16px; }
+        a { color: inherit; text-decoration: none; }
+        .nota { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="barra">
+      <nav aria-label="Vistas del sitio">
+        <a href="/">← Portafolio</a>
+        <a href="/cuaderno/">Cuaderno</a>
+        <a href="/cv.json">cv.json</a>
+        <a href="/llms-full.txt">llms-full.txt</a>
+      </nav>
+      <button type="button" onclick="window.print()">Imprimir o guardar PDF</button>
+    </div>
+
+    <main>
+      <header class="cabeza">
+        <h1>{b.nombre}</h1>
+        <p class="titular">{b.titular}</p>
+        <ul class="contacto">
+          <li>{b.ciudad}, México</li>
+          <li><a href={`mailto:${b.correo}`}>{b.correo}</a></li>
+          <li>{b.telefono}</li>
+          <li><a href={b.sitio}>hugolemoy.ninja</a></li>
+          <li><a href={b.perfiles[0].url}>LinkedIn</a></li>
+          <li><a href={b.perfiles[1].url}>GitHub</a></li>
+        </ul>
+        <p class="resumen">{b.resumen}</p>
+      </header>
+
+      <section aria-labelledby="exp">
+        <h2 id="exp">Experiencia profesional</h2>
+        {CV.experiencia.map((p) => (
+          <article class="puesto">
+            <div class="fila">
+              <h3>{p.puesto}</h3>
+              <span class="fecha">{periodo(p)}</span>
+            </div>
+            <p class="org">
+              {p.sitio ? <a href={p.sitio}>{p.organizacion}</a> : p.organizacion} · {p.sector} · {p.lugar}
+            </p>
+            <p>{p.resumen}</p>
+            {p.logros.length > 0 && (
+              <ul class="logros">{p.logros.map((l) => <li>{l}</li>)}</ul>
+            )}
+          </article>
+        ))}
+      </section>
+
+      <section aria-labelledby="proy">
+        <h2 id="proy">Proyectos y productos</h2>
+        {CV.proyectos.map((p) => (
+          <article class="puesto">
+            <div class="fila">
+              <h3>{p.url ? <a href={p.url}>{p.nombre}</a> : p.nombre}</h3>
+              <span class="fecha">{p.estado}</span>
+            </div>
+            <p class="org">{p.rol} · {p.palabras.join(' · ')}</p>
+            <p>{p.descripcion}</p>
+          </article>
+        ))}
+      </section>
+
+      <section aria-labelledby="hab">
+        <h2 id="hab">Habilidades</h2>
+        <div class="rejilla">
+          {CV.habilidades.map((h) => (
+            <div class="habilidad">
+              <strong>{h.nombre}</strong>
+              <span>{h.palabras.join(' · ')}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="form">
+        <h2 id="form">Formación académica</h2>
+        <ul class="lista-simple">
+          {CV.formacion.map((f) => (
+            <li>
+              <strong>{f.titulo}</strong> — {f.institucion}
+              {f.inicio && ` (${f.inicio}–${f.fin ?? ''})`} · {f.estado}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="cert">
+        <h2 id="cert">Certificaciones y formación continua</h2>
+        <ul class="lista-simple">
+          {CV.certificaciones.map((c) => (
+            <li>
+              {c.verificacion ? <a href={c.verificacion}>{c.nombre}</a> : c.nombre}
+              {c.emisor !== 'Por confirmar' && ` — ${c.emisor}`}
+              {c.fecha && ` (${fechaCorta(c.fecha)})`}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="doc">
+        <h2 id="doc">Docencia y divulgación</h2>
+        <ul class="lista-simple">{CV.docencia.map((d) => <li>{d}</li>)}</ul>
+      </section>
+
+      {voluntariado.length > 0 && (
+        <section aria-labelledby="vol">
+          <h2 id="vol">Voluntariado y comunidad</h2>
+          {voluntariado.map((p) => (
+            <article class="puesto">
+              <div class="fila">
+                <h3>{p.puesto}</h3>
+                <span class="fecha">{periodo(p)}</span>
+              </div>
+              <p class="org">{p.sitio ? <a href={p.sitio}>{p.organizacion}</a> : p.organizacion} · {p.sector}</p>
+              <p>{p.resumen}</p>
+            </article>
+          ))}
+        </section>
+      )}
+
+      <section aria-labelledby="idi">
+        <h2 id="idi">Idiomas</h2>
+        <p>{CV.idiomas.map((i) => `${i.idioma} (${i.nivel})`).join(' · ')}</p>
+      </section>
+
+      <p class="nota">
+        Actualizado el {actualizado}. Los clientes y las empresas con acuerdo de confidencialidad se nombran solo por sector.
+        ¿Quieres este currículum adaptado a una vacante? Pídele a tu asistente de IA que lea
+        <a href="/cv.json">hugolemoy.ninja/cv.json</a>.
+      </p>
+    </main>
+  </body>
+</html>

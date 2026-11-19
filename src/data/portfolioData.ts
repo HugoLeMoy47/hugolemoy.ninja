@@ -66,7 +66,7 @@ export const SOCIAL_PROFILES: SocialProfile[] = [
     name: 'Facebook',
     handle: '@HugoLeMoy',
     url: 'https://www.facebook.com/HugoLeMoy',
-    context: 'Cotorreo social, vida diaria, anécdotas y comunidad abierta',
+    context: 'Historias de lo que construyo, proyectos con mi comunidad y convocatorias para probar productos',
     icon: 'Facebook',
     accent: 'blue',
   },
@@ -75,7 +75,7 @@ export const SOCIAL_PROFILES: SocialProfile[] = [
     name: 'X (Twitter)',
     handle: '@HugoLeMoy',
     url: 'https://x.com/HugoLeMoy',
-    context: 'Debate público, política, tecnología y reflexiones sin filtro',
+    context: 'Construir en público: avances, aprendizajes y decisiones de producto e IA, en corto',
     icon: 'Twitter',
     accent: 'slate',
   },
@@ -134,8 +134,8 @@ export const DIMENSIONS: DimensionMeta[] = [
     code: '01_OSC_TECH',
     color: 'amber',
     icon: 'Bean',
-    description: 'Consultoría tecnológica, ciberseguridad y desarrollo a la medida para Organizaciones de la Sociedad Civil sin área de sistemas.',
-    nodeCount: 3,
+    description: 'Consultoría tecnológica, ciberseguridad y desarrollo a la medida para organizaciones de la sociedad civil y negocios pequeños, más los productos propios de la práctica.',
+    nodeCount: 5,
   },
   {
     id: 'gamedev',
@@ -166,12 +166,12 @@ export const DIMENSIONS: DimensionMeta[] = [
   },
   {
     id: 'cnnn',
-    name: 'Contenido Digital & CNNN',
+    name: 'Contenido, Docencia & Divulgación',
     code: '05_MEDIA_STREAM',
     color: 'green',
     icon: 'Tv',
-    description: 'Creación de contenido digital, periodismo cannábico riguroso, análisis técnico legislativo en video y coberturas.',
-    nodeCount: 1,
+    description: 'Creación de contenido digital, conducción en video, charlas en escuelas y foros de divulgación, y la serie de publicaciones sobre cómo construyo productos.',
+    nodeCount: 3,
   },
   {
     id: 'github',
@@ -179,22 +179,22 @@ export const DIMENSIONS: DimensionMeta[] = [
     code: '06_SOURCE_FORGE',
     color: 'cyan',
     icon: 'GitBranch',
-    description: 'Repositorios públicos en GitHub (@HugoLeMoy47): herramientas de impacto humanitario, data utilities y scripts de automatización.',
-    nodeCount: 4,
+    description: 'Cómo construyo: desarrollo dirigido con agentes de IA bajo reglas duras, este mismo sitio, y repositorios públicos en GitHub (@HugoLeMoy47) con herramientas y scripts de automatización.',
+    nodeCount: 6,
   },
   {
     id: 'product_owner',
     name: 'Product Owner & Arquitectura IT',
-    code: '06_KERNEL_CORP',
+    code: '07_KERNEL_CORP',
     color: 'cyan',
     icon: 'Cpu',
-    description: 'Liderazgo técnico híbrido: sistema MAP para ACNUR/ONU, analítica de embudo B2B en fintech (ART) e infraestructura crítica.',
-    nodeCount: 2,
+    description: 'Liderazgo técnico híbrido: sistema MAP para ACNUR/ONU, analítica de embudo B2B en tecnología financiera y una década previa en infraestructura y TI.',
+    nodeCount: 3,
   },
   {
     id: 'ideas',
     name: 'Incubadora de Ideas (WIP)',
-    code: '07_NEURAL_INCUBATOR',
+    code: '08_NEURAL_INCUBATOR',
     color: 'amber',
     icon: 'Sparkles',
     description: 'Conceptos de software, arquitectura social y prototipos en gestación que aún no han sido liberados al público ("lo que pienso y no subo").',
@@ -299,6 +299,63 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     },
     impactIsProjected: true,
   },
+  {
+    id: 'el-chalan',
+    code: 'FRL-04',
+    title: 'El Chalán',
+    subtitle: 'La libreta del changarro en el celular: sin conexión y sin cuenta',
+    dimension: 'freejolitos',
+    accentColor: 'amber',
+    badge: 'PRUEBA DE CONCEPTO · EN VIVO',
+    summary: 'Web app instalable para que quien tiene un negocio pequeño anote lo que entra y sale y sepa cuánto tiene, si ganó y cuánto le deben. Funciona sin internet, sin crear cuenta, y los datos se quedan en el teléfono. Hoy es una prueba de concepto con datos de ejemplo, buscando sus primeros probadores.',
+    highlightStat: 'Sin conexión y sin cuenta · Dinero en centavos enteros · 134 pruebas automáticas',
+    tags: ['Product Owner', 'Svelte + TypeScript', 'Local-first', 'PWA', 'Negocios pequeños'],
+    evidence: [
+      {
+        type: 'demo',
+        title: 'Probar El Chalán',
+        url: 'https://elchalan.hugolemoy.ninja',
+        description: 'Instálala en Android desde el navegador; arranca con datos de ejemplo',
+      },
+      {
+        type: 'link',
+        title: 'Cuaderno: una libreta que funciona sin internet',
+        url: 'https://hugolemoy.ninja/cuaderno/una-libreta-que-funciona-sin-internet/',
+        description: 'Las decisiones de diseño, en primera persona',
+      }
+    ],
+    details: {
+      problemOrContext: 'La mayoría de los negocios pequeños lleva sus cuentas en un cuaderno o de memoria. Las apps de gestión piden cuenta, conexión y conceptos contables desde el primer día, así que nadie las termina usando.',
+      solutionOrRole: 'Product Owner. Definí el modelo (todo es un movimiento que entra o sale; lo incompleto se guarda y se marca, no se rechaza; el negocio sube de nivel sin migrar datos) y dirigí el desarrollo con un agente de IA, con pruebas que comparan cada cifra al centavo contra datos sintéticos.',
+      impactOrOutcome: 'Prueba de concepto publicada e instalable, probada en un Android real con respaldo por archivo. Siguiente paso: un piloto con un comerciante real y la revisión legal del aviso de privacidad antes de abrir la convocatoria.',
+    },
+    impactIsProjected: true,
+  },
+  {
+    id: 'consultoria-osc-2026',
+    code: 'FRL-05',
+    title: 'Consultoría Externa en TI para una OSC',
+    subtitle: 'Capacidad instalada para una organización de atención humanitaria (2026–hoy)',
+    dimension: 'freejolitos',
+    accentColor: 'amber',
+    badge: 'CASO ACTIVO · SIN NOMBRE',
+    summary: 'Acompañamiento integral de TI a una organización de la sociedad civil: migración a Google Workspace, diagnóstico de infraestructura, respuesta a un incidente de seguridad, lineamientos de gobierno de datos y una plataforma interna para su operación diaria.',
+    highlightStat: 'Migración a la nube · Respuesta a incidente · Gobierno de datos',
+    tags: ['Consultoría TI', 'Google Workspace', 'Ciberseguridad', 'Gobierno de Datos', 'Tercer Sector'],
+    evidence: [
+      {
+        type: 'link',
+        title: 'Servicios de Freejolitos',
+        url: 'https://freejolitos.consulting/servicios',
+        description: 'Diagnóstico, ruta crítica y acompañamiento mensual',
+      }
+    ],
+    details: {
+      problemOrContext: 'Una organización que creció rápido, con correo, archivos y equipos dispersos, y un incidente de seguridad que obligó a ordenar todo a la vez.',
+      solutionOrRole: 'Consultor externo. Diagnóstico, migración de correo y archivos a Google Workspace, remediación del incidente, lineamientos de resguardo de información y desarrollo de una herramienta interna de seguimiento de tareas.',
+      impactOrOutcome: 'Ecosistema de colaboración centralizado, medidas preventivas activas y procesos operativos documentados. El nombre de la organización se reserva por confidencialidad.',
+    }
+  },
 
   // 02 // GAMEDEV
   {
@@ -308,8 +365,8 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     subtitle: 'Serious game de simulación legislativa mexicana',
     dimension: 'gamedev',
     accentColor: 'cyan',
-    badge: 'EN DESARROLLO',
-    summary: 'Lleva una iniciativa ciudadana cannábica desde el cabildo municipal hasta el Diario Oficial de la Federación en 100 semanas sin desgastar a tu colectivo.',
+    badge: 'EN PAUSA · JUGABLE',
+    summary: 'Lleva una iniciativa ciudadana cannábica desde el cabildo municipal hasta el Diario Oficial de la Federación en 100 semanas sin desgastar a tu colectivo. La versión publicada se puede jugar; el desarrollo está en pausa y se retoma a más tardar en marzo de 2027.',
     highlightStat: '100 semanas de simulación · Mecánicas de incidencia real',
     tags: ['TypeScript', 'Game Design', 'Serious Games', 'Política Pública', 'Simulación'],
     evidence: [
@@ -600,6 +657,62 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
       impactOrOutcome: 'Espacio de referencia informativa para la comunidad usuaria y tomadores de decisiones.',
     }
   },
+  {
+    id: 'docencia-divulgacion',
+    code: 'MED-02',
+    title: 'Docencia & Divulgación',
+    subtitle: 'Charlas en escuelas, foros de ciencia y game jams educativas',
+    dimension: 'cnnn',
+    accentColor: 'green',
+    badge: 'DIVULGACIÓN',
+    summary: 'Charlas y talleres para estudiantes y público general: reducción de riesgos y daños en bachillerato técnico, participación en foros de divulgación científica y STEAM, y coordinación de game jams con enfoque educativo.',
+    highlightStat: 'Bachillerato técnico · Foros STEAM · Game jams educativas',
+    tags: ['Docencia', 'Divulgación', 'Reducción de daños', 'STEAM', 'Game Jams'],
+    evidence: [
+      {
+        type: 'link',
+        title: 'Perfil Global Game Jam',
+        url: 'https://globalgamejam.org/users/hugolemoy',
+        description: 'Participación y coordinación de jams',
+      }
+    ],
+    details: {
+      problemOrContext: 'Los temas que más importan a la gente joven (sustancias, tecnología, derechos) suelen explicarse con miedo o con tecnicismos.',
+      solutionOrRole: 'Ponente y facilitador. En un plantel de bachillerato técnico impartí la charla «Y tú, ¿a qué le entras?»: historia de las sustancias, cómo actúan en el cuerpo, qué dice la ley y dónde pedir ayuda, sin criminalizar. También participé en foros de divulgación científica y STEAM, y coordiné game jams educativas con un organismo internacional.',
+      impactOrOutcome: 'Materiales reutilizables para talleres y una forma de explicar temas difíciles que hoy aplico en mis publicaciones y en la consultoría.',
+    }
+  },
+  {
+    id: 'serie-construccion-linkedin',
+    code: 'MED-03',
+    title: 'Construir en Público: Serie de Publicaciones',
+    subtitle: 'Cómo diseño productos con IA, contado semana a semana',
+    dimension: 'cnnn',
+    accentColor: 'green',
+    badge: 'SERIE ACTIVA',
+    summary: 'Serie de publicaciones semanales sobre las decisiones reales detrás de mis productos: privacidad por diseño, IA que cita sus fuentes, restricciones como diseño y el estado honesto de cada prueba de concepto. El relato largo vive en el Cuaderno de construcción.',
+    highlightStat: 'Varias publicaciones por semana desde octubre de 2026 · Cada producto con su estado real',
+    tags: ['LinkedIn', 'Build in public', 'Producto', 'IA confiable', 'Privacidad'],
+    evidence: [
+      {
+        type: 'link',
+        title: 'Publicaciones en LinkedIn',
+        url: 'https://www.linkedin.com/in/hugolegorretamoysen/recent-activity/all/',
+        description: 'La serie completa en mi perfil',
+      },
+      {
+        type: 'link',
+        title: 'Cuaderno de construcción',
+        url: 'https://hugolemoy.ninja/cuaderno/',
+        description: 'Las piezas largas, en primera persona',
+      }
+    ],
+    details: {
+      problemOrContext: 'El contenido sobre IA suele prometer más de lo que entrega. Quien contrata tecnología necesita ver cómo se decide, no solo el resultado bonito.',
+      solutionOrRole: 'Autor. Cada publicación sale de un documento o una prueba real del proyecto, nunca nombra clientes y dice si el producto es prueba de concepto.',
+      impactOrOutcome: 'Un registro público y fechado de cómo trabajo, que sirve como portafolio vivo para clientes y equipos.',
+    }
+  },
 
   // 06 // GITHUB LAB
   {
@@ -702,6 +815,68 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
       impactOrOutcome: 'Herramienta compacta de validación.',
     }
   },
+  {
+    id: 'metodo-agentes-ia',
+    code: 'GIT-05',
+    title: 'Método: Desarrollo Dirigido con Agentes de IA',
+    subtitle: 'El agente programa; yo decido, reviso y apruebo',
+    dimension: 'github',
+    accentColor: 'cyan',
+    badge: 'MÉTODO EN USO',
+    summary: 'La forma en que construyo todos mis productos: un agente de IA escribe el código bajo reglas duras por repositorio, pruebas primero y mi aprobación para cada cambio que publica o toca datos. Un segundo cerebro propio concentra proyectos, pendientes, decisiones y bitácoras para que cada sesión empiece con contexto y termine registrada.',
+    highlightStat: 'Reglas por repositorio · Fusionar es desplegar y lo autorizo yo · Cada sesión queda registrada',
+    tags: ['Agentes de IA', 'Claude Code', 'MCP', 'Gobernanza', 'Pruebas primero'],
+    evidence: [
+      {
+        type: 'link',
+        title: 'Cuaderno: cómo dirijo un agente de IA con reglas',
+        url: 'https://hugolemoy.ninja/cuaderno/como-dirijo-un-agente-de-ia-con-reglas/',
+        description: 'El método completo y lo que todavía falla',
+      }
+    ],
+    details: {
+      problemOrContext: 'Programar con IA es rápido, pero sin reglas produce código que nadie entiende, decisiones que nadie recuerda y despliegues que nadie autorizó.',
+      solutionOrRole: 'Product Owner y arquitecto del método. Cada repositorio tiene un archivo de reglas (qué no se nombra, qué se prueba, qué necesita mi visto bueno); el agente consulta y registra en mi segundo cerebro mediante un servidor MCP; las decisiones que solo yo puedo tomar quedan abiertas hasta que las resuelvo.',
+      impactOrOutcome: 'Cinco productos en desarrollo en paralelo con un solo par de manos, con historial de decisiones fechado y evidencia para cada pendiente que se cierra.',
+    }
+  },
+  {
+    id: 'hugolemoy-ninja-sitio',
+    code: 'GIT-06',
+    title: 'hugolemoy.ninja (este sitio)',
+    subtitle: 'Portafolio legible para personas y para modelos de lenguaje',
+    dimension: 'github',
+    accentColor: 'cyan',
+    badge: 'EN VIVO',
+    summary: 'Este sitio: portafolio por dimensiones, operador con dos personalidades, Cuaderno de construcción y una vista de currículum. Publica su información en formatos que leen los modelos de lenguaje: llms.txt, llms-full.txt, cv.json y Schema.org.',
+    highlightStat: 'Astro 5 + React 19 · llms.txt · JSON Resume · Cloudflare Pages',
+    tags: ['Astro', 'React', 'Tailwind', 'SEO para IA', 'Cloudflare'],
+    evidence: [
+      {
+        type: 'github',
+        title: 'Repositorio en GitHub',
+        url: 'https://github.com/HugoLeMoy47/hugolemoy.ninja',
+        description: 'Código abierto del sitio',
+      },
+      {
+        type: 'doc',
+        title: 'Currículum (vista /cv)',
+        url: 'https://hugolemoy.ninja/cv/',
+        description: 'Versión sobria e imprimible',
+      },
+      {
+        type: 'doc',
+        title: 'Manifiesto para IA (llms.txt)',
+        url: 'https://hugolemoy.ninja/llms.txt',
+        description: 'Resumen para agentes y buscadores con IA',
+      }
+    ],
+    details: {
+      problemOrContext: 'Un perfil multidimensional no cabe en una hoja de LinkedIn, y cada vez más gente conoce a alguien preguntándole a un asistente de IA.',
+      solutionOrRole: 'Diseñador y desarrollador, con el mismo método de agentes. Una sola fuente de datos genera la vista humana, el currículum y los formatos para máquinas.',
+      impactOrOutcome: 'Un solo lugar actualizado del que cualquier persona o asistente puede sacar un currículum completo y verificable.',
+    }
+  },
 
   // 07 // PRODUCT OWNER & IT ARCHITECTURE
   {
@@ -730,34 +905,53 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     }
   },
   {
-    id: 'grupo-csi-art-platform',
+    id: 'fintech-onboarding-platform',
     code: 'PO-02',
-    title: 'Plataforma ART — Onboarding B2B & Analítica de Embudo',
-    subtitle: 'Product Owner en Fintech, Banca y Seguros',
+    title: 'Plataforma de Onboarding B2B & Analítica de Embudo',
+    subtitle: 'Product Owner en una empresa de software para banca, seguros y fintech (2023–2026)',
     dimension: 'product_owner',
     accentColor: 'cyan',
     badge: 'ENTERPRISE B2B',
-    summary: 'Liderazgo como Product Owner del producto estandarte de Grupo CSI: plataforma de onboarding bancario cuyo núcleo es un dashboard de analítica de embudo para detectar abandono y cuellos de botella.',
-    highlightStat: 'Equipo de 9–12 devs · Expansión a verticales inmobiliario y seguros',
-    tags: ['Product Owner', 'Scrum / Agile', 'Fintech', 'Funnel Analytics', 'Jira'],
+    summary: 'Product Owner del producto principal de una empresa de software B2B: plataforma de onboarding para instituciones financieras cuyo núcleo es un tablero de analítica de embudo para detectar abandono y cuellos de botella. Empresa y cifras bajo acuerdo de confidencialidad.',
+    highlightStat: 'Equipo de 9–12 desarrolladores · Expansión a verticales inmobiliaria y de seguros',
+    tags: ['Product Owner', 'Scrum / Agile', 'Fintech', 'Analítica de embudo', 'Jira'],
     evidence: [
-      {
-        type: 'link',
-        title: 'Grupo CSI (grupocsi.com)',
-        url: 'https://grupocsi.com',
-        description: 'Empresa creadora de la plataforma ART',
-      },
       {
         type: 'link',
         title: 'Perfil LinkedIn Hugo Legorreta',
         url: 'https://linkedin.com/in/hugolegorretamoysen',
-        description: 'Validaciones de rol, metodología y recomendaciones',
+        description: 'Trayectoria, rol y recomendaciones',
       }
     ],
     details: {
       problemOrContext: 'Las instituciones financieras perdían usuarios en procesos de onboarding sin saber en qué paso ocurría la fricción regulatoria o técnica.',
-      solutionOrRole: 'Product Owner titular. Definición de requerimientos y criterios de aceptación para métricas de tiempo de permanencia, tasas de abandono y conversión punta a punta. Liderazgo de ceremonias Scrum.',
-      impactOrOutcome: 'Incremento en conversión de clientes bancarios, entrega de las primeras versiones en inglés del software y fork de innovación ArtGaming.',
+      solutionOrRole: 'Product Owner titular. Definición de requerimientos y criterios de aceptación para volumen de entrada, tiempo de permanencia por etapa, abandono por fase y conversión punta a punta. Backlog en Jira y ceremonias Scrum; reporte directo a la Dirección de Producto.',
+      impactOrOutcome: 'Recomendaciones de mejora del proceso derivadas de la analítica, primeras versiones del producto en inglés, expansión a nuevas verticales y un producto interno de perfilado con datos no convencionales. Las cifras de conversión están protegidas por el acuerdo de confidencialidad.',
+    }
+  },
+  {
+    id: 'trayectoria-ti',
+    code: 'PO-03',
+    title: 'Trayectoria en TI: Infraestructura, Redes y Desarrollo',
+    subtitle: 'Una década en agencias, consultoras y medios (2008–2017)',
+    dimension: 'product_owner',
+    accentColor: 'cyan',
+    badge: 'TRAYECTORIA',
+    summary: 'Antes del producto vino la infraestructura: gerencia de TI en una agencia, co-gerencia de seguridad y redes para una dependencia federal del sector hídrico y desarrollo back-end para un piloto de video bajo demanda en transporte público.',
+    highlightStat: 'Telefonía IP hasta 45 extensiones · Seguridad y redes · Back-end',
+    tags: ['Infraestructura', 'Redes', 'VoIP', 'Seguridad', 'Back-end', 'Raspberry Pi'],
+    evidence: [
+      {
+        type: 'link',
+        title: 'Perfil LinkedIn Hugo Legorreta',
+        url: 'https://linkedin.com/in/hugolegorretamoysen',
+        description: 'Detalle de puestos y fechas',
+      }
+    ],
+    details: {
+      problemOrContext: 'Organizaciones medianas con tecnología heredada: telefonía analógica, redes sin documentar y proyectos de innovación sin equipo técnico propio.',
+      solutionOrRole: 'Gerente y supervisor digital de TI (equipo de 3 personas y gestión de proveedores), co-gerente de seguridad y redes, y desarrollador back-end de GeoPromos: streaming y video bajo demanda sobre Raspberry Pi para transporte público.',
+      impactOrOutcome: 'Migración de telefonía analógica a VoIP hasta 45 extensiones, operación segura de redes para un cliente de gobierno y un piloto de video embarcado. Es la base técnica que hoy me permite hablar el idioma de ingeniería como Product Owner.',
     }
   },
 
@@ -796,7 +990,7 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     accentColor: 'amber',
     badge: 'INCUBADORA // IDEA 02',
     summary: 'Agente inteligente que coteja automáticamente los gastos, CFDI y comprobantes de una asociación civil contra las reglas de operación de donatarias autorizadas del SAT.',
-    highlightStat: 'Agente IA preventivo para resguardar estatus de Donataria',
+    highlightStat: 'Idea en incubación: alertas preventivas antes de la declaración informativa',
     tags: ['Agentes IA', 'SAT', 'Donatarias', 'Compliance', 'Python'],
     evidence: [
       {
@@ -809,7 +1003,8 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     details: {
       problemOrContext: 'Cientos de asociaciones civiles pierden su autorización para recibir donativos deducibles por errores administrativos menores en sus reportes anuales.',
       solutionOrRole: 'Arquitecto de solución. Modelo de verificación de metadatos y alertas preventivas antes de presentar la declaración informativa.',
-      impactOrOutcome: 'Cero multas y resguardo institucional para causas sociales.',
-    }
+      impactOrOutcome: 'Objetivo de diseño: que ninguna organización pierda su autorización por un error de forma. Es una idea sin prototipo; no hay resultados medidos.',
+    },
+    impactIsProjected: true,
   }
 ];

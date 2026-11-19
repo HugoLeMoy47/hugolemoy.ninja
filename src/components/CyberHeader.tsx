@@ -119,6 +119,15 @@ export const CyberHeader: React.FC<CyberHeaderProps> = ({
             <span>Cuaderno</span>
           </a>
 
+          {/* Vista de currículum (página estática, imprimible) */}
+          <a
+            href="/cv/"
+            className="flex items-center gap-1 h-8 text-sky-700 dark:text-gits-cyan hover:underline underline-offset-4 px-1.5 font-semibold"
+            title="Currículum: vista sobria e imprimible"
+          >
+            <span>CV</span>
+          </a>
+
           {/* Direct weedtown.social link */}
           <a
             href="https://weedtown.social"

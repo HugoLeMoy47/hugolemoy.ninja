@@ -213,10 +213,10 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
           if (['freejolitos', 'osc', 'tech', 'frl'].includes(target)) matchedDim = 'freejolitos';
           else if (['gamedev', 'games', 'game', 'ludic'].includes(target)) matchedDim = 'gamedev';
           else if (['weedtown', 'social', 'red', 'wt'].includes(target)) matchedDim = 'weedtown';
-          else if (['cnnn', 'media', 'tv', 'video'].includes(target)) matchedDim = 'cnnn';
+          else if (['cnnn', 'media', 'tv', 'video', 'docencia', 'charlas'].includes(target)) matchedDim = 'cnnn';
           else if (['advocacy', 'incidencia', 'comuna', 'comuna420', 'senado'].includes(target)) matchedDim = 'advocacy';
-          else if (['github', 'lab', 'source', 'code', 'repo'].includes(target)) matchedDim = 'github';
-          else if (['product_owner', 'po', 'corp', 'csi', 'acnur'].includes(target)) matchedDim = 'product_owner';
+          else if (['github', 'lab', 'source', 'code', 'repo', 'agentes', 'ia'].includes(target)) matchedDim = 'github';
+          else if (['product_owner', 'po', 'corp', 'fintech', 'acnur', 'cv'].includes(target)) matchedDim = 'product_owner';
           else if (['ideas', 'incubator', 'wip'].includes(target)) matchedDim = 'ideas';
 
           if (matchedDim) {
