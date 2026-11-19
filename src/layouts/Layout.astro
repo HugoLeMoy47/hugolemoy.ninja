@@ -59,7 +59,7 @@ const personSchema = {
     { "@type": "EducationalOrganization", "name": "Instituto Politécnico Nacional (IPN), CECyT No. 9" }
   ],
   "hasCredential": CV.certificaciones
-    .filter((c) => c.emisor !== 'Por confirmar')
+    .filter((c) => c.emisor)
     .map((c) => ({
       "@type": "EducationalOccupationalCredential",
       "name": c.nombre,

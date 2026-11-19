@@ -196,7 +196,7 @@ const actualizado = new Date(`${CV.actualizado}T12:00:00`).toLocaleDateString('e
           {CV.certificaciones.map((c) => (
             <li>
               {c.verificacion ? <a href={c.verificacion}>{c.nombre}</a> : c.nombre}
-              {c.emisor !== 'Por confirmar' && ` — ${c.emisor}`}
+              {c.emisor && ` — ${c.emisor}`}
               {c.fecha && ` (${fechaCorta(c.fecha)})`}
             </li>
           ))}

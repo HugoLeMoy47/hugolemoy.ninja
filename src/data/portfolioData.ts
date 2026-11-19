@@ -237,7 +237,7 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     ],
     details: {
       problemOrContext: 'Las organizaciones de la sociedad civil crecen y la tecnología con ellas sin planificación. Financiadores y auditores exigen estándares de empresas multinacionales sin presupuestos de corporativo.',
-      solutionOrRole: 'Fundador y Consultor Principal. Traduzco los estándares de agencias internacionales a la escala real de una OSC: orden, procesos, seguridad y desarrollo ágil sin sobrecostos de licencias innecesarias.',
+      solutionOrRole: 'Fundador y Consultor Principal desde 2019, cuando Freejolitos nació como idea y empezó a construir sistemas para organizaciones humanitarias, el sector financiero y pequeños comercios. Traduzco los estándares de agencias internacionales a la escala real de una OSC: orden, procesos, seguridad y desarrollo ágil sin sobrecostos de licencias innecesarias.',
       impactOrOutcome: 'Acompañamiento tecnológico continuo, protección estricta de datos de personas beneficiarias y fortalecimiento de capacidades instaladas.',
     }
   },
@@ -448,8 +448,8 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     ],
     details: {
       problemOrContext: 'Traducir problemáticas críticas (igualdad de género, cuidado hídrico y prevención de adicciones) en mecánicas de juego atractivas para audiencias jóvenes.',
-      solutionOrRole: 'Project Manager & Business Developer. Negociación y cierre de contratos, levantamiento de requerimientos y coordinación de equipos de arte y programación.',
-      impactOrOutcome: 'Juegos educativos desplegados con ONU Mujeres, SACMEX y Fundación Gonzalo Río Arronte.',
+      solutionOrRole: 'Project Manager & Business Developer, responsable de cada juego desde el requerimiento hasta la entrega. Negociación y cierre de contratos, levantamiento de requerimientos y coordinación de equipos de arte y programación.',
+      impactOrOutcome: 'Juegos educativos desplegados con ONU Mujeres, SACMEX y Fundación Gonzalo Río Arronte. Para el sistema de aguas de la CDMX producimos una colección de cuatro juegos hipercasuales sobre el cuidado del agua, a partir del concepto ganador de una convocatoria pública: le dimos estructura, mecánicas pulidas y curva de dificultad. Estuvo publicada en tiendas y se mantuvo unos tres años; se difundió incluso en las boletas de agua de la ciudad.',
     }
   },
   {
@@ -665,9 +665,9 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     dimension: 'cnnn',
     accentColor: 'green',
     badge: 'DIVULGACIÓN',
-    summary: 'Charlas y talleres para estudiantes y público general: reducción de riesgos y daños en bachillerato técnico, participación en foros de divulgación científica y STEAM, y coordinación de game jams con enfoque educativo.',
-    highlightStat: 'Bachillerato técnico · Foros STEAM · Game jams educativas',
-    tags: ['Docencia', 'Divulgación', 'Reducción de daños', 'STEAM', 'Game Jams'],
+    summary: 'Charlas y talleres para estudiantes y público general: reducción de riesgos y daños en bachillerato técnico, talleres de realidad aumentada en Unity en foros de divulgación científica y STEAM, y coordinación de game jams con enfoque educativo.',
+    highlightStat: 'Bachillerato técnico · Taller de realidad aumentada en Unity · Game jams educativas',
+    tags: ['Docencia', 'Divulgación', 'Reducción de daños', 'Realidad aumentada', 'Unity', 'Game Jams'],
     evidence: [
       {
         type: 'link',
@@ -678,7 +678,7 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     ],
     details: {
       problemOrContext: 'Los temas que más importan a la gente joven (sustancias, tecnología, derechos) suelen explicarse con miedo o con tecnicismos.',
-      solutionOrRole: 'Ponente y facilitador. En un plantel de bachillerato técnico impartí la charla «Y tú, ¿a qué le entras?»: historia de las sustancias, cómo actúan en el cuerpo, qué dice la ley y dónde pedir ayuda, sin criminalizar. También participé en foros de divulgación científica y STEAM, y coordiné game jams educativas con un organismo internacional.',
+      solutionOrRole: 'Ponente y facilitador. En un plantel de bachillerato técnico impartí la charla «Y tú, ¿a qué le entras?»: historia de las sustancias, cómo actúan en el cuerpo, qué dice la ley y dónde pedir ayuda, sin criminalizar. En 2019, en los foros Ciencia para Todos y STEAM, impartí un taller de realidad aumentada en Unity: cada participante armaba un producto mínimo viable con piezas prefabricadas, vestido de Día de Muertos con calaveras y ofrenda. También coordiné game jams educativas con un organismo internacional.',
       impactOrOutcome: 'Materiales reutilizables para talleres y una forma de explicar temas difíciles que hoy aplico en mis publicaciones y en la consultoría.',
     }
   },
@@ -883,25 +883,25 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     id: 'acnur-onu-sistema-map',
     code: 'PO-01',
     title: 'Sistema MAP — ACNUR / UNHCR México',
-    subtitle: 'Consultor Digital y Gestión de Proyecto Humanitario',
+    subtitle: 'Product Owner de una herramienta de escritorio para medir indicadores de personas en movilidad',
     dimension: 'product_owner',
     accentColor: 'cyan',
     badge: 'HUMANITARIO ONU',
-    summary: 'Liderazgo en el desarrollo del sistema MAP para el registro ordenado, seguro y digno de personas migrantes y solicitantes de refugio en territorio mexicano.',
-    highlightStat: 'Piloto validado en campo que derivó en segunda fase contratada',
-    tags: ['ACNUR', 'UNHCR', 'Gobierno de Datos', 'Human Rights', 'IT Project Manager'],
+    summary: 'Aplicación de escritorio para Windows, sin conexión, con la que personal de ACNUR y de misiones aliadas levanta datos de identidad y documentales de personas en movilidad y mide indicadores. Tres versiones: levantamiento, sincronización por lotes y visualización de indicadores.',
+    highlightStat: 'Tres versiones · Sin conexión con sincronización aditiva por lotes · Uso extendido más allá del piloto',
+    tags: ['ACNUR', 'Product Owner', 'Offline-first', 'Gobierno de Datos', 'Indicadores'],
     evidence: [
       {
         type: 'link',
         title: 'Perfil Profesional LinkedIn',
         url: 'https://linkedin.com/in/hugolegorretamoysen',
-        description: 'Detalle de la contratación y metodología en campo',
+        description: 'Trayectoria y recomendaciones',
       }
     ],
     details: {
-      problemOrContext: 'La necesidad crítica de registrar a personas en tránsito migratorio con estrictos estándares de protección de datos sensibles y operación sin conexión estable.',
-      solutionOrRole: 'Consultor Digital y Project Manager. Definición de estructura de datos, diseño de interfaz intuitiva para operadores en territorio y coordinación ágil.',
-      impactOrOutcome: 'Despliegue exitoso en frontera sur y norte, contratándose una segunda iteración mayor para el sistema de Naciones Unidas.',
+      problemOrContext: 'Equipos en campo, en la frontera sur de México, que necesitaban medir indicadores sobre personas en movilidad con conectividad intermitente o nula, sin perder ni sobrescribir registros al consolidar la información de varios equipos.',
+      solutionOrRole: 'Product Owner. Escuché la necesidad, revisé los marcos legales, el lenguaje y el escenario de uso, traduje todo en requerimientos para el equipo de programación y coordiné la relación con el cliente hasta la presentación final. Diseñamos una sincronización aditiva por lotes, no en tiempo real, que distingue lo ya enviado de lo ya consolidado; la base se cifra desde el origen, y el sistema exporta en un formato genérico para integrarse a las bases de datos institucionales. Solo datos de identidad y documentales: sin biometría.',
+      impactOrOutcome: 'MAP 1 (levantamiento), MAP 2 (sincronización) y MAP 3 (más indicadores y su visualización). Arrancó en la frontera sur, tuvo un piloto en la frontera norte y su uso se extendió a otras misiones con objetivos similares; a partir de ahí la operación quedó en manos de la institución.',
     }
   },
   {
