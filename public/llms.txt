@@ -1,9 +1,13 @@
 # Hugo Legorreta Moysén (HLM) — hugolemoy.ninja
 
-> Portafolio profesional multidimensional, currículum vitae expandido y tarjeta de presentación total de Hugo Legorreta Moysén.
+> Portafolio profesional multidimensional y tarjeta de presentación de Hugo Legorreta Moysén.
+>
+> Currículum completo para agentes: https://hugolemoy.ninja/llms-full.txt · Currículum estructurado (JSON Resume): https://hugolemoy.ninja/cv.json · Vista imprimible: https://hugolemoy.ninja/cv/
+>
+> Nota: los clientes y las empresas bajo acuerdo de confidencialidad se nombran solo por sector.
 
 ## Resumen de Identidad
-Hugo Legorreta Moysén (alias Hugo LeMoy, @HugoLeMoy47) es Product Owner, Consultor Tecnológico, Creador de Contenido Digital y Desarrollador de Videojuegos, con más de 10 años de experiencia técnica, política y de negocio en México. Su perfil destaca por su versatilidad e impacto en áreas como fintech, derechos humanos, tecnología para la sociedad civil (Freejolitos), activismo e incidencia legislativa en políticas públicas cannábicas (La Comuna 420 / Senado) y soberanía digital (weedtown.social).
+Hugo Legorreta Moysén (alias Hugo LeMoy, @HugoLeMoy47) es Product Owner y Consultor en Tecnología e IA, con más de 10 años gestionando producto y proyectos (juegos serios, consultoría y banca B2B) sobre más de 15 años en tecnología. También es creador de contenido digital y desarrollador de videojuegos. Su perfil destaca por su versatilidad e impacto en áreas como fintech, desarrollo de productos con agentes de IA, derechos humanos, tecnología para la sociedad civil (Freejolitos), activismo e incidencia legislativa en políticas públicas cannábicas (La Comuna 420 / Senado) y soberanía digital (weedtown.social).
 
 - **Ubicación:** Ciudad de México (CDMX), México
 - **Idiomas:** Español (nativo), Inglés (B2 profesional)
@@ -24,19 +28,23 @@ Hugo Legorreta Moysén (alias Hugo LeMoy, @HugoLeMoy47) es Product Owner, Consul
 ### 1. Freejolitos Consultores (Tecnología para OSCs)
 Práctica de consultoría en TI enfocada en organizaciones del tercer sector sin área de sistemas.
 - Servicios: consultoría tecnológica, ciberseguridad, desarrollo a la medida, diagnóstico y ruta crítica, acompañamiento mensual.
-- Productos propios: **Bitácora Viva** (gestión de casos de atención humanitaria con custodia, anonimización y auditoría; prueba de concepto con datos simulados) y **SutraMind** (tablero y asesor con IA para empresas medianas: la IA interpreta, la base de datos calcula y cada cifra cita su fuente; prueba de concepto sobre una empresa ficticia).
+- Productos propios: **Bitácora Viva** (gestión de casos de atención humanitaria con custodia, anonimización y auditoría; prueba de concepto con datos simulados), **SutraMind** (tablero y asesor con IA para empresas medianas: la IA interpreta, la base de datos calcula y cada cifra cita su fuente; prueba de concepto sobre una empresa ficticia) y **El Chalán** (libreta de cuentas para negocios pequeños, sin conexión y sin cuenta; prueba de concepto publicada en https://elchalan.hugolemoy.ninja).
+- Caso activo (2026): consultoría externa de TI para una organización de atención humanitaria: migración a Google Workspace, respuesta a un incidente de seguridad, gobierno de datos y una plataforma interna.
 - Ethos: "Ponemos orden en la tecnología para que ustedes puedan poner el corazón en su causa."
 - Agenda tu diagnóstico: hola@freejolitos.consulting
 - Web: https://freejolitos.consulting
 
 ### Cuaderno de construcción (relato en primera persona)
-Sección de hugolemoy.ninja donde Hugo cuenta los retos técnicos y los dilemas éticos de construir Bitácora Viva. La página del producto (qué resuelve y para quién) está en Freejolitos; aquí va la voz del autor.
+Sección de hugolemoy.ninja donde Hugo cuenta, en primera persona, los retos técnicos y los dilemas éticos de construir sus productos con agentes de IA.
 - Índice de piezas: https://hugolemoy.ninja/cuaderno/
 - **Anonimizar en lugar de borrar** (15 nov 2026): cómo se atiende el derecho de cancelación sin romper los informes de la organización, y qué sigue sin resolverse. https://hugolemoy.ninja/cuaderno/anonimizar-en-lugar-de-borrar/
-- Página del producto: https://freejolitos.consulting/bitacora-viva
+- **Una libreta que funciona sin internet** (19 nov 2026): por qué El Chalán funciona sin conexión, sin registro y aceptando datos incompletos. https://hugolemoy.ninja/cuaderno/una-libreta-que-funciona-sin-internet/
+- **Cómo dirijo un agente de IA con reglas** (19 nov 2026): el método de desarrollo con agentes, reglas por repositorio y un segundo cerebro. https://hugolemoy.ninja/cuaderno/como-dirijo-un-agente-de-ia-con-reglas/
+- **Tres cifras distintas para la misma venta** (19 nov 2026): la capa semántica de SutraMind. https://hugolemoy.ninja/cuaderno/tres-cifras-para-la-misma-venta/
+- Página de Bitácora Viva: https://freejolitos.consulting/bitacora-viva
 
 ### 2. Videojuegos, GameDev & Serious Games
-- **Legalízala Tycoon:** Serious game de simulación legislativa en TypeScript (iniciativa ciudadana de cabildo al DOF). Jugar: https://legalizala.weedtown.social · Repo: https://github.com/HugoLeMoy47/LegalizalaTycoon
+- **Legalízala Tycoon:** Serious game de simulación legislativa en TypeScript (iniciativa ciudadana de cabildo al DOF). Jugable; desarrollo en pausa hasta marzo de 2027. Jugar: https://legalizala.weedtown.social · Repo: https://github.com/HugoLeMoy47/LegalizalaTycoon
 - **canna-gochi:** Mascota virtual cannábica interactiva en TypeScript. Jugar: https://cannagochi.weedtown.social · Repo: https://github.com/HugoLeMoy47/canna-gochi
 - **Big-Monster Serious Games:** Gestión de proyectos y desarrollo de negocio en juegos educativos para ONU Mujeres y SACMEX. Web: https://big-monster.net
 - **bit2fit:** Videojuego creado en 48h para Global Game Jam 2020 con Godot Engine. Repo: https://github.com/HugoLeMoy47/bit2fit
@@ -53,12 +61,16 @@ Sección de hugolemoy.ninja donde Hugo cuenta los retos técnicos y los dilemas 
 - Web: https://weedtown.social
 - Repo: https://github.com/HugoLeMoy47/weedtown_trial_101
 
-### 5. Creación de Contenido Digital & CNNN
+### 5. Contenido, Docencia & Divulgación
 - Conductor titular y analista en **CNNN (Cannabis Network News Now)**, con coberturas legislativas, análisis de sentencias de la SCJN y debates con la industria, en alianza con el canal Jotvox.
 - Jotvox: https://jotvox.com
 - Playlist oficial: https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7
+- **Docencia y divulgación:** charla sobre sustancias y reducción de riesgos en un plantel CONALEP (2023), foros de divulgación científica y STEAM, y game jams educativas con la OIM.
+- **Construir en público:** serie de publicaciones en LinkedIn sobre las decisiones reales detrás de sus productos.
 
-### 6. Repositorios de Código Abierto (GitHub @HugoLeMoy47)
+### 6. Laboratorio: método con agentes de IA y repositorios (GitHub @HugoLeMoy47)
+- **Método de desarrollo dirigido con agentes de IA:** el agente programa bajo reglas por repositorio (cero clientes con nombre, estado real, pruebas primero, publicar requiere aprobación humana) y registra cada sesión en un segundo cerebro propio vía MCP.
+- **hugolemoy.ninja:** este sitio (Astro + React), con llms.txt, llms-full.txt, cv.json y Schema.org.
 - **Bitácora Viva (BitacoraViva):** Producto de Freejolitos para gestión de casos de atención humanitaria; incluye el módulo Seguidor de tareas para OSC. Prueba de concepto con datos simulados.
 - **Seguidor de tareas para OSC:** Gestor de tareas para organizaciones de la sociedad civil, nacido en una casa de acogida para personas migrantes.
 - **CalculadoraWebRegresLineal:** Calculadora estadística interactiva en TypeScript.
@@ -67,8 +79,13 @@ Sección de hugolemoy.ninja donde Hugo cuenta los retos técnicos y los dilemas 
 
 ### 7. Product Owner & IT Enterprise
 - **ACNUR / UNHCR:** Gestión del desarrollo del sistema MAP para el registro digno y seguro de personas solicitantes de asilo en territorio mexicano.
-- **Grupo CSI (ART Platform):** Product Owner de plataforma de onboarding para banca y seguros, definiendo componentes analíticos de embudo y liderando equipo de 9 a 12 desarrolladores Scrum. Web: https://grupocsi.com
-- **Infraestructura & Telecom:** Dirección de TI en agencias y consultoras (Archer Troy, CISI/CONAGUA, TV Nichos).
+- **Empresa de software B2B para banca, seguros y fintech (2023–2026, nombre bajo acuerdo de confidencialidad):** Product Owner de su plataforma de onboarding con analítica de embudo; equipo de 9 a 12 desarrolladores Scrum.
+- **Infraestructura & Telecom (2008–2017):** gerencia de TI y migración a VoIP (Archer Troy), seguridad y redes para un cliente federal del sector hídrico (CISI), back-end de video embarcado en Raspberry Pi (TV Nichos).
+
+### 8. Formación y certificaciones
+- Técnico Programador, IPN CECyT No. 9 (2005–2008). Licenciatura en Informática Administrativa, FCA UNAM (trunca).
+- Scrum Fundamentals Certified (SCRUMstudy), Jira Fundamentals (Atlassian), Certificado de Gestión de Proyectos de Google, Capacitador Experto (SICAD).
+- Detalle completo: https://hugolemoy.ninja/cv/
 
 ---
 

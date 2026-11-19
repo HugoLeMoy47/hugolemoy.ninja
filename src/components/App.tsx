@@ -241,11 +241,12 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 text-sm leading-relaxed">
               <div className="space-y-3 text-slate-700 dark:text-cyber-textBright">
                 <p>
-                  Construyo Bitácora Viva, un expediente digital para albergues y organizaciones que atienden a
-                  personas en movilidad. Es una prueba de concepto y trabaja solo con datos de prueba.
+                  Construyo productos propios con agentes de IA: Bitácora Viva para organizaciones que atienden a
+                  personas en movilidad, SutraMind para empresas medianas y El Chalán para negocios pequeños. Los
+                  tres son pruebas de concepto y trabajan solo con datos de prueba.
                 </p>
                 <p>
-                  En el cuaderno cuento, en primera persona, los retos técnicos y los dilemas éticos de construirlo.
+                  En el cuaderno cuento, en primera persona, los retos técnicos y los dilemas éticos de construirlos.
                 </p>
                 <p>
                   <a
@@ -338,6 +339,9 @@ export const App: React.FC<AppProps> = ({ cuaderno }) => {
           <nav aria-label="Pie de página" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs">
             <a href="/cuaderno/" className="text-sky-700 dark:text-gits-cyan hover:underline">
               Cuaderno de construcción
+            </a>
+            <a href="/cv/" className="text-sky-700 dark:text-gits-cyan hover:underline">
+              Currículum
             </a>
             <a href="https://linkedin.com/in/hugolegorretamoysen/" target="_blank" rel="noopener noreferrer" className="hover:text-sky-600 dark:hover:text-gits-cyan">
               LinkedIn

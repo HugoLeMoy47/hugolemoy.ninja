@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { CV } from '../data/cv';
 
 interface Props {
   title?: string;
@@ -47,6 +48,35 @@ const personSchema = {
     "https://globalgamejam.org/users/hugolemoy",
     "https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7"
   ],
+  "email": `mailto:${CV.basicos.correo}`,
+  "address": { "@type": "PostalAddress", "addressLocality": "Ciudad de México", "addressCountry": "MX" },
+  "knowsLanguage": [
+    { "@type": "Language", "name": "Español", "alternateName": "es" },
+    { "@type": "Language", "name": "Inglés", "alternateName": "en" }
+  ],
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Universidad Nacional Autónoma de México (UNAM)" },
+    { "@type": "EducationalOrganization", "name": "Instituto Politécnico Nacional (IPN), CECyT No. 9" }
+  ],
+  "hasCredential": CV.certificaciones
+    .filter((c) => c.emisor !== 'Por confirmar')
+    .map((c) => ({
+      "@type": "EducationalOccupationalCredential",
+      "name": c.nombre,
+      "credentialCategory": "certificate",
+      "recognizedBy": { "@type": "Organization", "name": c.emisor },
+      ...(c.verificacion ? { "url": c.verificacion } : {}),
+    })),
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Product Owner",
+    "occupationLocation": { "@type": "City", "name": "Ciudad de México" },
+    "skills": CV.habilidades.flatMap((h) => h.palabras).join(', ')
+  },
+  "subjectOf": [
+    { "@type": "WebPage", "name": "Currículum", "url": "https://hugolemoy.ninja/cv/" },
+    { "@type": "DataDownload", "name": "Currículum en JSON Resume", "encodingFormat": "application/json", "contentUrl": "https://hugolemoy.ninja/cv.json" }
+  ],
   "knowsAbout": [
     "Product Management",
     "Agile Scrum",
@@ -56,6 +86,10 @@ const personSchema = {
     "weedtown.social",
     "La Comuna 420",
     "Data Governance",
+    "AI Agents",
+    "Model Context Protocol",
+    "Privacy by Design",
+    "Funnel Analytics",
     "TypeScript",
     "Python",
     "Godot Engine"
@@ -122,6 +156,8 @@ const personSchema = {
 
     <!-- LLMs / AI Agents Discovery Link -->
     <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Agent Manifest" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="Perfil completo para modelos de lenguaje" />
+    <link rel="alternate" type="application/json" href="/cv.json" title="Currículum en formato JSON Resume" />
 
     <!-- Google Fonts: Space Grotesk & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

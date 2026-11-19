@@ -51,7 +51,7 @@ const NOMBRE_CORTO: Record<string, string> = {
   gamedev: 'GameDev',
   advocacy: 'Incidencia',
   weedtown: 'weedtown',
-  cnnn: 'Contenido',
+  cnnn: 'Contenido y docencia',
   github: 'Laboratorio',
   product_owner: 'Product Owner',
   ideas: 'Incubadora',

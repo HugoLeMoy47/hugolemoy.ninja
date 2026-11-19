@@ -6,7 +6,7 @@ export const CUADERNO = {
   nombre: 'Cuaderno de construcción',
   ruta: '/cuaderno/',
   resumen:
-    'Relato en primera persona de los retos técnicos y los dilemas éticos de construir Bitácora Viva.',
+    'Relato en primera persona de los retos técnicos y los dilemas éticos de construir mis productos con agentes de IA.',
 };
 
 /** Piezas publicadas, de la más reciente a la más antigua. */
