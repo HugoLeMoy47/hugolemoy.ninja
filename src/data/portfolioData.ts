@@ -188,7 +188,7 @@ export const DIMENSIONS: DimensionMeta[] = [
     code: '07_KERNEL_CORP',
     color: 'cyan',
     icon: 'Cpu',
-    description: 'Liderazgo técnico híbrido: sistema MAP para ACNUR/ONU, analítica de embudo B2B en tecnología financiera y una década previa en infraestructura y TI.',
+    description: 'Liderazgo técnico híbrido: sistema MAP para agencias de la ONU para personas refugiadas y migrantes, analítica de embudo B2B en tecnología financiera y una década previa en infraestructura y TI.',
     nodeCount: 3,
   },
   {
@@ -431,13 +431,13 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     id: 'big-monster-serious-games',
     code: 'GM-03',
     title: 'Big-Monster Serious Games',
-    subtitle: 'Producción de videojuegos para ONU Mujeres y SACMEX',
+    subtitle: 'Producción de videojuegos serios para agencias multilaterales y gobierno',
     dimension: 'gamedev',
     accentColor: 'cyan',
     badge: 'TRAYECTORIA',
     summary: 'Gestión de proyectos y desarrollo de negocio en Big-Monster, estudio especializado en videojuegos serios y educativos para organismos multilaterales y gobierno.',
-    highlightStat: 'Equipos de 5+ personas · Clientes internacionales (ONU Mujeres, SACMEX)',
-    tags: ['Big-Monster', 'Serious Games', 'Project Management', 'ONU Mujeres', 'SACMEX'],
+    highlightStat: 'Equipos de 5+ personas · Clientes multilaterales y de gobierno',
+    tags: ['Big-Monster', 'Serious Games', 'Project Management', 'Organismos multilaterales', 'Gobierno'],
     evidence: [
       {
         type: 'link',
@@ -449,7 +449,7 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     details: {
       problemOrContext: 'Traducir problemáticas críticas (igualdad de género, cuidado hídrico y prevención de adicciones) en mecánicas de juego atractivas para audiencias jóvenes.',
       solutionOrRole: 'Project Manager & Business Developer, responsable de cada juego desde el requerimiento hasta la entrega. Negociación y cierre de contratos, levantamiento de requerimientos y coordinación de equipos de arte y programación.',
-      impactOrOutcome: 'Juegos educativos desplegados con ONU Mujeres, SACMEX y Fundación Gonzalo Río Arronte. Para el sistema de aguas de la CDMX producimos una colección de cuatro juegos hipercasuales sobre el cuidado del agua, a partir del concepto ganador de una convocatoria pública: le dimos estructura, mecánicas pulidas y curva de dificultad. Estuvo publicada en tiendas y se mantuvo unos tres años; se difundió incluso en las boletas de agua de la ciudad.',
+      impactOrOutcome: 'Juegos educativos desplegados para una agencia de la ONU para la igualdad de género, un organismo de agua de gobierno local y una fundación privada. Para ese organismo de agua producimos una colección de cuatro juegos hipercasuales sobre el cuidado del agua, a partir del concepto ganador de una convocatoria pública: le dimos estructura, mecánicas pulidas y curva de dificultad. Estuvo publicada en tiendas y se mantuvo unos tres años; se difundió incluso en los recibos de agua de la ciudad.',
     }
   },
   {
@@ -880,16 +880,16 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
 
   // 07 // PRODUCT OWNER & IT ARCHITECTURE
   {
-    id: 'acnur-onu-sistema-map',
+    id: 'sistema-map',
     code: 'PO-01',
-    title: 'Sistema MAP — ACNUR / UNHCR México',
+    title: 'Sistema MAP — Agencia de la ONU para Personas Refugiadas y Migrantes',
     subtitle: 'Product Owner de una herramienta de escritorio para medir indicadores de personas en movilidad',
     dimension: 'product_owner',
     accentColor: 'cyan',
     badge: 'HUMANITARIO ONU',
-    summary: 'Aplicación de escritorio para Windows, sin conexión, con la que personal de ACNUR y de misiones aliadas levanta datos de identidad y documentales de personas en movilidad y mide indicadores. Tres versiones: levantamiento, sincronización por lotes y visualización de indicadores.',
+    summary: 'Aplicación de escritorio para Windows, sin conexión, con la que personal de la agencia y de misiones aliadas levanta datos de identidad y documentales de personas en movilidad y mide indicadores. Tres versiones: levantamiento, sincronización por lotes y visualización de indicadores.',
     highlightStat: 'Tres versiones · Sin conexión con sincronización aditiva por lotes · Uso extendido más allá del piloto',
-    tags: ['ACNUR', 'Product Owner', 'Offline-first', 'Gobierno de Datos', 'Indicadores'],
+    tags: ['Sistema ONU', 'Product Owner', 'Offline-first', 'Gobierno de Datos', 'Indicadores'],
     evidence: [
       {
         type: 'link',
@@ -901,7 +901,7 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     details: {
       problemOrContext: 'Equipos en campo, en la frontera sur de México, que necesitaban medir indicadores sobre personas en movilidad con conectividad intermitente o nula, sin perder ni sobrescribir registros al consolidar la información de varios equipos.',
       solutionOrRole: 'Product Owner. Escuché la necesidad, revisé los marcos legales, el lenguaje y el escenario de uso, traduje todo en requerimientos para el equipo de programación y coordiné la relación con el cliente hasta la presentación final. Diseñamos una sincronización aditiva por lotes, no en tiempo real, que distingue lo ya enviado de lo ya consolidado; la base se cifra desde el origen, y el sistema exporta en un formato genérico para integrarse a las bases de datos institucionales. Solo datos de identidad y documentales: sin biometría.',
-      impactOrOutcome: 'MAP 1 (levantamiento), MAP 2 (sincronización) y MAP 3 (más indicadores y su visualización). Arrancó en la frontera sur, tuvo un piloto en la frontera norte y su uso se extendió a otras misiones con objetivos similares; a partir de ahí la operación quedó en manos de la institución.',
+      impactOrOutcome: 'MAP 1 (levantamiento), MAP 2 (sincronización) y MAP 3 (más indicadores y su visualización, ya para otra agencia del mismo sistema). Arrancó en la frontera sur, tuvo un piloto en la frontera norte y su uso se extendió a otras misiones con objetivos similares; a partir de ahí la operación quedó en manos de la institución.',
     }
   },
   {
