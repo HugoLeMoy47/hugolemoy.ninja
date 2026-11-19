@@ -118,7 +118,7 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
             <p>• <strong className="text-gits-cyan">Legalízala Tycoon:</strong> Serious game en TypeScript. Simulación legislativa ciudadana (de cabildo al DOF).</p>
             <p>• <strong className="text-gits-cyan">bit2fit:</strong> Global Game Jam 2020 en Godot Engine / GDScript.</p>
             <p>• <strong className="text-gits-cyan">canna-gochi:</strong> Mascota virtual y simulador de cuidado botánico en TypeScript.</p>
-            <p>• <strong className="text-gits-cyan">Big-Monster:</strong> Producción de videojuegos con ONU Mujeres, SACMEX y Fundación Río Arronte.</p>
+            <p>• <strong className="text-gits-cyan">Big-Monster:</strong> Producción de videojuegos serios para una agencia de la ONU para la igualdad de género, un organismo de agua de gobierno local y una fundación privada.</p>
           </div>
         );
         break;

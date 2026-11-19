@@ -216,7 +216,7 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
           else if (['cnnn', 'media', 'tv', 'video', 'docencia', 'charlas'].includes(target)) matchedDim = 'cnnn';
           else if (['advocacy', 'incidencia', 'comuna', 'comuna420', 'senado'].includes(target)) matchedDim = 'advocacy';
           else if (['github', 'lab', 'source', 'code', 'repo', 'agentes', 'ia'].includes(target)) matchedDim = 'github';
-          else if (['product_owner', 'po', 'corp', 'fintech', 'acnur', 'cv'].includes(target)) matchedDim = 'product_owner';
+          else if (['product_owner', 'po', 'corp', 'fintech', 'map', 'onu', 'cv'].includes(target)) matchedDim = 'product_owner';
           else if (['ideas', 'incubator', 'wip'].includes(target)) matchedDim = 'ideas';
 
           if (matchedDim) {

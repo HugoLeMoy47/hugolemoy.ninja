@@ -31,7 +31,7 @@ export interface CvFormacion {
 
 export interface CvCertificacion {
   nombre: string;
-  emisor: string;
+  emisor?: string;
   fecha?: string; // AAAA-MM
   /** Liga pública de verificación (Credly, Coursera, Atlassian…). Pendiente de que Hugo las pase. */
   verificacion?: string;
@@ -74,7 +74,7 @@ export const CV = {
     region: 'CDMX',
     pais: 'MX',
     resumen:
-      'Product Owner con perfil híbrido técnico-negocio. Más de 10 años gestionando producto y proyectos —juegos serios, consultoría y banca B2B— sobre más de 15 años en tecnología (desarrollo back-end, redes e infraestructura). Lideré como PO una plataforma de onboarding para banca, seguros y fintech con equipos de hasta 12 desarrolladores, y el sistema de registro de personas migrantes de una agencia de la ONU. Hoy dirijo Freejolitos Consultores y construyo productos propios con agentes de IA bajo reglas duras: privacidad por diseño, IA que cita sus fuentes y cada producto con su estado real.',
+      'Product Owner con perfil híbrido técnico-negocio. Más de 10 años gestionando producto y proyectos —juegos serios, sistemas humanitarios, consultoría y banca B2B— sobre más de 15 años en tecnología (desarrollo back-end, redes e infraestructura). Lideré como PO una plataforma de onboarding para banca, seguros y fintech con equipos de hasta 12 desarrolladores, y el sistema de medición de indicadores de personas en movilidad de una agencia de la ONU para personas refugiadas y migrantes. Hoy dirijo Freejolitos Consultores y construyo productos propios con agentes de IA bajo reglas duras: privacidad por diseño, IA que cita sus fuentes y cada producto con su estado real.',
     perfiles: [
       { red: 'LinkedIn', usuario: 'hugolegorretamoysen', url: 'https://www.linkedin.com/in/hugolegorretamoysen/' },
       { red: 'GitHub', usuario: 'HugoLeMoy47', url: 'https://github.com/HugoLeMoy47' },
@@ -94,7 +94,7 @@ export const CV = {
       lugar: 'Ciudad de México',
       inicio: '2026-07',
       resumen:
-        'Práctica de consultoría en tecnología, ciberseguridad y desarrollo a la medida, más tres productos propios en etapa de prueba de concepto.',
+        'Regreso de tiempo completo a la práctica que fundé en 2019: consultoría en tecnología, ciberseguridad y desarrollo a la medida, más tres productos propios en etapa de prueba de concepto.',
       logros: [
         'Consultoría integral de TI para una organización de atención humanitaria: migración a Google Workspace, diagnóstico de infraestructura, respuesta a un incidente de seguridad, lineamientos de gobierno de datos y una plataforma interna de seguimiento de tareas.',
         'Bitácora Viva (Product Owner): gestión de casos de atención humanitaria con custodia, consentimiento por tipo, anonimización en lugar de borrado y auditoría de cada acción; más de 700 pruebas negativas de seguridad. Prueba de concepto con datos simulados.',
@@ -125,19 +125,23 @@ export const CV = {
       habilidades: ['Product Owner', 'Scrum', 'Jira', 'Analítica de embudo', 'Fintech'],
     },
     {
-      puesto: 'Consultor Digital y Project Manager',
-      organizacion: 'Práctica independiente',
-      sector: 'Organismos internacionales, sector financiero y educación',
+      puesto: 'Fundador, Product Owner y Project Manager',
+      organizacion: 'Freejolitos Consultores',
+      sector: 'Organismos internacionales, organizaciones humanitarias, sector financiero y comercio',
+      sitio: 'https://freejolitos.consulting',
       lugar: 'Remoto / Ciudad de México',
-      inicio: '2020',
+      inicio: '2019',
       fin: '2023',
-      resumen: 'Gestión integral de proyectos digitales (levantamiento, planeación, ejecución y cierre) con equipos remotos bajo marcos ágiles.',
+      resumen:
+        'Freejolitos nace como idea en 2019 y desde entonces construye sistemas a la medida. Gestión integral de cada proyecto (levantamiento, marco legal, requerimientos, coordinación del equipo de programación y entrega al cliente) bajo marcos ágiles.',
       logros: [
-        'ACNUR / UNHCR: lideré el desarrollo del sistema MAP para el registro ordenado de personas migrantes y solicitantes de refugio en México, definiendo la estructura de captura de datos y su adaptación a la operación en territorio. El piloto derivó en una segunda iteración contratada.',
-        'Sector financiero (cliente confidencial): gestión de un sistema para administrar pagos de distintos montos de inversión de un fondo, con reglas de negocio y datos estructurados.',
-        'OIM / IOM: gestión de Global Game Jams con enfoque educativo.',
+        'Sistema MAP para una agencia de la ONU para personas refugiadas y migrantes: aplicación de escritorio para Windows, sin conexión, con la que personal de la agencia y de misiones aliadas levanta datos de identidad y documentales de personas en movilidad y mide indicadores. Diseñamos una sincronización aditiva por lotes que no sobrescribe registros, cifrado de la base desde el origen y exportación en formato genérico para integrarse a sus bases institucionales. Tres versiones: levantamiento y sincronización (MAP 1 y 2), y visualización de indicadores (MAP 3, ya para otra agencia del mismo sistema). Arrancó en la frontera sur y su uso se extendió a otras misiones.',
+        'Sector financiero (cliente confidencial, 2020–2023): sistema de gestión de cuentas y de pagos de distintos montos de inversión para un intermediario financiero con oficinas en México y Estados Unidos, con reglas de negocio y datos estructurados.',
+        'Organización de atención a personas refugiadas (confidencial): desarrollo de soluciones a la medida para su operación.',
+        'Organismo internacional para migrantes: gestión de Global Game Jams con enfoque educativo.',
+        'Sitios web, mantenimiento para clientes pequeños y soluciones a la medida para comercio minorista.',
       ],
-      habilidades: ['Project Management', 'Gobierno de datos', 'Agile'],
+      habilidades: ['Product Owner', 'Project Management', 'Offline-first', 'Gobierno de datos', 'Agile'],
     },
     {
       puesto: 'Project Manager y Business Developer',
@@ -149,7 +153,8 @@ export const CV = {
       fin: '2020',
       resumen: 'Responsable de los juegos serios del estudio desde el requerimiento hasta la entrega, para gobierno y organismos internacionales.',
       logros: [
-        'Gestión de proyectos con equipos de programación y arte (unas 5 personas a cargo), coordinando entregables con clientes institucionales como ONU Mujeres, SACMEX y Fundación Gonzalo Río Arronte.',
+        'Gestión de proyectos con equipos de programación y arte (unas 5 personas a cargo), coordinando entregables con clientes institucionales: una agencia de la ONU para la igualdad de género, un organismo de agua de gobierno local y una fundación privada.',
+        'Para el organismo de agua de un gobierno local: colección de cuatro juegos hipercasuales sobre el cuidado del agua, producidos a partir del concepto ganador de una convocatoria pública. Aportamos estructura, mecánicas pulidas y curva de dificultad; se publicó en tiendas, se mantuvo unos tres años y se difundió en los recibos de agua de la ciudad.',
         'Desarrollo de negocio: levantamiento de requerimientos, negociación y cierre de contratos con stakeholders institucionales.',
       ],
       habilidades: ['Serious Games', 'Project Management', 'Desarrollo de negocio'],
@@ -175,11 +180,12 @@ export const CV = {
   voluntariado: [
     {
       puesto: 'Coordinador de voluntariado cívico',
-      organizacion: 'La Comuna 420',
+      organizacion: 'Plantón 420 → La Comuna 420',
       sector: 'Voluntariado cívico y espacio público',
       lugar: 'Ciudad de México',
+      inicio: '2020',
       resumen:
-        'Coordinación de cientos de personas voluntarias durante más de tres años continuos, sin nómina ni contratos: comisiones de seguridad comunitaria, diálogo con autoridades y logística de marchas pacíficas.',
+        'Inicia en 2020 como Plantón 420 y continúa desde 2023 como La Comuna 420. Coordinación de cientos de personas voluntarias durante años continuos, sin nómina ni contratos: comisiones de seguridad comunitaria, diálogo con autoridades y logística de marchas pacíficas.',
       logros: [],
     },
     {
@@ -188,7 +194,7 @@ export const CV = {
       sector: 'Contenido audiovisual, en alianza con Jotvox',
       sitio: 'https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7',
       lugar: 'Ciudad de México',
-      resumen: 'Análisis en video de resoluciones judiciales, seguimiento legislativo y entrevistas.',
+      resumen: 'Una temporada de seis meses: análisis en video de resoluciones judiciales, seguimiento legislativo y entrevistas.',
       logros: [],
     },
   ] satisfies CvPuesto[],
@@ -214,10 +220,10 @@ export const CV = {
     { nombre: 'Scrum Fundamentals Certified (SFC)', emisor: 'SCRUMstudy' },
     { nombre: 'Jira Fundamentals Badge', emisor: 'Atlassian' },
     { nombre: 'Certificado de Gestión de Proyectos de Google (Fundamentos, Iniciación, Planificación, Ejecución y Agile)', emisor: 'Google' },
-    { nombre: 'Introducción a la Ciencia de Datos', emisor: 'Por confirmar' },
-    { nombre: 'Transformación Digital', emisor: 'Por confirmar' },
-    { nombre: 'Protección de Datos y Privacidad', emisor: 'Por confirmar' },
-    { nombre: 'Liderazgo y Comunicación Efectiva', emisor: 'Por confirmar' },
+    { nombre: 'Introducción a la Ciencia de Datos' },
+    { nombre: 'Transformación Digital' },
+    { nombre: 'Protección de Datos y Privacidad' },
+    { nombre: 'Liderazgo y Comunicación Efectiva' },
     { nombre: 'Capacitador Experto', emisor: 'SICAD' },
   ] satisfies CvCertificacion[],
 
@@ -240,7 +246,7 @@ export const CV = {
     },
     {
       nombre: 'Tecnología',
-      palabras: ['TypeScript', 'React', 'Svelte', 'Astro', 'Python', 'PostgreSQL / Supabase', 'C#', 'Godot', 'Cloudflare', 'Redes y VoIP'],
+      palabras: ['TypeScript', 'React', 'Svelte', 'Astro', 'Python', 'PostgreSQL / Supabase', 'C#', 'Godot', 'Unity', 'Cloudflare', 'Redes y VoIP'],
     },
     {
       nombre: 'Herramientas',
@@ -248,7 +254,7 @@ export const CV = {
     },
     {
       nombre: 'Sectores',
-      palabras: ['Banca, seguros y fintech', 'Organismos internacionales', 'Sociedad civil', 'Sector público', 'Educación', 'Videojuegos serios'],
+      palabras: ['Banca, seguros y fintech', 'Organismos internacionales', 'Sociedad civil', 'Sector público', 'Educación', 'Videojuegos serios', 'Comercio minorista'],
     },
   ] satisfies CvGrupoHabilidades[],
 
@@ -321,8 +327,8 @@ export const CV = {
 
   docencia: [
     'Charla «Y tú, ¿a qué le entras?» sobre sustancias, reducción de riesgos y marco legal, en un plantel CONALEP (2023).',
-    'Participación en foros de divulgación científica y STEAM (2019).',
-    'Coordinación de game jams con enfoque educativo junto a la OIM, y participación en Global Game Jam y Woman Game Jam.',
+    'Taller de realidad aumentada en Unity en los foros Ciencia para Todos y STEAM (2019): cada participante armó un producto mínimo viable con piezas prefabricadas, con temática de Día de Muertos.',
+    'Coordinación de game jams con enfoque educativo junto a un organismo internacional, y participación en Global Game Jam y Woman Game Jam.',
   ],
 };
 

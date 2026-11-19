@@ -54,7 +54,7 @@ export const GET: APIRoute = async () => {
     '## Certificaciones y formación continua',
     ...CV.certificaciones.map(
       (c) =>
-        `- ${c.nombre}${c.emisor !== 'Por confirmar' ? ` — ${c.emisor}` : ''}${c.fecha ? ` (${c.fecha})` : ''}${c.verificacion ? ` · Verificación: ${c.verificacion}` : ''}`,
+        `- ${c.nombre}${c.emisor ? ` — ${c.emisor}` : ''}${c.fecha ? ` (${c.fecha})` : ''}${c.verificacion ? ` · Verificación: ${c.verificacion}` : ''}`,
     ),
     '',
     '## Habilidades',

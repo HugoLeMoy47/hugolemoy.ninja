@@ -26,7 +26,7 @@ Hugo Legorreta Moysén (alias Hugo LeMoy, @HugoLeMoy47) es Product Owner y Consu
 ## Dimensiones de Trabajo & Proyectos Clave
 
 ### 1. Freejolitos Consultores (Tecnología para OSCs)
-Práctica de consultoría en TI enfocada en organizaciones del tercer sector sin área de sistemas.
+Práctica de consultoría en TI que nace como idea en 2019, enfocada en organizaciones del tercer sector sin área de sistemas. Entre 2019 y 2023 construyó sistemas para organismos internacionales, organizaciones humanitarias, el sector financiero y pequeños comercios.
 - Servicios: consultoría tecnológica, ciberseguridad, desarrollo a la medida, diagnóstico y ruta crítica, acompañamiento mensual.
 - Productos propios: **Bitácora Viva** (gestión de casos de atención humanitaria con custodia, anonimización y auditoría; prueba de concepto con datos simulados), **SutraMind** (tablero y asesor con IA para empresas medianas: la IA interpreta, la base de datos calcula y cada cifra cita su fuente; prueba de concepto sobre una empresa ficticia) y **El Chalán** (libreta de cuentas para negocios pequeños, sin conexión y sin cuenta; prueba de concepto publicada en https://elchalan.hugolemoy.ninja).
 - Caso activo (2026): consultoría externa de TI para una organización de atención humanitaria: migración a Google Workspace, respuesta a un incidente de seguridad, gobierno de datos y una plataforma interna.
@@ -46,9 +46,9 @@ Sección de hugolemoy.ninja donde Hugo cuenta, en primera persona, los retos té
 ### 2. Videojuegos, GameDev & Serious Games
 - **Legalízala Tycoon:** Serious game de simulación legislativa en TypeScript (iniciativa ciudadana de cabildo al DOF). Jugable; desarrollo en pausa hasta marzo de 2027. Jugar: https://legalizala.weedtown.social · Repo: https://github.com/HugoLeMoy47/LegalizalaTycoon
 - **canna-gochi:** Mascota virtual cannábica interactiva en TypeScript. Jugar: https://cannagochi.weedtown.social · Repo: https://github.com/HugoLeMoy47/canna-gochi
-- **Big-Monster Serious Games:** Gestión de proyectos y desarrollo de negocio en juegos educativos para ONU Mujeres y SACMEX. Web: https://big-monster.net
+- **Big-Monster Serious Games:** Gestión de proyectos y desarrollo de negocio en juegos educativos para una agencia de la ONU para la igualdad de género, un organismo de agua de gobierno local y una fundación privada. Web: https://big-monster.net
 - **bit2fit:** Videojuego creado en 48h para Global Game Jam 2020 con Godot Engine. Repo: https://github.com/HugoLeMoy47/bit2fit
-- **Woman Game Jam & Global Game Jam:** Participaciones y coordinación de jams con OIM.
+- **Woman Game Jam & Global Game Jam:** Participaciones y coordinación de jams con un organismo internacional.
 
 ### 3. Incidencia Política & La Comuna 420
 - **La Comuna 420 (Voluntariado Cívico 24/7):** Coordinación autónoma ininterrumpida de cientos de personas voluntarias en espacio público durante más de 3 años continuos sin presupuestos burocráticos ni contratos estatales, además de la logística integral de la Marcha 420.
@@ -65,7 +65,7 @@ Sección de hugolemoy.ninja donde Hugo cuenta, en primera persona, los retos té
 - Conductor titular y analista en **CNNN (Cannabis Network News Now)**, con coberturas legislativas, análisis de sentencias de la SCJN y debates con la industria, en alianza con el canal Jotvox.
 - Jotvox: https://jotvox.com
 - Playlist oficial: https://www.youtube.com/playlist?list=PLfSXXT0u4t5RG5iac7Fe9WkqCtlcFJt-7
-- **Docencia y divulgación:** charla sobre sustancias y reducción de riesgos en un plantel CONALEP (2023), foros de divulgación científica y STEAM, y game jams educativas con la OIM.
+- **Docencia y divulgación:** charla sobre sustancias y reducción de riesgos en un plantel CONALEP (2023), taller de realidad aumentada en Unity en los foros Ciencia para Todos y STEAM (2019) y game jams educativas con un organismo internacional.
 - **Construir en público:** serie de publicaciones en LinkedIn sobre las decisiones reales detrás de sus productos.
 
 ### 6. Laboratorio: método con agentes de IA y repositorios (GitHub @HugoLeMoy47)
@@ -78,7 +78,7 @@ Sección de hugolemoy.ninja donde Hugo cuenta, en primera persona, los retos té
 - **CedulaChecker:** Validador en C# para folios de cédulas profesionales de la SEP.
 
 ### 7. Product Owner & IT Enterprise
-- **ACNUR / UNHCR:** Gestión del desarrollo del sistema MAP para el registro digno y seguro de personas solicitantes de asilo en territorio mexicano.
+- **Sistema MAP para una agencia de la ONU para personas refugiadas y migrantes (vía Freejolitos):** Product Owner de una aplicación de escritorio para Windows, sin conexión, que mide indicadores sobre personas en movilidad con datos de identidad y documentales (sin biometría). Sincronización aditiva por lotes, cifrado desde el origen y exportación genérica para integrarse a bases institucionales. Tres versiones, hasta la visualización de indicadores; arrancó en la frontera sur y se extendió a otras misiones.
 - **Empresa de software B2B para banca, seguros y fintech (2023–2026, nombre bajo acuerdo de confidencialidad):** Product Owner de su plataforma de onboarding con analítica de embudo; equipo de 9 a 12 desarrolladores Scrum.
 - **Infraestructura & Telecom (2008–2017):** gerencia de TI y migración a VoIP (Archer Troy), seguridad y redes para un cliente federal del sector hídrico (CISI), back-end de video embarcado en Raspberry Pi (TV Nichos).
 
