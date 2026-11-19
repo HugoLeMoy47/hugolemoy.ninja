@@ -4,7 +4,7 @@ Repositorio de código fuente del sitio web personal y portafolio interactivo de
 
 - **Dominio:** `hugolemoy.ninja`
 - **Despliegue:** Cloudflare Pages
-- **Stack:** Astro 5 + Tailwind CSS + React 19 + TypeScript
+- **Stack:** Astro 7 + Tailwind CSS 3 (por PostCSS) + React 19 + TypeScript
 
 ---
 
@@ -57,4 +57,4 @@ Antes de fusionar, el flujo `CI` de GitHub comprueba que el sitio compile.
 - **Framework preset:** Astro
 - **Build command:** `npm run build`
 - **Build output directory:** `dist`
-- **Node version:** 20+ o 24
+- **Node version:** 22.23.4+ o 24 (fijado en `.node-version`)

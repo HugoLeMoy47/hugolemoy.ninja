@@ -6,7 +6,7 @@ Sin conector: anota en `BITACORA.md` (raíz; créalo si no existe) con encabezad
 
 ## Dónde está cada cosa
 - Reglas duras: este archivo.
-- Código: Astro 5 + Tailwind + React 19 (`src/`); arranque y despliegue en `README.md`.
+- Código: Astro 7 + Tailwind 3 + React 19 (`src/`); arranque y despliegue en `README.md`.
 - Contenido, bitácora de evolución, evidencias y especificación de `/llms.txt`: carpeta de OneDrive `01_MarcaPersonal/08_HubWeb_hugolemoy.ninja/`.
 
 ## Reglas duras

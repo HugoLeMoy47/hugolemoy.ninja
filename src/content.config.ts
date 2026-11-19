@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 // Cuaderno de construcción: una pieza = un archivo Markdown en src/content/cuaderno/.
@@ -13,7 +14,7 @@ const cuaderno = defineCollection({
     // Producto del que habla la pieza. La página de la pieza cierra con este enlace.
     producto: z.object({
       nombre: z.string(),
-      url: z.string().url(),
+      url: z.url(),
       estado: z.string(),
     }),
     // true = no se publica ni aparece en el índice ni en el sitemap.
