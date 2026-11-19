@@ -360,7 +360,7 @@ export const CyberJourney: React.FC<CyberJourneyProps> = ({
             </h1>
 
             <p className="text-[13px] sm:text-sm text-slate-700 dark:text-cyber-textBright/90 font-mono leading-relaxed max-w-prose mx-auto sm:mx-0">
-              <strong className="text-sky-700 dark:text-gits-cyan">Product Owner</strong> · Consultor Tecnológico · Creador de Contenido Digital & Desarrollador de Videojuegos. Fundador de <strong className="text-amber-700 dark:text-amberGold">Freejolitos</strong>, activista cannábico en <strong className="text-ninja-crimson">La Comuna 420</strong> (#Capital420 / Senado) y creador de <strong className="text-emerald-600 dark:text-matrix-green">weedtown.social</strong>.
+              <strong className="text-sky-700 dark:text-gits-cyan">Product Owner</strong> · Consultor Tecnológico · Creador de Contenido Digital & Desarrollador de Videojuegos. Fundador de <strong className="text-amber-700 dark:text-amberGold">Freejolitos</strong>, coordinador de voluntariado cívico en <strong className="text-ninja-crimson">La Comuna 420</strong> y creador de <strong className="text-emerald-600 dark:text-matrix-green">weedtown.social</strong>.
             </p>
 
             <div className="pt-2 flex flex-wrap gap-2 justify-center sm:justify-start">

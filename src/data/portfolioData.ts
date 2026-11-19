@@ -148,11 +148,11 @@ export const DIMENSIONS: DimensionMeta[] = [
   },
   {
     id: 'advocacy',
-    name: 'Incidencia & La Comuna 420',
+    name: 'Incidencia Ciudadana & La Comuna 420',
     code: '03_POLICY_NET',
     color: 'green',
     icon: 'Scale',
-    description: 'Incidencia política, redacción legislativa en el Senado, iniciativa #Capital420 y 3+ años de voluntariado cívico pacífico ininterrumpido.',
+    description: 'Trayectoria cívica: voluntariado comunitario desde 2020, propuesta técnica de política pública para la Ciudad de México y asesoría técnica ciudadana en el proceso legislativo.',
     nodeCount: 4,
   },
   {
@@ -489,12 +489,12 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     id: 'la-comuna-420-asambleas',
     code: 'ADV-01',
     title: 'La Comuna 420: Asambleas, Convivencia & Voluntariado Cívico',
-    subtitle: 'Gestión masiva de voluntariado autónomo 24/7 y marchas pacíficas (3+ años)',
+    subtitle: 'Gestión de voluntariado autónomo y marchas pacíficas (desde 2020)',
     dimension: 'advocacy',
     accentColor: 'green',
     badge: 'VOLUNTARIADO CÍVICO',
-    summary: 'Coordinación masiva de voluntariado cívico sin nóminas ni contratos burocráticos. Mantenimiento ininterrumpido de espacios públicos vivos, pacíficos y pedagógicos durante más de tres años, además de la logística de la Marcha 420.',
-    highlightStat: '3+ años continuos · Voluntariado cívico 100% autónomo · Convivencia pacífica',
+    summary: 'Coordinación de voluntariado cívico sin nóminas ni contratos. Empezó en 2020 como Plantón 420 y continúa desde 2023 como La Comuna 420: espacios públicos vivos, pacíficos y pedagógicos, además de la logística de la Marcha 420.',
+    highlightStat: 'Desde 2020 · Cientos de personas voluntarias · Convivencia pacífica',
     tags: ['La Comuna 420', 'Voluntariado Cívico', 'Paz Urbana', 'Mediación', 'Autogestión'],
     evidence: [
       {
@@ -507,19 +507,19 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     details: {
       problemOrContext: 'Demostrar que la comunidad usuaria es capaz de auto-organizarse pacíficamente en el espacio público sin requerir tutela policíaca ni estructuras burocráticas.',
       solutionOrRole: 'Coordinador y facilitador. Gestión humana y logística de cientos de voluntarios sin remuneración contractual, organizando comisiones de seguridad comunitaria, diálogo interinstitucional gobierno–sociedad civil y asistencia a los espacios, además de la logística de la Marcha 420.',
-      impactOrOutcome: 'Consolidación de un territorio de convivencia pacífica autogestionada activo diariamente durante más de 3 años ininterrumpidos.',
+      impactOrOutcome: 'Un espacio de convivencia pacífica autogestionada, activo a diario durante años, coordinado sin presupuesto y con cientos de personas voluntarias.',
     }
   },
   {
     id: 'capital-420-iniciativa',
     code: 'ADV-02',
-    title: 'Iniciativa #Capital420 & Propuesta Técnica HLM',
+    title: 'Propuesta Técnica #Capital420',
     subtitle: 'Propuesta técnica de política pública y regulación local CDMX',
     dimension: 'advocacy',
     accentColor: 'green',
-    badge: 'INCIDENCIA LEGISLATIVA',
-    summary: 'Elaboración de paquete entregable integral para el Congreso de la CDMX en colaboración con organizaciones como MUCD, enfocado en derechos de usuarios, trazabilidad y reducción de daños.',
-    highlightStat: 'Propuesta técnica formal entregada a diputaciones CDMX',
+    badge: 'POLÍTICA PÚBLICA',
+    summary: 'Propuesta técnica de regulación local para la Ciudad de México, elaborada con organizaciones de la sociedad civil especializadas en política de drogas: derechos de personas usuarias, trazabilidad y reducción de daños.',
+    highlightStat: 'Propuesta técnica formal presentada al Congreso local',
     tags: ['Política Pública', 'Derechos Humanos', 'Reducción de Daños', 'CDMX', 'Regulación'],
     evidence: [
       {
@@ -532,32 +532,25 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     details: {
       problemOrContext: 'La criminalización persistente del consumo y la falta de protocolos claros de convivencia en el espacio público de la Ciudad de México.',
       solutionOrRole: 'Co-autor y redactor técnico. Análisis comparativo de marcos jurídicos, reducción de riesgos y daños, y diseño de lineamientos de coexistencia ciudadana.',
-      impactOrOutcome: 'Presentación formal en el Congreso de la CDMX e interlocución directa con tomadores de decisiones.',
+      impactOrOutcome: 'Presentación formal ante el Congreso de la Ciudad de México y diálogo técnico con el poder legislativo local.',
     }
   },
   {
-    id: 'senado-cravioto-iniciativa',
+    id: 'asesoria-legislativa-federal',
     code: 'ADV-03',
-    title: 'Iniciativa en el Senado: Redacción Legislativa & Política Transversal',
-    subtitle: 'Formulación técnica de ley con la bancada del Senador César Cravioto',
+    title: 'Asesoría Técnica Ciudadana en el Proceso Legislativo Federal',
+    subtitle: 'Redacción de articulados y fundamentación técnica de política pública',
     dimension: 'advocacy',
     accentColor: 'green',
     badge: 'TÉCNICA LEGISLATIVA',
-    summary: 'Participación directa en las entrañas del proceso legislativo federal: redacción técnica de propuestas de ley y estructuración de un marco transversal que vincula derechos humanos, justicia social agraria y fin de la criminalización.',
-    highlightStat: 'Técnica legislativa parlamentaria · Senado de la República',
-    tags: ['Senado de la República', 'César Cravioto', 'Técnica Legislativa', 'Política Pública Transversal'],
-    evidence: [
-      {
-        type: 'link',
-        title: 'Registro de Seguimiento en Bitácora',
-        url: '#',
-        description: 'Documentación archivada en el ecosistema HLM',
-      }
-    ],
+    summary: 'Asesoría técnica ciudadana en el proceso legislativo federal: redacción de propuestas de articulado y un marco transversal que vincula salud, derechos humanos, economía campesina y fin de la criminalización.',
+    highlightStat: 'Técnica legislativa · Proceso legislativo federal',
+    tags: ['Técnica Legislativa', 'Política Pública Transversal', 'Derechos Humanos', 'Autocultivo'],
+    evidence: [],
     details: {
       problemOrContext: 'El vacío legal federal y la complejidad de articular una ley que cruza simultáneamente salud, derechos humanos, economía campesina, comercio y fiscalidad.',
-      solutionOrRole: 'Asesor e interlocutor técnico ciudadano. Redacción de articulados, fundamentación jurídica y cabildeo con senadores para salvaguardar el autocultivo no comercial y las licencias sociales.',
-      impactOrOutcome: 'Comprensión profunda desde adentro de la técnica parlamentaria mexicana y la construcción de acuerdos en el Congreso de la Unión.',
+      solutionOrRole: 'Asesor técnico ciudadano. Redacción de articulados y fundamentación técnica para proteger el autocultivo no comercial y las licencias sociales.',
+      impactOrOutcome: 'Conocimiento práctico de la técnica legislativa mexicana: cómo se convierte una necesidad ciudadana en un texto de ley viable.',
     }
   },
   {
@@ -569,7 +562,7 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     accentColor: 'green',
     badge: 'MEMORIA HISTÓRICA',
     summary: 'Participación y acompañamiento durante el histórico Plantón 420 frente al Senado: reducción de riesgos y daños, cultivo demostrativo y resistencia pacífica.',
-    highlightStat: 'Hito histórico del activismo cannábico en México',
+    highlightStat: 'Hito de la defensa pacífica del espacio público en México',
     tags: ['Plantón 420', 'Senado', 'Resistencia Pacífica', 'Derechos', 'Memoria'],
     evidence: [
       {
@@ -581,7 +574,7 @@ export const PORTFOLIO_NODES: PortfolioNode[] = [
     ],
     details: {
       problemOrContext: 'La necesidad de visibilizar que el consumo y el autocultivo pacífico en el espacio público no representan una amenaza de seguridad.',
-      solutionOrRole: 'Activista participante. Acompañamiento, pedagogía comunitaria sobre derechos constitucionales y cultivo in situ.',
+      solutionOrRole: 'Participante y facilitador. Acompañamiento, pedagogía comunitaria sobre derechos constitucionales y cultivo in situ.',
       impactOrOutcome: 'El plantón cannábico más longevo de Latinoamérica y epicentro de debate legislativo.',
     }
   },
