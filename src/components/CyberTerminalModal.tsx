@@ -79,7 +79,7 @@ export const CyberTerminalModal: React.FC<TerminalProps> = ({ isOpen, onClose })
         response = (
           <div className="space-y-2 text-cyber-textBright">
             <p className="text-gits-cyan font-bold">Hugo Legorreta Moysén (HLM):</p>
-            <p>Product Owner & Consultor Tecnológico con más de 10 años en tecnología y perfil híbrido técnico-negocio. Creador de contenido digital, activista cannábico en La Comuna 420 (#Capital420 / Senado), desarrollador de videojuegos (*Legalízala Tycoon*, *bit2fit* en GGJ) y fundador de Freejolitos Consultores.</p>
+            <p>Product Owner & Consultor Tecnológico con más de 10 años en tecnología y perfil híbrido técnico-negocio. Creador de contenido digital, coordinador de voluntariado cívico en La Comuna 420, desarrollador de videojuegos (*Legalízala Tycoon*, *bit2fit* en GGJ) y fundador de Freejolitos Consultores.</p>
             <p className="text-xs text-cyber-textMuted">Base: CDMX, México · Inglés B2 · Práctica independiente y consultoría.</p>
           </div>
         );

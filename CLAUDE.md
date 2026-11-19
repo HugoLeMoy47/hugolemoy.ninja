@@ -11,7 +11,7 @@ Sin conector: anota en `BITACORA.md` (raíz; créalo si no existe) con encabezad
 
 ## Reglas duras
 - **Repo y sitio públicos: cero clientes con nombre.** Solo sectores o áreas de industria («una distribuidora», «una casa de acogida»), también en capturas, nombres de archivo, textos alternativos y commits.
-- **Nada de proyectos restringidos ni de actividad política**, ni directo ni insinuado, ni en sitios a los que se enlaza.
+- **Nada de proyectos restringidos ni de actividad partidista o electoral**, ni directo ni insinuado, ni en sitios a los que se enlaza. La incidencia ciudadana (La Comuna 420, propuestas técnicas de política pública) sí se muestra como trayectoria cívica, sin nombres de políticos, bancadas ni partidos y sin hablar de cabildeo (decisión de Hugo, 2026-11-19).
 - **Productos con su estado real:** lo que es prueba de concepto se dice así; nunca datos de personas atendidas.
 - Nunca secretos ni datos personales en el repo.
 

@@ -1,0 +1,13 @@
+// Configuración de Cloudflare Workers (compilación conectada a GitHub).
+// main -> `npx wrangler deploy` publica hugolemoy.ninja.
+// Otras ramas -> `npx wrangler preview` crea una vista previa por PR; exige el bloque `previews`.
+// El sitio es estático: Astro compila a ./dist y Workers lo sirve como archivos (sin código de servidor).
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "hugolemoy-ninja",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist"
+  },
+  "previews": {}
+}

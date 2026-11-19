@@ -366,8 +366,8 @@ export const CyberOperatorPanel: React.FC<CyberOperatorPanelProps> = ({
       case trimmed === 'incidencia':
         onTriggerDimensionSelect('advocacy');
         reply = currentPersona === 'PROJECT_2501'
-          ? 'Registros de incidencia y La Comuna 420 cargados. Análisis de articulación legislativa y 3+ años de voluntariado cívico pacífico ininterrumpido.'
-          : 'Cargando el expediente de activismo: la propuesta #Capital420, las asambleas de La Comuna 420, la técnica legislativa con César Cravioto en el Senado y el plantón histórico.';
+          ? 'Registros de incidencia ciudadana y La Comuna 420 cargados. Voluntariado cívico pacífico desde 2020 y propuestas técnicas de política pública.'
+          : 'Cargando mi trayectoria cívica: la propuesta técnica #Capital420, las asambleas de La Comuna 420, la asesoría técnica en el proceso legislativo y el plantón histórico.';
         break;
 
       case trimmed === 'github':
