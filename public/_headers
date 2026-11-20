@@ -1,5 +1,28 @@
+# Cabeceras que Cloudflare agrega a cada respuesta (Workers con archivos estáticos).
+# Si una ruta coincide con varias reglas, se aplican todas.
+#
+# CSP: el sitio solo carga recursos propios, Google Fonts y el video de YouTube (sin cookies)
+# del nodo CNNN. 'unsafe-inline' en scripts lo exigen los scripts en línea de Astro
+# (arranque del tema, islas de React y JSON-LD). Si se agrega un recurso externo nuevo,
+# hay que sumarlo aquí o el navegador lo bloqueará.
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+
 /llms.txt
   Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/cv.json
+  Content-Type: application/json; charset=utf-8
   Access-Control-Allow-Origin: *
 
 /robots.txt
