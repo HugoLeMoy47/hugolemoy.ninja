@@ -61,7 +61,9 @@ export interface CvGrupoHabilidades {
 export const MOSTRAR_INCIDENCIA = true;
 
 export const CV = {
-  actualizado: '2026-11-19',
+  actualizado: '2026-11-21',
+  /** Versión del contenido del CV (meta.version de cv.json). */
+  version: 'v1.1.0',
   basicos: {
     nombre: 'Hugo Legorreta Moysén',
     alias: ['Hugo LeMoy', 'HLM', 'HugoLeMoy47'],
@@ -83,6 +85,12 @@ export const CV = {
       { red: 'Instagram', usuario: 'hugolemoy', url: 'https://www.instagram.com/hugolemoy' },
       { red: 'Global Game Jam', usuario: 'hugolemoy', url: 'https://globalgamejam.org/users/hugolemoy' },
     ],
+    // Preferencias de trabajo públicas. El sueldo no se publica.
+    disponibilidad: {
+      esquema: 'Proyectos por encargo y tiempo completo remoto',
+      modalidad: 'Remoto (preferido) o híbrido en Ciudad de México',
+      nacionalidad: 'Mexicana (única)',
+    },
   },
 
   experiencia: [
@@ -101,6 +109,10 @@ export const CV = {
         'SutraMind (Product Owner y arquitecto): tablero y asesor con IA para empresas medianas donde la IA interpreta la pregunta, la base de datos calcula la cifra y cada respuesta cita su fuente; 34 preguntas de referencia para medir exactitud y fugas entre roles. Prueba de concepto sobre una empresa ficticia.',
         'El Chalán (Product Owner): web app instalable, sin conexión y sin cuenta, para que un negocio pequeño sepa cuánto tiene, si ganó y cuánto le deben; 134 pruebas automáticas que comparan cada cifra al centavo. Prueba de concepto publicada.',
         'Método propio de desarrollo dirigido con agentes de IA: reglas por repositorio, pruebas primero, aprobación humana para publicar o tocar datos y un segundo cerebro (servidor MCP) que registra decisiones y bitácoras de cada sesión.',
+        'Como Product Owner de Bitácora Viva, SutraMind y El Chalán dirijo el desarrollo sobre TypeScript, Svelte, React, Python y PostgreSQL/Supabase: defino la arquitectura, leo el código que producen los agentes de IA y opero Supabase directamente.',
+        'Opero sobre Cloudflare la infraestructura de mis sitios web.',
+        'Uso Microsoft 365 como usuario avanzado y administro sus consolas para la gestión de cuentas y servicios.',
+        'Monto, escribo y pruebo APIs con Postman, con automatización de pruebas sencillas.',
       ],
       habilidades: ['Consultoría TI', 'Product Owner', 'Agentes de IA', 'Ciberseguridad', 'Gobierno de datos'],
     },
@@ -118,6 +130,7 @@ export const CV = {
         'Convertí la analítica observada en recomendaciones de mejora del proceso de onboarding y en decisiones de priorización del backlog.',
         'Expandí el producto a verticales nuevas (inmobiliaria y seguros) y a segmentos de inclusión financiera, gestionando módulos y flujos interdependientes.',
         'Lideré backlog en Jira y ceremonias Scrum con un equipo de 9 a 12 desarrolladores back-end y front-end; reporte directo a la Dirección de Producto.',
+        'Documenté requerimientos y acuerdos del equipo en Confluence, integrado con Jira (uso básico).',
         'Usé reportes y tableros de Jira para anticipar cuellos de botella de entrega y resolver indefiniciones técnicas antes de que afectaran el sprint.',
         'Entregué las primeras versiones del producto en inglés, además de mejoras de diseño y experiencia.',
         'Diseñé un producto interno derivado para perfilar usuarios con datos no convencionales para productos financieros.',
@@ -140,6 +153,7 @@ export const CV = {
         'Organización de atención a personas refugiadas (confidencial): desarrollo de soluciones a la medida para su operación.',
         'Organismo internacional para migrantes: gestión de Global Game Jams con enfoque educativo.',
         'Sitios web, mantenimiento para clientes pequeños y soluciones a la medida para comercio minorista.',
+        'Gestión de tareas en tableros de Trello antes de adoptar Jira.',
       ],
       habilidades: ['Product Owner', 'Project Management', 'Offline-first', 'Gobierno de datos', 'Agile'],
     },
@@ -156,24 +170,28 @@ export const CV = {
         'Gestión de proyectos con equipos de programación y arte (unas 5 personas a cargo), coordinando entregables con clientes institucionales: una agencia de la ONU para la igualdad de género, un organismo de agua de gobierno local y una fundación privada.',
         'Para el organismo de agua de un gobierno local: colección de cuatro juegos hipercasuales sobre el cuidado del agua, producidos a partir del concepto ganador de una convocatoria pública. Aportamos estructura, mecánicas pulidas y curva de dificultad; se publicó en tiendas, se mantuvo unos tres años y se difundió en los recibos de agua de la ciudad.',
         'Desarrollo de negocio: levantamiento de requerimientos, negociación y cierre de contratos con stakeholders institucionales.',
+        'Los juegos del estudio se produjeron principalmente en Unity con C#, motor y lenguaje que usé en el día a día del equipo.',
       ],
-      habilidades: ['Serious Games', 'Project Management', 'Desarrollo de negocio'],
+      habilidades: ['Serious Games', 'Project Management', 'Desarrollo de negocio', 'Unity', 'C#'],
     },
     {
-      puesto: 'Gerente de TI, co-gerente de seguridad y redes, desarrollador back-end',
-      organizacion: 'Archer Troy · CISI · TV Nichos · Grupo LAHE · Computech',
-      sector: 'Agencias, consultoras de TI y medios',
+      puesto: 'Gerente de TI, co-gerente de seguridad y redes, soporte técnico y field service, desarrollador back-end',
+      organizacion: 'Archer Troy · CISI · Grupo CSI · TV Nichos · Grupo LAHE · Computech',
+      sector: 'Agencias, consultoras de TI, medios y soporte técnico',
       lugar: 'Ciudad de México',
       inicio: '2008',
       fin: '2017',
-      resumen: 'Una década de base técnica: infraestructura, redes, telefonía IP y desarrollo back-end.',
+      resumen: 'Una década de base técnica: soporte, infraestructura, redes, telefonía IP, desarrollo back-end y metodologías de servicio y procesos (ITIL, CMMI, DevOps).',
       logros: [
         'IT Manager y Digital Supervisor (Archer Troy): equipo de 3 personas, gestión de proveedores y migración de telefonía analógica a VoIP hasta 45 extensiones.',
-        'IT Co-manager (CISI): seguridad y redes para un cliente de gobierno federal del sector hídrico.',
+        'IT Co-manager (CISI): soporte técnico, seguridad y redes para un cliente de gobierno federal del sector hídrico.',
+        'Grupo CSI, consultora con clientes de banca y fintech: trabajé con Kanban, DevOps, ITIL y CMMI, y participé en el proyecto ART (Approval in Real Time).',
+        'Field service de TI para una empresa global de alimentos y bebidas y para una aseguradora; en la aseguradora aprendí y apliqué ITIL.',
+        'Computech: soporte técnico, con crecimiento dentro del área hasta la gerencia de soporte técnico.',
         'Desarrollo back-end (TV Nichos): GeoPromos, streaming y video bajo demanda sobre Raspberry Pi para transporte público, en fase piloto.',
         'Infraestructura de servidores y telefonía IP en etapas iniciales de carrera.',
       ],
-      habilidades: ['Redes', 'VoIP', 'Seguridad', 'Back-end'],
+      habilidades: ['Redes', 'VoIP', 'Seguridad', 'Back-end', 'Soporte técnico', 'ITIL', 'CMMI', 'Kanban', 'DevOps'],
     },
   ] satisfies CvPuesto[],
 
@@ -230,7 +248,7 @@ export const CV = {
   habilidades: [
     {
       nombre: 'Producto',
-      palabras: ['Gestión y priorización de backlog', 'Roadmap', 'Requerimientos y criterios de aceptación', 'Descubrimiento', 'Negociación con stakeholders', 'Investigación de mercado'],
+      palabras: ['Gestión y priorización de backlog', 'Roadmap', 'Requerimientos y criterios de aceptación', 'Descubrimiento', 'Negociación con stakeholders'],
     },
     {
       nombre: 'Datos y analítica',
@@ -250,7 +268,7 @@ export const CV = {
     },
     {
       nombre: 'Herramientas',
-      palabras: ['Jira', 'Confluence', 'Azure DevOps', 'Git / GitHub', 'Postman', 'Trello', 'Google Workspace', 'Microsoft 365'],
+      palabras: ['Jira', 'Confluence (básico)', 'Git / GitHub', 'Postman', 'Trello', 'Google Workspace', 'Microsoft 365 (usuario avanzado y administración)'],
     },
     {
       nombre: 'Sectores',
@@ -370,6 +388,12 @@ export function aJsonResume() {
       summary: b.resumen,
       location: { city: b.ciudad, region: b.region, countryCode: b.pais },
       profiles: b.perfiles.map((p) => ({ network: p.red, username: p.usuario, url: p.url })),
+      // Campo propio (JSON Resume admite propiedades adicionales). El sueldo no se publica.
+      availability: {
+        engagement: b.disponibilidad.esquema,
+        workMode: b.disponibilidad.modalidad,
+        nationality: b.disponibilidad.nacionalidad,
+      },
     },
     work: CV.experiencia.map(puesto),
     volunteer: voluntariadoVisible().map((p) => ({
@@ -407,7 +431,7 @@ export function aJsonResume() {
     })),
     meta: {
       canonical: 'https://hugolemoy.ninja/cv.json',
-      version: 'v1.0.0',
+      version: CV.version,
       lastModified: CV.actualizado,
       language: 'es-MX',
       note: 'Clientes y empresas bajo acuerdo de confidencialidad se nombran solo por sector. Vista para personas: https://hugolemoy.ninja/cv/',

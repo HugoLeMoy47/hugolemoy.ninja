@@ -81,6 +81,8 @@ const actualizado = new Date(`${CV.actualizado}T12:00:00`).toLocaleDateString('e
         border-bottom: 1px solid var(--linea); padding-bottom: 4px; margin: 28px 0 12px;
       }
       .resumen { margin: 16px 0 0; }
+      .disponibilidad { margin: 10px 0 0; font-size: 15px; color: var(--suave); }
+      .disponibilidad strong { color: var(--tinta); }
       .puesto { margin: 0 0 18px; break-inside: avoid; }
       .puesto .fila { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; }
       .puesto h3 { font-size: 17px; margin: 0; }
@@ -131,6 +133,9 @@ const actualizado = new Date(`${CV.actualizado}T12:00:00`).toLocaleDateString('e
           <li><a href={b.perfiles[1].url}>GitHub</a></li>
         </ul>
         <p class="resumen">{b.resumen}</p>
+        <p class="disponibilidad">
+          <strong>Disponibilidad:</strong> {b.disponibilidad.esquema}. {b.disponibilidad.modalidad}. Nacionalidad {b.disponibilidad.nacionalidad.toLowerCase()}.
+        </p>
       </header>
 
       <section aria-labelledby="exp">
